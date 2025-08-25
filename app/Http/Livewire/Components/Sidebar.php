@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Components;
+namespace App\Http\Livewire\Components;
 
 use Livewire\Component;
 
