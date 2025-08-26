@@ -5,6 +5,8 @@
     <title>{{ $title ?? 'Packing Palet' }}</title>
     @include('components.head')
 
+    {{-- Customize styles per page --}}
+    @stack('style')
 </head>
 
 <body data-sidebar="dark">
@@ -62,6 +64,8 @@
             @endif
         });
     </script>
+
+    {{-- Customize scripts per page --}}
     @stack('scripts')
 </body>
 

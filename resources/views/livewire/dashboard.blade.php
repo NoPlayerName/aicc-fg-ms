@@ -1,3 +1,7 @@
+@push('style')
+    {{-- custom style can be add here --}}
+@endpush
+
 <div class="page-content">
     <div class="container-fluid">
 
@@ -1176,3 +1180,8 @@
 
     </div> <!-- container-fluid -->
 </div>
+@push('scripts')
+    <script>
+        // Custom scripts can be added here
+    </script>
+@endpush
