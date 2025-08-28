@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>{{ $title ?? 'Packing Palet' }}</title>
+    <title>{{ $title ?? 'FG Management System' }}</title>
     @include('components.head')
 
     {{-- Customize styles per page --}}
