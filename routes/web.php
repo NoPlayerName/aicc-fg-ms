@@ -2,11 +2,24 @@
 
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
-use App\Http\Livewire\Invetory\StockForm;
-use App\Http\Livewire\Invetory\StockTable;
+use App\Http\Livewire\MasterData\MasterCustomer;
+use App\Http\Livewire\MasterData\MasterProduk;
+use App\Http\Livewire\Transaksi\Stock;
+use App\Http\Livewire\Transaksi\StockKeluar;
+use App\Http\Livewire\Transaksi\StockMasuk;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', Dashboard::class)->name('dashboard');
 Route::get('/login', Login::class)->name('login');
-Route::get('/inventory/stock', StockTable::class)->name('inventory.stock.table');
-Route::get('/inventory/stock-form', StockForm::class)->name('inventory.stock.form');
+
+Route::prefix('/')->name('')->group(function () {
+    Route::get('/', Dashboard::class)->name('dashboard');
+    Route::prefix('transaksi')->name('transaksi.')->group(function () {
+        Route::get('/data-stock', Stock::class)->name('stock.index');
+        Route::get('/stock-keluar', StockKeluar::class)->name('stock.keluar.index');
+        Route::get('/stock-masuk', StockMasuk::class)->name('stock.masuk.index');
+    });
+    Route::prefix('master')->name('master.')->group(function () {
+        Route::get('/data-customer', MasterCustomer::class)->name('customer.index');
+        Route::get('/data-produk', MasterProduk::class)->name('produk.index');
+    });
+});

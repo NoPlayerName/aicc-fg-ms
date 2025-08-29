@@ -8,7 +8,7 @@
 
                 <li>
                     {{-- Menu tanpa children menu --}}
-                    <a href="#" class="waves-effect ">
+                    <a href="{{ route('dashboard') }}" class="waves-effect ">
                         <i class="ri-dashboard-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -19,27 +19,23 @@
                     {{-- Parent menu dengan dropdown --}}
                     <a class="has-arrow waves-effect">
                         <i class="ri-currency-line"></i>
-                        <span>Transaksi</span>
+                        <span>Transaction</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
 
-                        <li>
-                            <a href="#"><i class="ri-inbox-line"></i>Stock</a>
+                        <li class="{{ request()->routeIs('transaksi.stock.index') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.stock.index') }}"><i class="ri-inbox-line"></i>Stock</a>
+                        </li>
+                        <li class="{{ request()->routeIs('transaksi.stock.masuk.index') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.stock.masuk.index') }}"><i
+                                    class="ri-inbox-archive-line"></i>Stock In</a>
+                        </li>
+                        <li class="{{ request()->routeIs('transaksi.stock.keluar.index') ? 'active' : '' }}">
+                            <a href="{{ route('transaksi.stock.keluar.index') }}"><i
+                                    class="ri-inbox-unarchive-line"></i>Stock Out</a>
                         </li>
                         <li>
-                            <a href="#"><i class="ri-inbox-archive-line"></i>Stock Masuk</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ri-inbox-unarchive-line"></i>Stock Keluar</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ri-survey-line"></i>Form Tidak SNP</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ri-survey-line"></i>Form CSO</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="ri-survey-line"></i>Form Scrabing</a>
+                            <a href="#"><i class="ri-file-list-line"></i>Data Adjustment</a>
                         </li>
 
                     </ul>
@@ -52,11 +48,13 @@
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
 
-                        <li>
-                            <a href="#"><i class="ri-archive-line"></i>Master Produk</a>
+                        <li class="{{ request()->routeIs('master.produk.index') ? 'active' : '' }}">
+                            <a href="{{ route('master.produk.index') }}"><i class="ri-archive-line"></i>Master
+                                Produk</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="ri-group-line"></i>Master Customer</a>
+                        <li class="{{ request()->routeIs('master.customer.index') ? 'active' : '' }}">
+                            <a href="{{ route('master.customer.index') }}"><i class="ri-group-line"></i>Master
+                                Customer</a>
                         </li>
                         <li>
                             <a href="#"><i class="ri-fridge-line"></i>Master Rak</a>
@@ -80,6 +78,7 @@
 
                     </ul>
                 </li>
+
 
                 {{-- @foreach ($menus as $menu)
                     @if ($menu->children->count())

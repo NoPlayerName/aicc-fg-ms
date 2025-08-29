@@ -17,9 +17,6 @@
                                         <p class="text-muted">Sign in to start your session.</p>
                                     </div>
 
-                                    {{-- <div class="col-lg-12">
-                                           <?php echo $this->session->flashdata('result'); ?>
-                                       </div> --}}
 
                                     <div class="p-2 mt-5">
                                         <form wire:submit.prevent="login" class="form-horizontal" method="POST"
