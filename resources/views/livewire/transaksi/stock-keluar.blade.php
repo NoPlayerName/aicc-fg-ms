@@ -40,32 +40,77 @@
         </div>
         <!-- end page title -->
 
-        <div class="col-12">
+        <div class="col-12" wire:ignore>
+
+            <div id="accordion" class="custom-accordion">
+
+                <div class="card mb-1">
+                    <a href="#collapseTwo" class="text-dark " data-toggle="collapse" aria-expanded="false"
+                        aria-controls="collapseTwo">
+                        <div class="card-header" id="headingTwo">
+                            <h6 class="m-0">
+                                <i class="ri-filter-fill"></i> Filter Data
+                                <i class="mdi mdi-minus float-right accor-plus-icon"></i>
+                            </h6>
+                        </div>
+                    </a>
+
+                    <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <form id="form-search" method="GET" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-daterange input-group" data-provide="datepicker"
+                                                data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+                                                <input required type="text" class="form-control" autocomplete="off"
+                                                    placeholder="Start Date" id="s_start_date" />
+                                                <input required type="text" class="form-control" autocomplete="off"
+                                                    placeholder="End Date" id="s_end_date" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <input type="text" value="" name="search" id="search"
+                                                placeholder="Search" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <button id="filter_btn" type="submit" form="form-search"
+                                            class="btn btn-primary btn-sm waves-effect waves-light">
+                                            <i class="fas fa-search"></i> Search
+                                        </button>
+                                        {{-- <button type="button"
+                                            onclick="if (window.location.href.indexOf('?') > -1) {
+                                                                            window.location.href = window.location.pathname;
+                                                                                } else {
+                                                                                window.location.reload();
+                                                                                }"
+                                            class="btn btn-outline-primary btn-sm waves-effect waves-light">
+                                            Refresh <i class="ri-refresh-line align-middle ml-2"></i>
+                                        </button>
+                                        <a href="javascript:void(0);" onclick="export_excel();"
+                                            class="btn btn-sm btn-success waves-effect waves-light">
+                                            Export Excel <i class="fas fa-file-excel align-middle ml-2"></i>
+                                        </a> --}}
+
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                        <div id="custom-buttons" class="m-2" wire:ignore></div>
+                    </div>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
-
-                    {{-- <h4 class="card-title">Stock</h4> --}}
-
-
-
-                    <div class="col-auto d-flex justify-content-end">
-                        <form class="form-inline mr-2">
-                            <div class="form-group mr-2">
-                                <input type="date" class="form-control form-control-sm" placeholder="Date From">
-                            </div>
-                            <span class="mx-2">To</span>
-                            <div class="form-group mr-2">
-                                <input type="date" class="form-control form-control-sm" placeholder="Date To">
-                            </div>
-                            <div class="form-group mr-2">
-                                <input type="text" class="form-control form-control-sm" placeholder="Search">
-                            </div>
-                            <button class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top"
-                                title="Search">
-                                <i class="ri-search-line"></i>
-                            </button>
-                        </form>
-                        <div id="custom-buttons"></div>
+                    <div class="mb-3 d-flex">
+                        <button class="btn btn-primary btn-md" wire:click="openModal">Form Scrabing</button>
                     </div>
 
                     <div style="max-width: auto; overflow-x: auto;">
@@ -100,6 +145,36 @@
                 </div>
 
             </div> <!-- container-fluid -->
+            <x-modals.modal id="stockOutModal" title="Form Scrabing">
+                {{-- isi modal bebas, bisa form Livewire atau biasa --}}
+                <form wire:submit.prevent="save">
+                    <div class="form-group">
+                        <label>No Pallet</label>
+                        <input type="text" wire:model="no_pallet" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Part No</label>
+                        <input type="text" wire:model="part_no" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Part Name</label>
+                        <input type="text" wire:model="part_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Qty</label>
+                        <input type="number" wire:model="qty" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Customer</label>
+                        <input type="text" wire:model="customer" class="form-control">
+                    </div>
+
+                    <x-slot name="footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </x-slot>
+                </form>
+            </x-modals.modal>
         </div>
         @push('scripts')
             <!-- Required datatable js -->
@@ -122,38 +197,41 @@
             {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
             <script>
-                document.addEventListener("livewire:navigated", () => {
+                $(document).on("livewire:init", () => {
+                    initTable();
+
+                    Livewire.on('open-modal', () => {
+                        $('#stockOutModal').modal('show');
+
+                        if ($.fn.DataTable.isDataTable('#datatable-buttons')) {
+                            $('#datatable-buttons').DataTable().clear().destroy();
+                        }
+
+                        initTable();
+
+                    });
+                });
+
+                function initTable() {
+
+
                     let table = $('#datatable-buttons').DataTable({
-                        searching: false,
+                        // searching: false,
                         responsive: true,
                         lengthChange: false,
                         autoWidth: false,
                         dom: 'Bfrtip',
                         buttons: [{
-                                extend: 'collection',
-                                text: '<i class="fas fa-bars"></i> Actions',
-                                className: 'btn btn-primary btn-sm dropdown-toggle',
-                                autoClose: true,
-                                collectionLayout: 'dropdown',
-                                buttons: [{
-                                        extend: 'excel',
-                                        className: 'dropdown-item mr-2',
-                                        text: '<i class="fas fa-file-excel"></i> Export Excel'
-                                    }, {
-
-                                        className: 'dropdown-item',
-                                        text: '<i class="fab fa-wpforms"></i> Form Scrabing'
-                                    },
-
-
-                                ]
-                            }
+                                extend: 'excel',
+                                className: 'btn btn-success',
+                                text: '<i class="fas fa-file-excel"></i> Export Excel'
+                            },
 
                         ]
                     });
 
                     // Pindahkan tombol ke div custom
                     table.buttons().container().appendTo('#custom-buttons');
-                });
+                }
             </script>
         @endpush

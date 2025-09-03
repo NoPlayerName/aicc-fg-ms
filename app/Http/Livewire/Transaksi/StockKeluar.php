@@ -7,6 +7,13 @@ use Livewire\Component;
 
 class StockKeluar extends Component
 {
+
+    public function openModal()
+    {
+
+        $this->dispatch('open-modal');
+    }
+
     #[Title('Stock Out')]
     public function render()
     {

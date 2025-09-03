@@ -58,7 +58,7 @@
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img class="rounded-circle header-profile-user" src={{ asset('assets/images/users/avatar-2.jpg') }}
                         alt="Header Avatar">
-                    <span class=" d-xl-inline-block ml-1">User</span>
+                    <span class=" d-xl-inline-block ml-1">{{ $user->usr }}</span>
 
                     <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
@@ -69,7 +69,7 @@
                     <a class="dropdown-item" href="javascript:void(0);"><i
                             class="ri-lock-unlock-line align-middle mr-1"></i> Change Password</a>
 
-                    <a class="dropdown-item text-danger" href="#"><i
+                    <a class="dropdown-item text-danger" href="#" wire:click="logout"><i
                             class="ri-shut-down-line align-middle mr-1 text-danger"></i> Logout</a>
 
 

@@ -31,7 +31,7 @@
                                             <div class="form-group auth-form-group-custom mb-4">
                                                 <i class="ri-user-2-line auti-custom-input-icon"></i>
                                                 <label for="username">Username</label>
-                                                <input type="text" class="form-control" wire:model="username"
+                                                <input type="text" class="form-control" wire:model="user"
                                                     id="username" placeholder="Enter username">
                                                 @error('username')
                                                     <span>{{ $message }}</span>

@@ -33,31 +33,16 @@
         </div>
         <!-- end page title -->
 
-        <div class="col-12">
+        <div class="col-12" wire:ignore>
             <div class="card">
                 <div class="card-body">
 
                     {{-- <h4 class="card-title">Stock</h4> --}}
 
-                    <div class="mb-3 d-flex justify-content-end">
-                        {{-- <form class=" form-inline mr-2 group">
-                            <div class="form-group mr-2 row">
-                                <input type="date" class="form-control form-control-sm" placeholder="Date From">
-                            </div>
-                            To
-                            <div class="form-group ml-2">
-                                <input type="date" class="form-control form-control-sm" placeholder="Date To">
-                            </div>
-                            <div class="form-group ml-2">
-                                <input type="text" class="form-control form-control-sm" placeholder="Search">
-                            </div>
-                            <button class="btn btn-primary btn-sm ml-2" data-toggle="tooltip" data-placement="top"
-                                title="Search">
-                                <i class="ri-search-line"></i>
-                            </button>
-                        </form> --}}
-                        {{-- <button class="btn btn-success ml-2">Export Excell</button> --}}
-                        {{-- <button class="btn btn-primary ml-2">Add Stock</button> --}}
+                    <div class="mb-3 d-flex justify-content-start">
+                        <button class="btn btn-primary btn-md mr-2" wire:click="openModal"><i
+                                class="far fa-plus-square"></i> Add
+                            Customer</button>
                         <div id="custom-buttons"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
@@ -92,7 +77,26 @@
             </div>
         </div>
 
-    </div> <!-- container-fluid -->
+    </div>
+    <!-- container-fluid -->
+    {{-- Modal reusable --}}
+    <x-modals.modal id="custModal" title="{{ $id ? 'Edit Customer' : 'Add Customer' }}">
+        {{-- isi modal bebas, bisa form Livewire atau biasa --}}
+        <form wire:submit.prevent="save">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" wire:model="name" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Inisial</label>
+                <input type="text" wire:model="initial" class="form-control">
+            </div>
+
+            <x-slot name="footer">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </x-slot>
+        </form>
+    </x-modals.modal>
 </div>
 @push('scripts')
     <!-- Required datatable js -->
@@ -115,7 +119,15 @@
     {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
     <script>
-        document.addEventListener("livewire:navigated", () => {
+        $(document).on("livewire:init", () => {
+            initTable();
+            Livewire.on('open-modal', () => {
+                $('#custModal').modal('show');
+            });
+        });
+
+        function initTable() {
+
             let table = $('#datatable-buttons').DataTable({
                 // searching: false,
                 responsive: true,
@@ -123,14 +135,8 @@
                 autoWidth: false,
                 dom: 'Bfrtip',
                 buttons: [{
-
-                        className: 'btn btn-primary btn-sm mr-2',
-                        text: '<i class="far fa-plus-square"></i> Add Customer',
-
-                    },
-                    {
                         extend: 'excel',
-                        className: 'btn btn-success btn-sm',
+                        className: 'btn btn-success',
                         text: '<i class="fas fa-file-excel"></i> Export Excel'
                     },
 
@@ -139,6 +145,6 @@
 
             // Pindahkan tombol ke div custom
             table.buttons().container().appendTo('#custom-buttons');
-        });
+        }
     </script>
 @endpush

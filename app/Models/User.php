@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Permission\UserMenuPermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -19,8 +21,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'usr',
         'email',
-        'password',
     ];
 
     /**
@@ -30,7 +32,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -44,5 +45,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getProfileObjectAttribute()
+    {
+        return json_decode(json_encode($this->makeHidden(['pswd'])->toArray()), false);
+    }
+
+    public function menuPermission()
+    {
+        return $this->hasMany(UserMenuPermission::class, 'user_id', 'id');
     }
 }
