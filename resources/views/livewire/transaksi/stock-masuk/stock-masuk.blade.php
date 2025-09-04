@@ -33,7 +33,7 @@
         </div>
         <!-- end page title -->
 
-        <div class="col-12" wire:ignore>
+        <div class="col-12">
 
             <div id="accordion" class="custom-accordion">
 
@@ -100,15 +100,15 @@
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card" wire:ignore>
                 <div class="card-body">
                     <div class="mb-3 d-flex">
                         {{-- @if ($canAccess) --}}
-                        <button class="btn btn-primary btn-md mr-2" wire:click="openModal({{ 1 }})">Form
+                        <button class="btn btn-primary btn-md mr-2" wire:click="openModal">Form
                             Not
                             SNP</button>
                         {{-- @endif --}}
-                        <button class="btn btn-primary btn-md " wire:click="openModal({{ 2 }})">Form
+                        <button class="btn btn-primary btn-md " wire:click="openModal">Form
                             CSO</button>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
@@ -145,49 +145,8 @@
 
     </div> <!-- container-fluid -->
     {{-- Modal reusable --}}
-    {{ $typeForm }}
-    <x-modals.modal id="stockInModal" title="{{ $typeForm == 1 ? 'Form Not SNP' : 'Form CSO' }}">
-        {{-- isi modal bebas, bisa form Livewire atau biasa --}}
-        <form wire:submit.prevent="save">
-            @if ($typeForm == 1)
-                <div class="form-group">
-                    <label>ID Pallet</label>
-                    <input type="text" wire:model="id_pallet" class="form-control">
-                </div>
-            @endif
-            <div class="form-group">
-                <label>Part No</label>
-                <input type="text" wire:model="part_no" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Part Name</label>
-                <input type="text" wire:model="part_name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Qty</label>
-                <input type="number" wire:model="qty" class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label>No Pallet</label>
-                <input type="text" wire:model="no_pallet" class="form-control">
-            </div>
-            @if ($typeForm == 1)
-                <div class="form-group">
-                    <label>No Rak</label>
-                    <input type="text" wire:model="no_rak" class="form-control">
-                </div>
-
-                <div class="form-group">
-                    <label>Part Trial</label>
-                    <input type="checkbox" wire:model="part_trial" class="form-control">
-                </div>
-            @endif
-            <x-slot name="footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-            </x-slot>
-        </form>
-    </x-modals.modal>
+    @livewire('transaksi.stock-in.modal-form-snp')
+    {{-- End Modal --}}
 </div>
 @push('scripts')
     <!-- Required datatable js -->
@@ -211,14 +170,25 @@
 
     <script>
         $(document).on("livewire:init", () => {
+
             initTable();
-            Livewire.on('open-modal', () => {
-                $('#stockInModal').modal('show');
+            // Livewire.on('closeModal', () => {
+            //     $('#modal-form-snp').modal('hide');
+            // });
+
+            Livewire.on('refreshTableSNP', () => {
+                initTable();
             });
+
+
+
         });
 
         function initTable() {
 
+            if ($.fn.DataTable.isDataTable('#datatable-buttons')) {
+                $('#datatable-buttons').DataTable().destroy();
+            }
             let table = $('#datatable-buttons').DataTable({
                 // searching: false,
                 responsive: true,

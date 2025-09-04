@@ -6,7 +6,7 @@ use App\Http\Livewire\MasterData\MasterCustomer;
 use App\Http\Livewire\MasterData\MasterProduk;
 use App\Http\Livewire\Transaksi\Stock;
 use App\Http\Livewire\Transaksi\StockKeluar;
-use App\Http\Livewire\Transaksi\StockMasuk;
+use App\Http\Livewire\Transaksi\StockIn\StockMasuk;
 use Illuminate\Support\Facades\Route;
 
 
