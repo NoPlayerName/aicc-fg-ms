@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tb_stock', function (Blueprint $table) {
             $table->id();
-            $table->string('part_no', 50)->nullable();
-            $table->string('part_name', 250)->nullable();
-            $table->string('product_code', 150)->nullable();
+            $table->string('part_no', 50)->nullable()->index();
+            $table->string('part_name', 250)->nullable()->index();
+            $table->string('product_code', 150)->nullable()->index();
             $table->decimal('begining_balance', 10, 2)->nullable()->default(0);
             $table->decimal('stock_in', 10, 2)->nullable()->default(0);
             $table->decimal('stock_out', 10, 2)->nullable()->default(0);
