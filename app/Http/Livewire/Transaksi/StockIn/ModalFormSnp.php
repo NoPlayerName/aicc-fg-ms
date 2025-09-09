@@ -31,6 +31,6 @@ class ModalFormSnp extends Component
 
     public function render()
     {
-        return view('livewire.transaksi.stock-masuk.modal-form-snp');
+        return view('livewire.transaksi.stock-in.modal-form-snp');
     }
 }
