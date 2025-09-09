@@ -21,7 +21,7 @@ class RackSeeder extends Seeder
                 'rack_no' => $item->norak,
                 'part_no' => $item->partno,
                 'product_code' => $item->kodeproduk,
-                'status' => $item->ket,
+                'status' => $item->ket == 0 ? 1 : 0,
             ]);
         }
     }
