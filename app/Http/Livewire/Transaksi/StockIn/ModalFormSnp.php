@@ -23,8 +23,8 @@ class ModalFormSnp extends Component
 
     public function save()
     {
-        $this->dispatch('hideModal');
-        $this->dispatch('refresh');
+        $this->dispatch('storeSnp');
+        // $this->dispatch('refresh');
     }
 
     public function mount() {}
