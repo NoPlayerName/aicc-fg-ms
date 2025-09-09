@@ -35,6 +35,6 @@ class StockMasuk extends Component
     #[Title('Stock In')]
     public function render()
     {
-        return view('livewire.transaksi.stock-masuk.stock-masuk');
+        return view('livewire.transaksi.stock-in.stock-masuk');
     }
 }
