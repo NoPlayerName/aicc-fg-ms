@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_search_rack', function (Blueprint $table) {
-            $table->string('part_no', 50)->nullable();
+            $table->string('part_no', 50)->nullable()->index();
             $table->timestamps();
         });
     }
