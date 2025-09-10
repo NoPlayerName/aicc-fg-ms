@@ -108,7 +108,7 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                                <a class="nav-link" data-toggle="tab" href="#summary" role="tab">
                                                     <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
                                                     <span class="d-none d-sm-block">Summary</span>    
                                                 </a>
@@ -119,7 +119,7 @@
                                         <!-- Tab panes -->
                                         <div class="tab-content p-3 text-muted">
                                             <div class="tab-pane active" id="stock-in" role="tabpanel">
-                                                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                                 <table id="datatable-stockin" class="table table-striped table-bordered dt-responsive nowrap"
                                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                     <thead>
                                                         <tr>
@@ -146,12 +146,12 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="tab-pane" id="profile" role="tabpanel">
-                                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                            <div class="tab-pane" id="summary" role="tabpanel">
+                                                <table id="datatable-summary" class="table table-striped table-bordered dt-responsive nowrap"
                                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                                     <thead>
                                                         <tr>
-                                                            <th>Name</th>
+                                                            <th>product</th>
                                                             <th>Position</th>
                                                             <th>Office</th>
                                                             <th>Age</th>
@@ -210,10 +210,12 @@
     <script>
         $(document).on("livewire:navigated", () => {
 
-            initTable();
-            // Livewire.on('closeModal', () => {
-            //     $('#modal-form-snp').modal('hide');
-            // });
+              if (!$.fn.DataTable.isDataTable('#datatable-stockin')) {
+                    initTable('#datatable-stockin');
+                }
+                if (!$.fn.DataTable.isDataTable('#datatable-summary')) {
+                    initTable('#datatable-summary');
+                }
 
         });
 
@@ -221,12 +223,12 @@
             $('#modal-form-snp').modal('hide');
         })
 
-        function initTable() {
+        function initTable(selector) {
 
-            if ($.fn.DataTable.isDataTable('#datatable-buttons')) {
-                $('#datatable-buttons').DataTable().destroy();
+            if ($.fn.DataTable.isDataTable(selector)) {
+                $(selector).DataTable().destroy();
             }
-            let table = $('#datatable-buttons').DataTable({
+            let table = $(selector).DataTable({
                 // searching: false,
                 responsive: true,
                 lengthChange: false,
@@ -242,7 +244,9 @@
             });
 
             // Pindahkan tombol ke div custom
-            table.buttons().container().appendTo('#custom-buttons');
+             if ($('#custom-buttons').is(':empty')) {
+        table.buttons().container().appendTo('#custom-buttons');
+    }
         }
     </script>
 @endpush
