@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Pallet\Pallet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Console\Concerns\InteractsWithIO;
 
 class PalletSeeder extends Seeder
 {
@@ -19,11 +20,11 @@ class PalletSeeder extends Seeder
         // Kelompokkan berdasarkan pallet_no
         $grouped = $data->groupBy('nopallet');
 
-        foreach ($grouped as $palletNo => $items) {
+        $this->command->withProgressBar($grouped, function ($items, $palletNo) {
             // Prioritas: ambil yang aktif dulu, jika tidak ada, ambil salah satu yang tidak aktif
             $itemToInsert = $items->firstWhere('aktif', 1) ?? $items->first();
 
-            Pallet::insert([
+            Pallet::create([
                 'pallet_no'   => $itemToInsert->nopallet,
                 'pallet_type' => $itemToInsert->typepallet,
                 'name'        => $itemToInsert->namapallet,
@@ -35,6 +36,9 @@ class PalletSeeder extends Seeder
                 'created_at'  => now(),
                 'updated_at'  => now(),
             ]);
-        }
+        });
+
+        $this->command->newLine();
+        $this->command->info('✅ Pallet seeding selesai!');
     }
 }
