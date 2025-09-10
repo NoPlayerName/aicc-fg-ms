@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('tb_transaction', function (Blueprint $table) {
             $table->id();
             $table->string('pallet_no', 100)->nullable()->index();
-            $table->string('location', 10)->nullable()->index();
-            $table->string('product', 150)->nullable()->index();
-            $table->tinyInteger('status')->nullable()->index();
+            $table->string('location', 150)->nullable();
+            $table->string('product', 150)->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
 
-            $table->foreign('pallet_no')->references('pallet_no')->on('tb_pallet')->onDelete('set null')->onUpdate('cascade');
+            // $table->foreign('pallet_no')->references('pallet_no')->on('tb_pallet')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

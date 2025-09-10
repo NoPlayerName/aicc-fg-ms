@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('tb_rack_group', function (Blueprint $table) {
             $table->id();
             $table->string('group')->nullable()->index();
-            $table->string('group_rack', 5)->nullable()->index();
-            $table->tinyInteger('priority')->nullable()->index();
+            $table->string('group_rack', 5)->nullable();
+            $table->tinyInteger('priority')->nullable();
             $table->timestamps();
         });
     }

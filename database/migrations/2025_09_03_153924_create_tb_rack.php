@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('rack_no', 5)->unique()->nullable()->index();
             $table->string('part_no', 50)->nullable()->default(null)->index();
             $table->string('product_code', 250)->nullable()->default(null);
-            $table->tinyInteger('status')->nullable()->default(null)->index();
+            $table->tinyInteger('status')->nullable()->default(null);
             $table->timestamps();
         });
     }

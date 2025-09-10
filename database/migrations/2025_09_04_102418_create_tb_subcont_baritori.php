@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_subcont_baritori', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 250)->nullable()->index();
+            $table->string('name', 250)->nullable();
         });
     }
 

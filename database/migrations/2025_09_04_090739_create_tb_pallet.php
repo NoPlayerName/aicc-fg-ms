@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('tb_pallet', function (Blueprint $table) {
             $table->id();
             $table->string('pallet_no', 100)->nullable()->unique()->index();
-            $table->string('pallet_type', 50)->nullable()->index();
-            $table->string('name', 150)->nullable()->index();
-            $table->string('color', 30)->nullable()->index();
-            $table->string('customer', 50)->nullable()->index();
-            $table->string('product', 150)->nullable()->index();
-            $table->tinyInteger('status')->nullable()->index();
-            $table->tinyInteger('is_active')->nullable()->index();
+            $table->string('pallet_type', 50)->nullable();
+            $table->string('name', 150)->nullable();
+            $table->string('color', 30)->nullable();
+            $table->string('customer', 50)->nullable();
+            $table->string('product', 150)->nullable();
+            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('is_active')->nullable();
             $table->timestamps();
         });
     }
