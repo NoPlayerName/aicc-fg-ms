@@ -71,32 +71,18 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <button id="filter_btn" type="submit" form="form-search"
-                                            class="btn btn-primary btn-sm waves-effect waves-light">
+                                            class="btn btn-primary waves-effect waves-light">
                                             <i class="fas fa-search"></i> Search
                                         </button>
-                                        {{-- <button type="button"
-                                            onclick="if (window.location.href.indexOf('?') > -1) {
-                                                                            window.location.href = window.location.pathname;
-                                                                                } else {
-                                                                                window.location.reload();
-                                                                                }"
-                                            class="btn btn-outline-primary btn-sm waves-effect waves-light">
-                                            Refresh <i class="ri-refresh-line align-middle ml-2"></i>
-                                        </button>
-                                        <a href="javascript:void(0);" onclick="export_excel();"
-                                            class="btn btn-sm btn-success waves-effect waves-light">
-                                            Export Excel <i class="fas fa-file-excel align-middle ml-2"></i>
-                                        </a> --}}
-
                                     </div>
-                                </div>
-
-                            </form>
+                                </div> 
+ 
+                            </form> 
 
                         </div>
-                        <div id="custom-buttons" class="m-2" wire:ignore></div>
+                        
                     </div>
                 </div>
             </div>
@@ -109,36 +95,87 @@
                             Not
                             SNP</button>
                         {{-- @endif --}}
-                        <button class="btn btn-primary btn-md " data-toggle="modal" data-target="#modal-form-cso">Form
+                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-cso">Form
                             CSO</button>
+                        <div id="custom-buttons"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
-                                </tr>
-                            </thead>
+                          <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#stock-in" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="fas fa-box"></i></span>
+                                                    <span class="d-none d-sm-block">Stock In</span>    
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#profile" role="tab">
+                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                                    <span class="d-none d-sm-block">Summary</span>    
+                                                </a>
+                                            </li>
+                                            
+                                        </ul>
+        
+                                        <!-- Tab panes -->
+                                        <div class="tab-content p-3 text-muted">
+                                            <div class="tab-pane active" id="stock-in" role="tabpanel">
+                                                 <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Position</th>
+                                                            <th>Office</th>
+                                                            <th>Age</th>
+                                                            <th>Start date</th>
+                                                            <th>Salary</th>
+                                                        </tr>
+                                                    </thead>
 
 
-                            <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                </tr>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
 
-                            </tbody>
-                        </table>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="tab-pane" id="profile" role="tabpanel">
+                                                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Position</th>
+                                                            <th>Office</th>
+                                                            <th>Age</th>
+                                                            <th>Start date</th>
+                                                            <th>Salary</th>
+                                                        </tr>
+                                                    </thead>
+
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Tiger Nixon</td>
+                                                            <td>System Architect</td>
+                                                            <td>Edinburgh</td>
+                                                            <td>61</td>
+                                                            <td>2011/04/25</td>
+                                                            <td>$320,800</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                       
                     </div>
                 </div>
             </div>
@@ -171,7 +208,7 @@
     {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
     <script>
-        $(document).on("livewire:init", () => {
+        $(document).on("livewire:navigated", () => {
 
             initTable();
             // Livewire.on('closeModal', () => {
@@ -197,7 +234,7 @@
                 dom: 'Bfrtip',
                 buttons: [{
                         extend: 'excel',
-                        className: 'btn btn-success',
+                        className: 'btn btn-success btn-md',
                         text: '<i class="fas fa-file-excel"></i> Export Excel'
                     },
 
