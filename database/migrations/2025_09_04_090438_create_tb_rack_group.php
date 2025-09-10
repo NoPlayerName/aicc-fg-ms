@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_rack', function (Blueprint $table) {
+        Schema::create('tb_rack_group', function (Blueprint $table) {
             $table->id();
-            $table->string('rack_no', 5)->unique()->nullable()->index();
-            $table->string('part_no', 50)->nullable()->default(null)->index();
-            $table->string('product_code', 250)->nullable()->default(null);
-            $table->tinyInteger('status')->nullable()->default(null);
+            $table->string('group')->nullable()->index();
+            $table->string('group_rack', 5)->nullable();
+            $table->tinyInteger('priority')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tb_rack');
+        Schema::dropIfExists('tb_rack_group');
     }
 };
