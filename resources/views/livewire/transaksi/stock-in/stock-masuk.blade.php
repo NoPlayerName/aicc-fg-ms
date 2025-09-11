@@ -1,15 +1,15 @@
 @push('style')
-    <!-- DataTables -->
-    <link href={{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }} rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
+<!-- DataTables -->
+<link href={{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }} rel="stylesheet"
+    type="text/css" />
+<link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
+    type="text/css" />
+<link href="{{ asset('assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}" rel="stylesheet"
+    type="text/css" />
+<!-- Responsive datatable examples -->
+<link href={{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }} rel="stylesheet"
+    type="text/css" />
 
-    <!-- Responsive datatable examples -->
-    <link href={{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }} rel="stylesheet"
-        type="text/css" />
 @endpush
 
 <div class="page-content">
@@ -66,8 +66,8 @@
 
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input type="text" value="" name="search" id="search"
-                                                placeholder="Search" class="form-control">
+                                            <input type="text" value="" name="search" id="search" placeholder="Search"
+                                                class="form-control">
                                         </div>
                                     </div>
 
@@ -77,12 +77,12 @@
                                             <i class="fas fa-search"></i> Search
                                         </button>
                                     </div>
-                                </div> 
- 
-                            </form> 
+                                </div>
+
+                            </form>
 
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -90,92 +90,98 @@
                 <div class="card-body">
                     <div class="mb-3 d-flex">
                         {{-- @if ($canAccess) --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal"
-                            data-target="#modal-form-snp">Form
+                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-snp"><i
+                                class="fab fa-wpforms mr-2"></i>Form
                             Not
                             SNP</button>
                         {{-- @endif --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-cso">Form
+                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-cso"><i
+                                class="fab fa-wpforms mr-2"></i>Form
                             CSO</button>
-                        <div id="custom-buttons"></div>
+                        <div id="custom-buttons-stockin"></div>
+                        <div id="custom-buttons-summary"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
-                          <ul class="nav nav-tabs" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" data-toggle="tab" href="#stock-in" role="tab">
-                                                    <span class="d-block d-sm-none"><i class="fas fa-box"></i></span>
-                                                    <span class="d-none d-sm-block">Stock In</span>    
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#summary" role="tab">
-                                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
-                                                    <span class="d-none d-sm-block">Summary</span>    
-                                                </a>
-                                            </li>
-                                            
-                                        </ul>
-        
-                                        <!-- Tab panes -->
-                                        <div class="tab-content p-3 text-muted">
-                                            <div class="tab-pane active" id="stock-in" role="tabpanel">
-                                                 <table id="datatable-stockin" class="table table-striped table-bordered dt-responsive nowrap"
-                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Name</th>
-                                                            <th>Position</th>
-                                                            <th>Office</th>
-                                                            <th>Age</th>
-                                                            <th>Start date</th>
-                                                            <th>Salary</th>
-                                                        </tr>
-                                                    </thead>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#stock-in" role="tab">
+                                    <span class="d-block d-sm-none"><i class="fas fa-box"></i></span>
+                                    <span class="d-none d-sm-block">Stock In</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#summary" role="tab">
+                                    <span class="d-block d-sm-none"><i class="far fa-user"></i></span>
+                                    <span class="d-none d-sm-block">Summary</span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                        <!-- Tab panes -->
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane active" id="stock-in" role="tabpanel">
+                                <table id="datatable-stockIn"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Pallet No</th>
+                                            <th>Date</th>
+                                            <th>Part No</th>
+                                            <th>Part Name</th>
+                                            <th>Qty</th>
+                                            <th>Rack No</th>
+                                            <th>Descript</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>9082</td>
+                                            <td>10/09/2025</td>
+                                            <td>8983981370</td>
+                                            <td>CAGE;DIF,FINAL,DRIVE</td>
+                                            <td>125</td>
+                                            <td>C324</td>
+                                            <td>-</td>
+                                            <td class="text-center align-middle"><a class="btn" data-toggle="modal"
+                                                    data-target="#form-update"><i class="fas fa-edit text-warning"
+                                                        data-toggle="tooltip" data-placement="top" title="Edit"></i>
+                                                </a></td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="summary" role="tabpanel">
+                                <table id="datatable-summary"
+                                    class="table table-striped table-bordered dt-responsive nowrap"
+                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Pallet No</th>
+                                            <th>Date</th>
+                                            <th>Part No</th>
+                                            <th>Part Name</th>
+                                            <th>Qty</th>
+                                        </tr>
+                                    </thead>
 
 
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Tiger Nixon</td>
-                                                            <td>System Architect</td>
-                                                            <td>Edinburgh</td>
-                                                            <td>61</td>
-                                                            <td>2011/04/25</td>
-                                                            <td>$320,800</td>
-                                                        </tr>
+                                    <tbody>
+                                        <tr>
+                                            <td>9082</td>
+                                            <td>10/09/2025</td>
+                                            <td>8983981370</td>
+                                            <td>CAGE;DIF,FINAL,DRIVE</td>
+                                            <td>500</td>
+                                        </tr>
 
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="tab-pane" id="summary" role="tabpanel">
-                                                <table id="datatable-summary" class="table table-striped table-bordered dt-responsive nowrap"
-                                                    style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>product</th>
-                                                            <th>Position</th>
-                                                            <th>Office</th>
-                                                            <th>Age</th>
-                                                            <th>Start date</th>
-                                                            <th>Salary</th>
-                                                        </tr>
-                                                    </thead>
-
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Tiger Nixon</td>
-                                                            <td>System Architect</td>
-                                                            <td>Edinburgh</td>
-                                                            <td>61</td>
-                                                            <td>2011/04/25</td>
-                                                            <td>$320,800</td>
-                                                        </tr>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,68 +191,33 @@
     {{-- Modal reusable --}}
     @livewire('transaksi.stock-in.modal-form-snp')
     @livewire('transaksi.stock-in.modal-form-cso')
+    @livewire('transaksi.stock-in.form-update')
     {{-- End Modal --}}
 </div>
 @push('scripts')
-    <!-- Required datatable js -->
-    <script src={{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}></script>
-    <script src={{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+{{-- form advance --}}
+{{-- <script src={{ asset('assets/js/pages/form-advanced.init.js') }}></script> --}}
+<!-- Required datatable js -->
+<script src={{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}></script>
+<script src={{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}></script>
+
+<!-- Buttons examples -->
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/stock-in.js') }}"></script>
 
 
-    {{-- datatable init js --}}
-    {{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
-    {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
+{{-- datatable init js --}}
+{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
+{{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
-    <script>
-        $(document).on("livewire:navigated", () => {
 
-              if (!$.fn.DataTable.isDataTable('#datatable-stockin')) {
-                    initTable('#datatable-stockin');
-                }
-                if (!$.fn.DataTable.isDataTable('#datatable-summary')) {
-                    initTable('#datatable-summary');
-                }
-
-        });
-
-        Livewire.on('storeSnp', () => {
-            $('#modal-form-snp').modal('hide');
-        })
-
-        function initTable(selector) {
-
-            if ($.fn.DataTable.isDataTable(selector)) {
-                $(selector).DataTable().destroy();
-            }
-            let table = $(selector).DataTable({
-                // searching: false,
-                responsive: true,
-                lengthChange: false,
-                autoWidth: false,
-                dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn btn-success btn-md',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel'
-                    },
-
-                ]
-            });
-
-            // Pindahkan tombol ke div custom
-             if ($('#custom-buttons').is(':empty')) {
-        table.buttons().container().appendTo('#custom-buttons');
-    }
-        }
-    </script>
 @endpush

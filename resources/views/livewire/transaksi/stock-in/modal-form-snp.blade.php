@@ -45,7 +45,7 @@
                             <input type="text" wire:model.defer="no_rak" class="form-control" placeholder="Rack Number">
                         </div>
 
-                        <div class="col-lg-4 form-group custom-control custom-checkbox custom-control-right ml-3">
+                        <div class="col-lg-4 form-group custom-control custom-checkbox custom-control-right ml-3 mt-4">
                             <input type="checkbox" class="custom-control-input" id="customCheck2">
                             <label class="custom-control-label" for="customCheck2">Part Trial</label>
                         </div>
