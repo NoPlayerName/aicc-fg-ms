@@ -1,5 +1,5 @@
-<div wire:ignore.self class="modal fade" id="modal-form-cso" tabindex="-1" aria-labelledby="modal-form-cso-label"
-    aria-hidden="false">
+<div wire:ignore.self class="modal fade" id="modal-form-cso" data-backdrop="static" role="dialog" tabindex="-1"
+    aria-labelledby="modal-form-snp-label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,38 +8,36 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="save">
+                    <div class="row">
+                        <div class="col-lg-6 form-group">
+                            <label class="control-label">Part No</label>
+                            <select class="form-control select2" wire:model.defer="part_no" style="width: 100%;">
+                                <option>Select</option>
+                                <option value="AK">0779869698</option>
+                                <option value="HI">4564577456</option>
+                                <option value="CA">456474574</option>
+                                <option value="NV">45645745234</option>
+                                <option value="OR">23423623</option>
+                                <option value="WA">2352534634</option>
+                            </select>
+                        </div>
 
-                    <div class="form-group">
-                        <label>ID Pallet</label>
-                        <input type="text" wire:model.defer="id_pallet" class="form-control">
-                    </div>
+                        <div class="col-lg-6 form-group">
+                            <label>Part Name</label>
+                            <input type="text" wire:model.defer="part_name" disabled class="form-control"
+                                placeholder="Part Name">
+                        </div>
+                        <div class="col-lg-6 form-group">
+                            <label>Qty</label>
+                            <input type="number" wire:model.defer="qty" disabled class="form-control" min="0"
+                                placeholder="0">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Part No</label>
-                        <input type="text" wire:model.defer="part_no" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Part Name</label>
-                        <input type="text" wire:model.defer="part_name" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label>Qty</label>
-                        <input type="number" wire:model.defer="qty" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>No Pallet</label>
-                        <input type="text" wire:model.defer="no_pallet" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>No Rak</label>
-                        <input type="text" wire:model.defer="no_rak" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Part Trial</label>
-                        <input type="checkbox" wire:model.defer="part_trial" class="form-control">
+                        <div class="col-lg-6 form-group">
+                            <label>Pallet No</label>
+                            <input type="text" wire:model.defer="no_pallet" class="form-control"
+                                placeholder="Paller Number">
+                        </div>
                     </div>
 
                     <div class="modal-footer">
@@ -51,16 +49,3 @@
         </div>
     </div>
 </div>
-{{-- @push('scripts')
-    <script>
-        $(document).on("livewire:navigated", function() {
-            Livewire.on('showModal', () => {
-                $('#modal-form-snp').modal('show');
-            });
-
-            Livewire.on('hideModal', () => {
-                $('#modal-form-snp').modal('hide');
-            });
-        });
-    </script>
-@endpush --}}
