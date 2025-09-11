@@ -5,7 +5,7 @@ use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\MasterData\MasterCustomer;
 use App\Http\Livewire\MasterData\MasterProduk;
 use App\Http\Livewire\Transaksi\Stock\Stock;
-use App\Http\Livewire\Transaksi\StockKeluar;
+use App\Http\Livewire\Transaksi\StockOut\StockKeluar;
 use App\Http\Livewire\Transaksi\StockIn\StockMasuk;
 use Illuminate\Support\Facades\Route;
 
