@@ -34,11 +34,17 @@
                             <a href="{{ route('transaksi.stock.keluar.index') }}"><i
                                     class="ri-inbox-unarchive-line"></i>Stock Out</a>
                         </li>
-                        <li>
-                            <a href="#"><i class="ri-file-list-line"></i>Data Adjustment</a>
-                        </li>
 
                     </ul>
+                </li>
+                <li>
+                    {{-- Menu tanpa children menu --}}
+                    <a href="{{ route('stock.change.index') }}" class="waves-effect ">
+                        <i class="ri-file-list-line"></i>
+                        <span>Data Adjustment</span>
+                    </a>
+
+
                 </li>
                 <li>
                     {{-- Parent menu dengan dropdown --}}
@@ -81,38 +87,39 @@
 
 
                 {{-- @foreach ($menus as $menu)
-                    @if ($menu->children->count())
-                        <li> --}}
-                {{-- Parent menu dengan dropdown --}}
-                {{-- <a class="has-arrow waves-effect">
-                                <i class="{{ $menu->icon }}"></i>
-                                <span>{{ $menu->name }}</span> --}}
-                {{-- </a>
-                            <ul class="sub-menu" aria-expanded="false">
-                                @foreach ($menu->children as $child)
-                                    <li>
-                                        <a href="{{ route($child->route_name) }}"
-                                            class="{{ request()->routeIs($child->route_name) ? 'active' : '' }}">{{ $child->name }}</a>
-                                    </li>
-                                @endforeach
-                            </ul>
+                @if ($menu->children->count())
+                <li> --}}
+                    {{-- Parent menu dengan dropdown --}}
+                    {{-- <a class="has-arrow waves-effect">
+                        <i class="{{ $menu->icon }}"></i>
+                        <span>{{ $menu->name }}</span> --}}
+                        {{-- </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @foreach ($menu->children as $child)
+                        <li>
+                            <a href="{{ route($child->route_name) }}"
+                                class="{{ request()->routeIs($child->route_name) ? 'active' : '' }}">{{ $child->name
+                                }}</a>
                         </li>
-                    @else
-                        <li> --}}
-                {{-- Menu tanpa children menu --}}
-                {{-- <a href="{{ route($menu->route_name) }}"
-                                class="waves-effect {{ request()->routeIs($menu->route_name) ? 'active' : '' }}">
-                                <i class="{{ $menu->icon }}"></i>
-                                <span>{{ $menu->name }}</span>
-                            </a> --}}
+                        @endforeach
+                    </ul>
+                </li>
+                @else
+                <li> --}}
+                    {{-- Menu tanpa children menu --}}
+                    {{-- <a href="{{ route($menu->route_name) }}"
+                        class="waves-effect {{ request()->routeIs($menu->route_name) ? 'active' : '' }}">
+                        <i class="{{ $menu->icon }}"></i>
+                        <span>{{ $menu->name }}</span>
+                    </a> --}}
 
-                {{-- <a href='{{ route($menu->route_name) }}' class="waves-effect">
-                                <i class="{{ $menu->icon }}"></i>
-                                <span>{{ $menu->name }}</span>
-                            </a>
+                    {{-- <a href='{{ route($menu->route_name) }}' class="waves-effect">
+                        <i class="{{ $menu->icon }}"></i>
+                        <span>{{ $menu->name }}</span>
+                    </a>
 
-                        </li>
-                    @endif
+                </li>
+                @endif
                 @endforeach --}}
 
             </ul>
