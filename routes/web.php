@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
         Route::prefix('master')->name('master.')->group(function () {
             Route::get('/data-customer', MasterCustomer::class)->name('customer.index');
             Route::get('/data-produk', MasterProduk::class)->name('produk.index');
+            Route::get('/rack', Rack::class)->name('rack.index');
         });
         Route::get('stock-change', StockChange::class)->name('stock.change.index');
         Route::get('pallet-data', PalletData::class)->name('pallet.data.index');

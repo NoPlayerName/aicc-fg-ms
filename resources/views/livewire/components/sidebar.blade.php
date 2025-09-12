@@ -68,7 +68,7 @@
                                 Customer</a>
                         </li>
                         <li>
-                            <a href="#"><i class="ri-fridge-line"></i>Master Rak</a>
+                            <a href="{{ route('master.rack.index') }}"><i class="ri-fridge-line"></i>Master Rak</a>
                         </li>
 
 

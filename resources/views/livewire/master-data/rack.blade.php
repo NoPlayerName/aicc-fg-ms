@@ -24,7 +24,7 @@
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Master</a></li>
-                            <li class="breadcrumb-item active">RACK</li>
+                            <li class="breadcrumb-item active">Rack</li>
                         </ol>
                     </div>
 
@@ -50,22 +50,30 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Rack No</th>
+                                    <th>Part No</th>
+                                    <th>Product Code</th>
+                                    <th>Pallet No</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                    <td>A101</td>
+                                    <td>1411110550</td>
+                                    <td>CARRIER 0550</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>A101</td>
+                                    <td>1411110550</td>
+                                    <td>CARRIER 0550</td>
+                                    <td>-</td>
+                                </tr>
+                                <tr>
+                                    <td>A101</td>
+                                    <td>1411110550</td>
+                                    <td>CARRIER 0550</td>
+                                    <td>-</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -76,24 +84,6 @@
 
     </div>
     <!-- container-fluid -->
-    {{-- Modal reusable --}}
-    <x-modals.modal id="custModal" title="{{ $id ? 'Edit Customer' : 'Add Customer' }}">
-        {{-- isi modal bebas, bisa form Livewire atau biasa --}}
-        <form wire:submit.prevent="save">
-            <div class="form-group">
-                <label>Name</label>
-                <input type="text" wire:model="name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Inisial</label>
-                <input type="text" wire:model="initial" class="form-control">
-            </div>
-
-            <x-slot name="footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-            </x-slot>
-        </form>
-    </x-modals.modal>
 </div>
 @push('scripts')
 <!-- Required datatable js -->
@@ -128,9 +118,10 @@
             let table = $('#datatable-buttons').DataTable({
                 // searching: false,
                 responsive: true,
-                lengthChange: false,
                 autoWidth: false,
-                dom: 'Bfrtip',
+                dom:  "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
+                    "<'row'<'col-sm-12'tr>>" +           // baris 2: tabel
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 buttons: [{
                         extend: 'excel',
                         className: 'btn btn-success',
