@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Transaksi;
+namespace App\Http\Livewire\Transaksi\StockOut;
 
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -17,6 +17,6 @@ class StockKeluar extends Component
     #[Title('Stock Out')]
     public function render()
     {
-        return view('livewire.transaksi.stock-keluar');
+        return view('livewire.transaksi.stock-out.stock-keluar');
     }
 }

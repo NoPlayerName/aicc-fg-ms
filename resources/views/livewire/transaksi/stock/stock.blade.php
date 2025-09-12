@@ -70,75 +70,126 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-4">
                                         <button id="filter_btn" type="submit" form="form-search"
-                                            class="btn btn-primary btn-sm waves-effect waves-light">
+                                            class="btn btn-primary waves-effect waves-light">
                                             <i class="fas fa-search"></i> Search
                                         </button>
-                                        {{-- <button type="button"
-                                            onclick="if (window.location.href.indexOf('?') > -1) {
-                                                                            window.location.href = window.location.pathname;
-                                                                                } else {
-                                                                                window.location.reload();
-                                                                                }"
-                                            class="btn btn-outline-primary btn-sm waves-effect waves-light">
-                                            Refresh <i class="ri-refresh-line align-middle ml-2"></i>
-                                        </button>
-                                        <a href="javascript:void(0);" onclick="export_excel();"
-                                            class="btn btn-sm btn-success waves-effect waves-light">
-                                            Export Excel <i class="fas fa-file-excel align-middle ml-2"></i>
-                                        </a> --}}
-
                                     </div>
-                                </div>
-
-                            </form>
-
+                                </div> 
+ 
+                            </form> 
                         </div>
-
-                        <div id="custom-buttons" class="m-2"></div>
+ 
+                       
 
                     </div>
                 </div>
             </div>
-            <div class="card">
+            <div class="card" wire:ignore>
                 <div class="card-body">
 
                     {{-- <h4 class="card-title">Stock</h4> --}}
 
                     <div style="max-width: auto; overflow-x: auto;">
+                        
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Part No</th>
+                                    <th>Part Name</th>
+                                    <th>Product Code</th>
+                                    <th>Beginning stock</th>
+                                    <th>Stock In</th>
+                                    <th>Stock Out</th>
+                                    <th>Ending Stock</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                    <td>8982887110</td>
+                                    <td>CARRIER; FINAL DRIVE</td>
+                                    <td>CARRIER 7110</td>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>110</td>
+                                    <td class="text-center align-middle"><a class="btn" data-toggle="modal"
+                                    data-target="#detail-stock"  wire:click="showDetail('8982887110')"><i
+                                     class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top" title="View Detail"></i> </a></td>
                                 </tr>
-
+                                <tr>
+                                    <td>8982887110</td>
+                                    <td>CARRIER; FINAL DRIVE</td>
+                                    <td>CARRIER 7110</td>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>110</td>
+                                     <td class="text-center align-middle"><a class="btn" data-toggle="modal"
+                                    data-target="#detail-stock"  wire:click="showDetail('8982887110222')"><i
+                                     class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top" title="View Detail"></i> </a></td>
+                                </tr>
+                                <tr>
+                                    <td>8982887110</td>
+                                    <td>CARRIER; FINAL DRIVE</td>
+                                    <td>CARRIER 7110</td>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>110</td>
+                                    <td class="text-center align-middle"><a class="btn" ><i
+                                     class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top" title="View Detail"></i> </a></td>
+                                </tr>
+                                <tr>
+                                    <td>8982887110</td>
+                                    <td>CARRIER; FINAL DRIVE</td>
+                                    <td>CARRIER 7110</td>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>110</td>
+                                    <td class="text-center align-middle"><a class="btn" ><i
+                                     class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top" title="View Detail"></i> </a></td>
+                                </tr>
+                                <tr>
+                                    <td>8982887110</td>
+                                    <td>CARRIER; FINAL DRIVE</td>
+                                    <td>CARRIER 7110</td>
+                                    <td>100</td>
+                                    <td>10</td>
+                                    <td>0</td>
+                                    <td>110</td>
+                                    <td class="text-center align-middle"><a class="btn" ><i
+                                     class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top" title="View Detail"></i> </a></td>
+                                </tr>
+                                
                             </tbody>
+                             <tfoot>
+                                <tr>
+                                    <th class="text-right">Total:</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th>500</th>
+                                    <th>50</th>
+                                    <th>0</th>
+                                    <th>550</th>
+                                    <th></th>
+                                </tr>
+                            </tfoot>
                         </table>
+                        
                     </div>
                 </div>
             </div>
         </div>
 
     </div> <!-- container-fluid -->
+    @livewire('transaksi.stock.detail-stock')
 </div>
 @push('scripts')
     <!-- Required datatable js -->
@@ -154,31 +205,5 @@
     <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
-
-    {{-- datatable init js --}}
-    {{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
-    {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
-
-    <script>
-        document.addEventListener("livewire:navigated", () => {
-            let table = $('#datatable-buttons').DataTable({
-
-                responsive: true,
-                lengthChange: true,
-                autoWidth: true,
-                dom: 'Bfrtip',
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn btn-success btn-mb',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel'
-                    },
-
-                ]
-            });
-
-            // Pindahkan tombol ke div custom
-            table.buttons().container().appendTo('#custom-buttons');
-        });
-    </script>
+    <script src="{{ asset('assets/js/stock.js') }}"></script>
 @endpush

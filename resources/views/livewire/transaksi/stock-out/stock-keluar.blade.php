@@ -19,12 +19,14 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 class="mb-0">Stock In</h4>
+                    <h4 class="mb-0">Stock <Out></Out>
+                    </h4>
 
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Transaction</a></li>
-                            <li class="breadcrumb-item active">Stock In</li>
+                            <li class="breadcrumb-item active">Stock <Out></Out>
+                            </li>
                         </ol>
                     </div>
 
@@ -89,24 +91,15 @@
             <div class="card" wire:ignore>
                 <div class="card-body">
                     <div class="mb-3 d-flex">
-                        {{-- @if ($canAccess) --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-snp"><i
-                                class="fab fa-wpforms mr-2"></i>Form
-                            Not
-                            SNP</button>
-                        {{-- @endif --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-cso"><i
-                                class="fab fa-wpforms mr-2"></i>Form
-                            CSO</button>
-                        <div id="custom-buttons-stockin"></div>
+                        <div id="custom-buttons-stockout"></div>
                         <div id="custom-buttons-summary"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#stock-in" role="tab">
+                                <a class="nav-link active" data-toggle="tab" href="#stock-out" role="tab">
                                     <span class="d-block d-sm-none"><i class="fas fa-box"></i></span>
-                                    <span class="d-none d-sm-block">Stock In</span>
+                                    <span class="d-none d-sm-block">Stock Out</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -120,8 +113,8 @@
 
                         <!-- Tab panes -->
                         <div class="tab-content p-3 text-muted">
-                            <div class="tab-pane active" id="stock-in" role="tabpanel">
-                                <table id="datatable-stockIn"
+                            <div class="tab-pane active" id="stock-out" role="tabpanel">
+                                <table id="datatable-stockOut"
                                     class="table table-striped table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
@@ -131,6 +124,7 @@
                                             <th>Part No</th>
                                             <th>Part Name</th>
                                             <th>Qty</th>
+                                            <th>Customer</th>
                                             <th>Rack No</th>
                                             <th>Descript</th>
                                             <th>Action</th>
@@ -143,6 +137,7 @@
                                             <td>8983981370</td>
                                             <td>CAGE;DIF,FINAL,DRIVE</td>
                                             <td>125</td>
+                                            <td>IGP KIM</td>
                                             <td>C324</td>
                                             <td>-</td>
                                             <td class="text-center align-middle"><a class="btn" data-toggle="modal"
@@ -160,24 +155,20 @@
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                     <thead>
                                         <tr>
-                                            <th>Pallet No</th>
-                                            <th>Date</th>
                                             <th>Part No</th>
                                             <th>Part Name</th>
+                                            <th>Kode Produk</th>
                                             <th>Qty</th>
                                         </tr>
                                     </thead>
 
-
                                     <tbody>
                                         <tr>
-                                            <td>9082</td>
-                                            <td>10/09/2025</td>
                                             <td>8983981370</td>
+                                            <td>CAGE;DIF,FINAL,DRIVE</td>
                                             <td>CAGE;DIF,FINAL,DRIVE</td>
                                             <td>500</td>
                                         </tr>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -189,9 +180,7 @@
 
     </div> <!-- container-fluid -->
     {{-- Modal reusable --}}
-    @livewire('transaksi.stock-in.modal-form-snp')
-    @livewire('transaksi.stock-in.modal-form-cso')
-    @livewire('transaksi.stock-in.form-update')
+    @livewire('transaksi.stock-out.form-update')
     {{-- End Modal --}}
 </div>
 @push('scripts')
@@ -212,7 +201,7 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
-<script src="{{ asset('assets/js/stock-in.js') }}"></script>
+<script src="{{ asset('assets/js/stock-out.js') }}"></script>
 
 
 {{-- datatable init js --}}
