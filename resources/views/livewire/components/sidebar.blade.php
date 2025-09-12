@@ -43,8 +43,13 @@
                         <i class="ri-file-list-line"></i>
                         <span>Stock Change</span>
                     </a>
-
-
+                </li>
+                <li>
+                    {{-- Menu tanpa children menu --}}
+                    <a href="{{ route('pallet.data.index') }}" class="waves-effect ">
+                        <i class="ri-database-2-line"></i>
+                        <span>Pallet Data</span>
+                    </a>
                 </li>
                 <li>
                     {{-- Parent menu dengan dropdown --}}
