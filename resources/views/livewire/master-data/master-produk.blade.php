@@ -1,15 +1,15 @@
 @push('style')
-    <!-- DataTables -->
-    <link href={{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }} rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
-    <link href="{{ asset('assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}" rel="stylesheet"
-        type="text/css" />
+<!-- DataTables -->
+<link href={{ asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }} rel="stylesheet"
+    type="text/css" />
+<link href="{{ asset('assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') }}" rel="stylesheet"
+    type="text/css" />
+<link href="{{ asset('assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}" rel="stylesheet"
+    type="text/css" />
 
-    <!-- Responsive datatable examples -->
-    <link href={{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }} rel="stylesheet"
-        type="text/css" />
+<!-- Responsive datatable examples -->
+<link href={{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }} rel="stylesheet"
+    type="text/css" />
 @endpush
 
 <div class="page-content">
@@ -37,9 +37,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 d-flex justify-content-start">
-                        <button class="btn btn-primary btn-md mr-2" wire:click="openModal"><i
-                                class="far fa-plus-square"></i> Add
-                            Product</button>
 
                         <div id="custom-buttons"></div>
                     </div>
@@ -48,24 +45,80 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Office</th>
-                                    <th>Age</th>
-                                    <th>Start date</th>
-                                    <th>Salary</th>
+                                    <th>Part No</th>
+                                    <th>Part Name</th>
+                                    <th>Product Code</th>
+                                    <th>Initial</th>
+                                    <th>Group</th>
+                                    <th>Beginning stock</th>
+                                    <th>SNP</th>
+                                    <th>Minimum Stock</th>
+                                    <th>Maximum Stock</th>
+                                    <th>Group Rack</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
                                 <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
+                                    <td>41113928A0</td>
+                                    <td>BEARING CAP 13H</td>
+                                    <td>BEARING CAP 28A0 13H</td>
+                                    <td>B CAP 13H</td>
+                                    <td>HINO</td>
+                                    <td>0</td>
+                                    <td>500</td>
+                                    <td>500</td>
+                                    <td>1500</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>41113928A0</td>
+                                    <td>BEARING CAP 13H</td>
+                                    <td>BEARING CAP 28A0 13H</td>
+                                    <td>B CAP 13H</td>
+                                    <td>HINO</td>
+                                    <td>0</td>
+                                    <td>500</td>
+                                    <td>500</td>
+                                    <td>1500</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>41113928A0</td>
+                                    <td>BEARING CAP 13H</td>
+                                    <td>BEARING CAP 28A0 13H</td>
+                                    <td>B CAP 13H</td>
+                                    <td>HINO</td>
+                                    <td>0</td>
+                                    <td>500</td>
+                                    <td>500</td>
+                                    <td>1500</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>41113928A0</td>
+                                    <td>BEARING CAP 13H</td>
+                                    <td>BEARING CAP 28A0 13H</td>
+                                    <td>B CAP 13H</td>
+                                    <td>HINO</td>
+                                    <td>0</td>
+                                    <td>500</td>
+                                    <td>500</td>
+                                    <td>1500</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>41113928A0</td>
+                                    <td>BEARING CAP 13H</td>
+                                    <td>BEARING CAP 28A0 13H</td>
+                                    <td>B CAP 13H</td>
+                                    <td>HINO</td>
+                                    <td>0</td>
+                                    <td>500</td>
+                                    <td>500</td>
+                                    <td>1500</td>
+                                    <td>3</td>
                                 </tr>
 
                             </tbody>
@@ -77,61 +130,32 @@
 
     </div>
     <!-- container-fluid -->
-    {{-- Modal reusable --}}
-    <x-modals.modal id="productModal" title="{{ $id ? 'Edit Product' : 'Add Product' }}">
-        {{-- isi modal bebas, bisa form Livewire atau biasa --}}
-        <form wire:submit.prevent="save">
-            <div class="form-group">
-                <label>Part Nomor</label>
-                <input type="text" wire:model="part_no" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Product Name</label>
-                <input type="text" wire:model="name" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Standar Packing</label>
-                <input type="text" wire:model="snp" class="form-control">
-            </div>
-            <div class="form-group">
-                <label>Min Stock</label>
-                <input type="text" wire:model="min_stock" class="form-control">
-            </div>
 
-            <div class="form-group">
-                <label>Max Stock</label>
-                <input type="text" wire:model="max_stock" class="form-control">
-            </div>
-            <x-slot name="footer">
-                <button type="submit" class="btn btn-primary">Save</button>
-            </x-slot>
-        </form>
-    </x-modals.modal>
 </div>
 
 @push('scripts')
-    <!-- Required datatable js -->
-    <script src={{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}></script>
-    <script src={{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}></script>
+<!-- Required datatable js -->
+<script src={{ asset('assets/libs/datatables.net/js/jquery.dataTables.min.js') }}></script>
+<script src={{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}></script>
 
-    <!-- Buttons examples -->
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-
-
-    {{-- datatable init js --}}
-    {{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
-    {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
+<!-- Buttons examples -->
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
+<script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
+<script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
 
-    <script>
-        $(document).on("livewire:init", () => {
+{{-- datatable init js --}}
+{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
+{{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
+
+
+<script>
+    $(document).on("livewire:init", () => {
             initTable();
             Livewire.on('open-modal', () => {
                 $('#productModal').modal('show');
@@ -143,13 +167,15 @@
             let table = $('#datatable-buttons').DataTable({
                 // searching: false,
                 responsive: true,
-                lengthChange: false,
                 autoWidth: false,
-                dom: 'Bfrtip',
+                dom: "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
+                    "<'row'<'col-sm-12'tr>>" +           // baris 2: tabel
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 buttons: [{
                         extend: 'excel',
-                        className: 'btn btn-success',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel'
+                        className: 'btn btn-success btn-mb',
+                        text: '<i class="fas fa-file-excel"></i> Export Excel',
+                       
                     },
 
                 ]
@@ -158,5 +184,5 @@
             // Pindahkan tombol ke div custom
             table.buttons().container().appendTo('#custom-buttons');
         }
-    </script>
+</script>
 @endpush
