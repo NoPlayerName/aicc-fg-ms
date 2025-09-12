@@ -41,7 +41,7 @@
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('stock.change.index') }}" class="waves-effect ">
                         <i class="ri-file-list-line"></i>
-                        <span>Data Adjustment</span>
+                        <span>Stock Change</span>
                     </a>
 
 
