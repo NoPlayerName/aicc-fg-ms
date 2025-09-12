@@ -4,6 +4,7 @@ use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\MasterData\MasterCustomer;
 use App\Http\Livewire\MasterData\MasterProduk;
+use App\Http\Livewire\MasterData\Rack;
 use App\Http\Livewire\Pallet\PalletData;
 use App\Http\Livewire\StockChange\StockChange;
 use App\Http\Livewire\Transaksi\Stock\Stock;
