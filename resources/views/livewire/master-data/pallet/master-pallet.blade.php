@@ -72,15 +72,14 @@
                                             </button>
                                             <div class="dropdown-menu"
                                                 style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Deactivate"><i
-                                                        class="fas fa-eye-slash text-secondary"></i></a>
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Edit"><i
-                                                        class=" fas fa-edit text-secondary"></i></a>
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Delete"><i
-                                                        class="fas fa-trash-alt text-secondary"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                                    title="Deactivate"><i class="fas fa-eye-slash text-warning"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="modal"
+                                                    data-target="#form-edit-pallet"><i class=" fas fa-edit text-info"
+                                                        data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete" wire:click='deleteConfirm("1")'><i
+                                                        class="fas fa-trash-alt text-danger"></i></a>
 
                                             </div>
                                         </div>
@@ -100,15 +99,14 @@
                                             </button>
                                             <div class="dropdown-menu"
                                                 style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Deactivate"><i
-                                                        class="fas fa-eye-slash text-secondary"></i></a>
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Edit"><i
-                                                        class=" fas fa-edit text-secondary"></i></a>
-                                                <a class="dropdown-item" href="#" data-toggle="tooltip"
-                                                    data-placement="top" title="Delete"><i
-                                                        class="fas fa-trash-alt text-secondary"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                                    title="Deactivate"><i class="fas fa-eye-slash text-warning"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="modal"
+                                                    data-target="#form-edit-pallet"><i class=" fas fa-edit text-info"
+                                                        data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
+                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                                    title="Delete" wire:click='deleteConfirm("1")'><i
+                                                        class="fas fa-trash-alt text-danger"></i></a>
 
                                             </div>
                                         </div>
@@ -123,7 +121,7 @@
 
     </div>
     <!-- container-fluid -->
-    @livewire('master-data.pallet.form-pallet')
+    @livewire(' master-data.pallet.form-pallet') @livewire('master-data.pallet.form-edit-pallet')
 </div>
 @push('scripts')
 <!-- Required datatable js -->
@@ -131,18 +129,27 @@
 <script src={{ asset('assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}></script>
 
 <!-- Buttons examples -->
-<script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-<script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}"></script>
-<script src="{{ asset('assets/libs/jszip/jszip.min.js') }}"></script>
-<script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}"></script>
-<script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}"></script>
-<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/jszip/jszip.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/pdfmake/build/pdfmake.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/pdfmake/build/vfs_fonts.js') }}">
+</script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}">
+</script>
+<script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}">
+</script>
 
 
 {{-- datatable init js --}}
-{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
+{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}>
+</script> --}}
 {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
 <script>
@@ -174,5 +181,26 @@
             // Pindahkan tombol ke div custom
             table.buttons().container().appendTo('#custom-buttons');
         }
+        Livewire.on('delete-confirm', ({id}) => {
+            swal({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                buttons: ["Cancel", "Delete!"],
+                dangerMode: true,
+            }).then((result) => {
+                if (result) {
+                    @this.call('delete', id)
+                    swal(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        })
+    //      Livewire.on('deleted', () => {
+    //     Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
+    // });
 </script>
 @endpush
