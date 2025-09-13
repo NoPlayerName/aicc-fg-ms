@@ -70,6 +70,10 @@
                         <li>
                             <a href="{{ route('master.rack.index') }}"><i class="ri-fridge-line"></i>Master Rak</a>
                         </li>
+                        <li>
+                            <a href="{{ route('master.master-pallet.index') }}"><i class="ri-fridge-line"></i>Master
+                                Pallet</a>
+                        </li>
 
 
                     </ul>
