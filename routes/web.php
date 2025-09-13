@@ -3,7 +3,9 @@
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\MasterData\MasterCustomer;
+use App\Http\Livewire\MasterData\Pallet\MasterPallet;
 use App\Http\Livewire\MasterData\MasterProduk;
+use App\Http\Livewire\MasterData\Rack;
 use App\Http\Livewire\Pallet\PalletData;
 use App\Http\Livewire\StockChange\StockChange;
 use App\Http\Livewire\Transaksi\Stock\Stock;
@@ -13,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'permission'])->group(function () {
     Route::prefix('/')->name('')->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::prefix('transaksi')->name('transaksi.')->group(function () {
@@ -25,6 +27,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/data-customer', MasterCustomer::class)->name('customer.index');
             Route::get('/data-produk', MasterProduk::class)->name('produk.index');
             Route::get('/rack', Rack::class)->name('rack.index');
+            Route::get('/master-pallet', MasterPallet::class)->name('master-pallet.index');
         });
         Route::get('stock-change', StockChange::class)->name('stock.change.index');
         Route::get('pallet-data', PalletData::class)->name('pallet.data.index');
