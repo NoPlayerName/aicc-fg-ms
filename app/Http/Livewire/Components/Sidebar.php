@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Components;
 
-use Livewire\Component;
+use App\Http\Livewire\BaseLivewireComponent;
+// use Livewire\Component;
 
-class Sidebar extends Component
+class Sidebar extends BaseLivewireComponent
 {
     public function render()
     {
+        $this->mountBase();
         return view('livewire.components.sidebar');
     }
 }
