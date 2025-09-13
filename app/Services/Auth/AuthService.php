@@ -3,20 +3,25 @@
 namespace App\Services\Auth;
 
 use App\Models\User;
+use App\Services\Permission\PermissionService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
 
 
-    public static function login($usr, $password)
+    public static function login($usr, $password, )
     {
 
         $user = User::where('usr', $usr)->first();
-
+        // $routeName = $request->route()->getName();
         if ($user && $user->pswd === md5($password)) {
-            Auth::login($user);
-            return true;
+           if(PermissionService::can($user, 'dashboard', 'can_access')){
+               Auth::login($user);
+               return true;
+            }
+            return false;
         }
         return false;
     }
