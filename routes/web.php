@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'permission'])->group(function () {
     Route::prefix('/')->name('')->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::prefix('transaksi')->name('transaksi.')->group(function () {
