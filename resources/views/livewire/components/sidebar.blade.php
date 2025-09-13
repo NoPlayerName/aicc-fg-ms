@@ -5,7 +5,7 @@
         <div id="sidebar-menu">
             <ul class="metismenu list-unstyled" id="side-menu">
                 <li class="menu-title">Menu</li>
-
+                @if ($this->canView('dashboard', 'can_access'))
                 <li>
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('dashboard') }}" class="waves-effect ">
@@ -15,6 +15,10 @@
 
 
                 </li>
+                @endif
+                @if($this->canView('transaksi.stock.index', 'can_access') ||
+                $this->canView('transaksi.stock.masuk.index', 'can_access') ||
+                $this->canView('transaksi.stock.keluar.index', 'can_access'))
                 <li>
                     {{-- Parent menu dengan dropdown --}}
                     <a class="has-arrow waves-effect">
@@ -22,21 +26,31 @@
                         <span>Transaction</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-
+                        @if($this->canView('transaksi.stock.index', 'can_access'))
                         <li class="{{ request()->routeIs('transaksi.stock.index') ? 'active' : '' }}">
                             <a href="{{ route('transaksi.stock.index') }}"><i class="ri-inbox-line"></i>Stock</a>
                         </li>
+                        @endif
+                        @if($this->canView('transaksi.stock.masuk.index', 'can_access'))
                         <li class="{{ request()->routeIs('transaksi.stock.masuk.index') ? 'active' : '' }}">
                             <a href="{{ route('transaksi.stock.masuk.index') }}"><i
                                     class="ri-inbox-archive-line"></i>Stock In</a>
                         </li>
+                        @endif
+                        @if($this->canView('transaksi.stock.keluar.index', 'can_access'))
                         <li class="{{ request()->routeIs('transaksi.stock.keluar.index') ? 'active' : '' }}">
                             <a href="{{ route('transaksi.stock.keluar.index') }}"><i
                                     class="ri-inbox-unarchive-line"></i>Stock Out</a>
                         </li>
+                        @endif
+
 
                     </ul>
                 </li>
+                @endif
+                @if ($this->canView('stock.change.index', 'can_access'))
+
+
                 <li>
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('stock.change.index') }}" class="waves-effect ">
@@ -44,6 +58,10 @@
                         <span>Stock Change</span>
                     </a>
                 </li>
+                @endif
+                @if ($this->canView('pallet.data.index', 'can_access'))
+
+
                 <li>
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('pallet.data.index') }}" class="waves-effect ">
@@ -51,6 +69,11 @@
                         <span>Pallet Data</span>
                     </a>
                 </li>
+                @endif
+                @if ($this->canView('master.produk.index', 'can_access') || $this->canView('master.customer.index',
+                'can_access') || $this->canView('master.rack.index', 'can_access') ||
+                $this->canView('master.master-pallet.index',
+                'can_access'))
                 <li>
                     {{-- Parent menu dengan dropdown --}}
                     <a class="has-arrow waves-effect">
@@ -58,43 +81,34 @@
                         <span>Master Data</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-
+                        @if ($this->canView('master.produk.index', 'can_access'))
                         <li class="{{ request()->routeIs('master.produk.index') ? 'active' : '' }}">
                             <a href="{{ route('master.produk.index') }}"><i class="ri-archive-line"></i>Master
                                 Produk</a>
                         </li>
+                        @endif
+                        @if ($this->canView('master.customer.index', 'can_access'))
                         <li class="{{ request()->routeIs('master.customer.index') ? 'active' : '' }}">
                             <a href="{{ route('master.customer.index') }}"><i class="ri-group-line"></i>Master
                                 Customer</a>
                         </li>
+                        @endif
+                        @if ($this->canView('master.rack.index', 'can_access'))
                         <li>
-                            <a href="{{ route('master.rack.index') }}"><i class="ri-fridge-line"></i>Master Rak</a>
+                            <a href="{{ route('master.rack.index') }}"><i class="ri-fridge-line"></i>Master Rack</a>
                         </li>
+                        @endif
+                        @if ($this->canView('master.master-pallet.index', 'can_access'))
                         <li>
                             <a href="{{ route('master.master-pallet.index') }}"><i class="ri-fridge-line"></i>Master
                                 Pallet</a>
                         </li>
+                        @endif
 
 
                     </ul>
                 </li>
-                <li>
-                    {{-- Parent menu dengan dropdown --}}
-                    <a class="has-arrow waves-effect">
-                        <i class="ri-user-line"></i>
-                        <span>Users</span>
-                    </a>
-                    <ul class="sub-menu" aria-expanded="false">
-
-                        <li>
-                            <a href="#" class="ri-user-line">Add
-                                User</a>
-                        </li>
-
-                    </ul>
-                </li>
-
-
+                @endif
                 {{-- @foreach ($menus as $menu)
                 @if ($menu->children->count())
                 <li> --}}

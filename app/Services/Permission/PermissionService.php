@@ -2,20 +2,18 @@
 
 namespace App\Services\Permission;
 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionService
 {
-    public static function userHasPermission(int $menuId, string $permission = 'can_access'): bool
+       public static function can(User $user,string $route, string $access = "can_access")
     {
-        $user = Auth::user();
-
-        if (!$user) {
-            return false;
-        }
-
-        $akses = $user->menuPermission()->where('menu_id', $menuId)->first();
-
-        return $akses && $akses->$permission;
+         return $user->userPermission()
+        ->whereHas('menu', function($q) use ($route) {
+            $q->where('apps_group', 'FG-MS')
+              ->where('url', $route);
+        })->where($access, 1)
+        ->exists();
     }
 }
