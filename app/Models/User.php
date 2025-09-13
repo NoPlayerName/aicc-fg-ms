@@ -54,7 +54,7 @@ class User extends Authenticatable
         return json_decode(json_encode($this->makeHidden(['pswd'])->toArray()), false);
     }
 
-    public function menuPermission()
+    public function userPermission()
     {
         return $this->hasMany(UserMenuPermission::class, 'user_id', 'id');
     }
