@@ -15,10 +15,6 @@ class Stock extends Component
         // dd($id);
         $this->dispatch('show-detail', id: $id);
     }
-    public function mount()
-    {
-        $this->canAccess = PermissionService::userHasPermission(1);
-    }
 
     #[Title('Data Stock')]
     public function render()
