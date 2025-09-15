@@ -64,8 +64,8 @@
                 toastr.success("{{ session('message') }}");
             @endif
 
-            @if (session()->has('error'))
-                toastr.error("{{ session('error') }}");
+            @if (session()->has('no_permission'))
+                toastr.error("{{ session('no_permission') }}");
             @endif
         });
     </script>
