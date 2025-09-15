@@ -1,5 +1,5 @@
 @push('style')
-    {{-- custom style can be add here --}}
+{{-- custom style can be add here --}}
 @endpush
 
 <div class="page-content">
@@ -29,8 +29,7 @@
     </div> <!-- container-fluid -->
 </div>
 @push('scripts')
-    <script src="{{ asset('assets/js/app.js') }}"></script>
-    <script>
-        // Custom scripts can be added here
-    </script>
+<script>
+    // Custom scripts can be added here
+</script>
 @endpush
