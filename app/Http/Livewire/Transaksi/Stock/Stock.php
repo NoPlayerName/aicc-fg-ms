@@ -15,9 +15,11 @@ class Stock extends Component
         // dd($id);
         $this->dispatch('show-detail', id: $id);
     }
+
     public function mount()
     {
     }
+
 
     #[Title('Data Stock')]
     public function render()
