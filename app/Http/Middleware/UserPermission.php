@@ -19,9 +19,11 @@ class UserPermission
     {
         $routeName = $request->route()->getName();
         if(!PermissionService::can(auth()->user(),$routeName, 'can_access')) {
-            Auth::logout();
-            session()->invalidate(); // menghapus session lama tapi bisa flash
-            session()->regenerateToken();
+            // Auth::logout();
+            // session()->invalidate(); 
+            // session()->regenerateToken();
+            session()->flash('no_permission', 'You no have permission!');
+            return redirect()->route('dashboard');
         }
         return $next($request);
     }

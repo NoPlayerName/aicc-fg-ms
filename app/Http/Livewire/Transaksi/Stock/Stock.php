@@ -17,7 +17,6 @@ class Stock extends Component
     }
     public function mount()
     {
-        $this->canAccess = PermissionService::userHasPermission(1);
     }
 
     #[Title('Data Stock')]
