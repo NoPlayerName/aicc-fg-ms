@@ -155,10 +155,22 @@
                      
                 },
                 columns: [
-                    {data: 'pallet_no'},
-                    {data: 'name'},
-                    {data: 'pallet_type'},
-                    {data: 'color'},
+                    {data: 'pallet_no',
+                    render: (data, type, row) => {
+                        return data ?? '-';
+                    }},
+                    {data: 'name',
+                    render: (data, type, row) => {
+                        return data ?? '-';
+                    }},
+                    {data: 'pallet_type',
+                    render: (data, type, row) => {
+                        return data ?? '-';
+                    }},
+                    {data: 'color',
+                    render: (data, type, row) => {
+                        return data ?? '-';
+                    }},
                     {data: 'id',  orderable: false, searchable: false},
                 ],
                 columnDefs: [
