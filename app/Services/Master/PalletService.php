@@ -20,6 +20,10 @@ class PalletService
     {
         return $this->palletRepository->getAll();
     }
+    public function getPalletActive()
+    {
+        return $this->palletRepository->getAllActive();
+    }
 
 
     public function savePallet($data)

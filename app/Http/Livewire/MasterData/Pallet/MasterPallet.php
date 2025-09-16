@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\MasterData\Pallet;
 
+use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
+use App\Models\Pallet\Pallet;
 use App\Services\Master\PalletService;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterPallet extends BaseLivewireComponent
 {
@@ -34,7 +37,19 @@ class MasterPallet extends BaseLivewireComponent
 
     public function delete($id)
     {
+
         app(PalletService::class)->deletePallet($id);
+    }
+
+    public function exportExcel()
+    {
+        $columns = ['pallet_no', 'name', 'pallet_type', 'color'];
+        $head = ['Pallet Number', 'Pallet Name', 'Pallet Type', 'Color'];
+        $data = app(PalletService::class)->getPalletActive();
+
+        // dd($data);
+
+        return Excel::download(new ExcelExport($data, $columns, $head), 'Pallet.xlsx');
     }
 
 

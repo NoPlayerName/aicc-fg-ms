@@ -145,15 +145,9 @@
                         extend: 'excel',
                         className: 'btn btn-success',
                         text: '<i class="fas fa-file-excel"></i> Export Excel',
-                         exportOptions: {
-                            // Meminta semua data, bukan hanya halaman
-                            modifier: {
-                                search: 'applied',  // hanya data yang sesuai filter
-                                order: 'applied',   // urutan saat ini
-                                page: 'all'         // semua halaman
-                            }
+                        action: function(){
+                            @this.call('exportExcel')
                         }
-                        
                     },
                 ],
                 ajax:{

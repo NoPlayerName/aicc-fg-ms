@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 namespace App\Repositories\Pallet;
 
 use App\Models\Pallet\Pallet;
@@ -8,6 +9,11 @@ class PalletRepository implements PalletRepositoryInterface
     public function getAll()
     {
         return Pallet::get();
+    }
+
+    public function getAllActive()
+    {
+        return Pallet::where('is_active', true)->get();
     }
 
     public function getbyId($id)

@@ -5,6 +5,7 @@ namespace App\Repositories\Pallet;
 interface PalletRepositoryInterface
 {
     public function getAll();
+    public function getAllActive();
     public function getById($id);
     public function create($data);
     public function update($id, $data);

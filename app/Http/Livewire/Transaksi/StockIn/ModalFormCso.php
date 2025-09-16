@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Transaksi\StockIn;
 
 use Livewire\Component;
 
-class ModalFormCSO extends Component
+class ModalFormCso extends Component
 {
     public function render()
     {
