@@ -17,11 +17,14 @@ class UserPermission
      */
     public function handle(Request $request, Closure $next): Response
     {
+        $user = Auth::user();
         $routeName = $request->route()->getName();
-        if(!PermissionService::can(auth()->user(),$routeName, 'can_access')) {
-            // Auth::logout();
-            // session()->invalidate(); 
-            // session()->regenerateToken();
+        if ($user) {
+            if ($request->expectsJson() || $request->ajax()) {
+                return $next($request);
+            }
+        }
+        if (!PermissionService::can($user, $routeName, 'can_access')) {
             session()->flash('no_permission', 'You no have permission!');
             return redirect()->route('dashboard');
         }
