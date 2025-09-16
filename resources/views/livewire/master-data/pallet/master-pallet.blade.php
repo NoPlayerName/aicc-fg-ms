@@ -37,8 +37,6 @@
             <div class="card">
                 <div class="card-body">
 
-                    {{-- <h4 class="card-title">Stock</h4> --}}
-
                     <div class="mb-3 d-flex justify-content-start">
                         <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#form-pallet"><i
                                 class="far fa-plus-square"></i> Add
@@ -47,7 +45,8 @@
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                            wire:loading.class="muted">
                             <thead>
                                 <tr>
                                     <th>Pallet No</th>
@@ -57,62 +56,7 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>0001</td>
-                                    <td>PALLET G5</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group">
-                                            <button type="button"
-                                                class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="mdi mdi-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu"
-                                                style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
-                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
-                                                    title="Deactivate"><i class="fas fa-eye-slash text-warning"></i></a>
-                                                <a class="dropdown-item btn" data-toggle="modal"
-                                                    data-target="#form-edit-pallet"><i class=" fas fa-edit text-info"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
-                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete" wire:click='deleteConfirm("1")'><i
-                                                        class="fas fa-trash-alt text-danger"></i></a>
 
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>0002</td>
-                                    <td>PALLET G5</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td class="text-center align-middle">
-                                        <div class="btn-group">
-                                            <button type="button"
-                                                class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split"
-                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <i class="mdi mdi-chevron-down"></i>
-                                            </button>
-                                            <div class="dropdown-menu"
-                                                style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
-                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
-                                                    title="Deactivate"><i class="fas fa-eye-slash text-warning"></i></a>
-                                                <a class="dropdown-item btn" data-toggle="modal"
-                                                    data-target="#form-edit-pallet"><i class=" fas fa-edit text-info"
-                                                        data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
-                                                <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
-                                                    title="Delete" wire:click='deleteConfirm("1")'><i
-                                                        class="fas fa-trash-alt text-danger"></i></a>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -146,42 +90,11 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}">
 </script>
 
-
-{{-- datatable init js --}}
-{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}>
-</script> --}}
-{{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
-
 <script>
     $(document).on("livewire:init", () => {
             initTable();
-            Livewire.on('open-modal', () => {
-                $('#custModal').modal('show');
-            });
-        });
 
-        function initTable() {
-
-            let table = $('#datatable-buttons').DataTable({
-                // searching: false,
-                responsive: true,
-                autoWidth: false,
-                dom:  "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
-                    "<'row'<'col-sm-12'tr>>" +           // baris 2: tabel
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn btn-success',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel'
-                    },
-
-                ]
-            });
-
-            // Pindahkan tombol ke div custom
-            table.buttons().container().appendTo('#custom-buttons');
-        }
-        Livewire.on('delete-confirm', ({id}) => {
+            Livewire.on('delete-confirm', ({id}) => {
             swal({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -191,16 +104,106 @@
             }).then((result) => {
                 if (result) {
                     @this.call('delete', id)
-                    swal(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
+                    swal({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success",
+                        button: "Close",
+                    }).then((result) => {
+                        if (result) {
+                            $('#datatable-buttons').DataTable().ajax.reload(null, false);
+                        }
+                    })
                 }
             })
         })
-    //      Livewire.on('deleted', () => {
-    //     Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success');
-    // });
+
+        Livewire.on('saved', () => {
+            $('#form-pallet').modal('hide');
+            $('#form-edit-pallet').modal('hide');
+            $('#datatable-buttons').DataTable().ajax.reload(null, false);
+            toastr.success('Data has been saved!');
+        });
+        Livewire.on('modalEdit', () => {
+            $('#form-edit-pallet').modal('show');
+        });
+            
+    });
+
+        function initTable() {
+
+            let table = $('#datatable-buttons').DataTable({
+                
+                responsive: true,
+                autoWidth: false,
+                processing:true,
+                serverSide:true,
+                dom:  "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + 
+                    "<'row'<'col-sm-12'tr>>" +           
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+                buttons: [{
+                        extend: 'excel',
+                        className: 'btn btn-success',
+                        text: '<i class="fas fa-file-excel"></i> Export Excel',
+                         exportOptions: {
+                            // Meminta semua data, bukan hanya halaman
+                            modifier: {
+                                search: 'applied',  // hanya data yang sesuai filter
+                                order: 'applied',   // urutan saat ini
+                                page: 'all'         // semua halaman
+                            }
+                        }
+                        
+                    },
+                ],
+                ajax:{
+                    url: "{{ route('master.master-pallet.data') }}",
+                     
+                },
+                columns: [
+                    {data: 'pallet_no'},
+                    {data: 'name'},
+                    {data: 'pallet_type'},
+                    {data: 'color'},
+                    {data: 'id',  orderable: false, searchable: false},
+                ],
+                columnDefs: [
+                    {targets: 4, 
+                        className: 'text-center align-middle',
+                        render: (data, type, row, meta) => {
+                        return `<div class="btn-group">
+                                     <button type="button"
+                                       class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="mdi mdi-chevron-down"></i>
+                                     </button>
+                                         <div class="dropdown-menu"
+                                           style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
+                                            <a class="dropdown-item btn"   wire:click='edit("${data}")'><i class=" fas fa-edit text-info"
+                                                   data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
+                                            <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                                title="Delete" wire:click='deleteConfirm("${data}")'><i
+                                                class="fas fa-trash-alt text-danger"></i></a>
+                                            </div>
+                                        </div>
+                                    `;
+                    }},
+                ],
+                 createdRow: (row, data, dataIndex) => {
+                    if(!data.is_active){
+                        $(row).addClass('table-danger'); // Bootstrap class merah
+                    }
+                },
+                 drawCallback: function(settings) {
+                    $('[data-toggle="tooltip"]').tooltip(); 
+                }
+            });
+
+            // Pindahkan tombol ke div custom
+            table.buttons().container().appendTo('#custom-buttons');
+        }
+        
+
+  
 </script>
 @endpush
