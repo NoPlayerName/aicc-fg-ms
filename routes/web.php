@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Master\Pallet\PalletController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\MasterData\MasterCustomer;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware(['auth', 'permission'])->group(function () {
+Route::middleware(['auth:web', 'permission'])->group(function () {
     Route::prefix('/')->name('')->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::prefix('transaksi')->name('transaksi.')->group(function () {
@@ -28,10 +29,14 @@ Route::middleware(['auth', 'permission'])->group(function () {
             Route::get('/data-produk', MasterProduk::class)->name('produk.index');
             Route::get('/rack', Rack::class)->name('rack.index');
             Route::get('/master-pallet', MasterPallet::class)->name('master-pallet.index');
+            Route::get('/master-pallet', MasterPallet::class)->name('master-pallet.index');
+            Route::get('/master-pallet/data', [PalletController::class, 'getData'])->name('master-pallet.data');
         });
         Route::get('stock-change', StockChange::class)->name('stock.change.index');
         Route::get('pallet-data', PalletData::class)->name('pallet.data.index');
     });
 });
+
+
 
 require __DIR__ . '/auth.php';

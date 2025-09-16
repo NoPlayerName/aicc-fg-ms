@@ -2,22 +2,57 @@
 
 namespace App\Http\Livewire\MasterData\Pallet;
 
+use App\Exports\ExcelExport;
+use App\Http\Livewire\BaseLivewireComponent;
+use App\Models\Pallet\Pallet;
+use App\Services\Master\PalletService;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
-class MasterPallet extends Component
+class MasterPallet extends BaseLivewireComponent
 {
-    public function deleteConfirm($id){
-        $this->dispatch('delete-confirm', id : $id);
-        
+    public $form = [
+        'pallet_no'   => '',
+        'name' => '',
+        'pallet_type' => '',
+        'color'       => '',
+        'is_active'   => true,
+    ];
+
+    public function edit($id)
+    {
+        $this->form = app(PalletService::class)->getPalletById($id);
+
+        $this->dispatch('editForm', data: $this->form, id: $id)->to(FormEditPallet::class);
     }
-  
+
+
+    public function deleteConfirm($id)
+    {
+        $this->dispatch('delete-confirm', id: $id);
+    }
+
+
+
     public function delete($id)
     {
-        dd($id);
-        // kirim event feedback ke frontend
-        // $this->dispatch('deleted');
+
+        app(PalletService::class)->deletePallet($id);
     }
+
+    public function exportExcel()
+    {
+        $columns = ['pallet_no', 'name', 'pallet_type', 'color'];
+        $head = ['Pallet Number', 'Pallet Name', 'Pallet Type', 'Color'];
+        $data = app(PalletService::class)->getPalletActive();
+
+        // dd($data);
+
+        return Excel::download(new ExcelExport($data, $columns, $head), 'Pallet.xlsx');
+    }
+
+
     public function render()
     {
         return view('livewire.master-data.pallet.master-pallet');
