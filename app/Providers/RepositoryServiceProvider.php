@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Pallet\PalletRepository;
 use App\Repositories\Pallet\PalletRepositoryInterface;
+use App\Repositories\Rack\RackRepository;
+use App\Repositories\Rack\RackRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -13,9 +15,14 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(
-            PalletRepositoryInterface::class, PalletRepository::class
-        );
+        $bindings = [
+            PalletRepositoryInterface::class => PalletRepository::class,
+            RackRepositoryInterface::class => RackRepository::class,
+        ];
+
+        foreach ($bindings as $interface => $implementation) {
+            $this->app->bind($interface, $implementation);
+        }
     }
 
     /**
