@@ -12,7 +12,7 @@ abstract class BaseLivewireComponent extends Component
      * Route atau identifier menu untuk permission.
      * Bisa di-override manual di child component.
      */
-    protected string $routeName = '';
+    public string $routeName = '';
 
     /**
      * Mount base permission.
@@ -40,9 +40,15 @@ abstract class BaseLivewireComponent extends Component
     /**
      * Cek permission
      */
-    public function can( string $access = 'can_access'): bool
+    public function can(string $access = 'can_access'): bool
     {
+
         $user = Auth::user();
+        \Log::info('Livewire can() called', [
+            'user'      => $user?->id,
+            'routeName' => $this->routeName,
+            'access'    => $access,
+        ]);
         if (!$user || !$this->routeName) return false;
 
         return PermissionService::can($user, $this->routeName, $access);
