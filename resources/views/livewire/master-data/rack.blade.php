@@ -40,8 +40,7 @@
                     {{-- <h4 class="card-title">Stock</h4> --}}
 
                     <div class="mb-3 d-flex justify-content-start">
-                        <button class="btn btn-primary btn-md mr-2" wire:click="openModal"><i
-                                class="far fa-plus-square"></i> Add
+                        <button class="btn btn-primary btn-md mr-2"><i class="far fa-plus-square"></i> Add
                             Rack</button>
                         <div id="custom-buttons"></div>
                     </div>
@@ -53,28 +52,16 @@
                                     <th>Rack No</th>
                                     <th>Part No</th>
                                     <th>Product Code</th>
-                                    <th>Pallet No</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>A101</td>
-                                    <td>1411110550</td>
-                                    <td>CARRIER 0550</td>
-                                    <td>-</td>
+                                @foreach ($dataRack as $dtR)
+                                <tr class="{{ $dtR->status->cssClass()}}">
+                                    <td>{{@$dtR->rack_no}}</td>
+                                    <td>{{@$dtR->part_no}}</td>
+                                    <td>{{@$dtR->product_code}}</td>
                                 </tr>
-                                <tr>
-                                    <td>A101</td>
-                                    <td>1411110550</td>
-                                    <td>CARRIER 0550</td>
-                                    <td>-</td>
-                                </tr>
-                                <tr>
-                                    <td>A101</td>
-                                    <td>1411110550</td>
-                                    <td>CARRIER 0550</td>
-                                    <td>-</td>
-                                </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -100,11 +87,6 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
-
-{{-- datatable init js --}}
-{{-- <script src={{ asset('assets/js/pages/datatables.init.js') }}></script> --}}
-{{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
-
 <script>
     $(document).on("livewire:init", () => {
             initTable();
@@ -119,13 +101,16 @@
                 // searching: false,
                 responsive: true,
                 autoWidth: false,
-                dom:  "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
-                    "<'row'<'col-sm-12'tr>>" +           // baris 2: tabel
+                dom:  "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + 
+                    "<'row'<'col-sm-12'tr>>" +           
                     "<'row'<'col-sm-5'i><'col-sm-7'p>>",
                 buttons: [{
                         extend: 'excel',
                         className: 'btn btn-success',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel'
+                        text: '<i class="fas fa-file-excel"></i> Export Excel',
+                        action: () => {
+                            @this.call('exportExcel')
+                        }
                     },
 
                 ]
