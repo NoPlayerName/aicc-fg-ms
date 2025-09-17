@@ -7,6 +7,7 @@ use App\Http\Livewire\BaseLivewireComponent;
 use App\Models\Pallet\Pallet;
 use App\Services\Master\PalletService;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,9 +20,22 @@ class MasterPallet extends BaseLivewireComponent
         'color'       => '',
         'is_active'   => true,
     ];
+    public function mount()
+    {
+        $this->mountBase();
+        if (!$this->can('can_access')) {
+            session()->flash('no_permission', 'You no Have Permission');
+            return redirect()->route('dashboard');
+        }
+    }
 
     public function edit($id)
     {
+        if (!$this->can('can_edit')) {
+
+            $this->dispatch('no_permission', message: 'You no Have Permission');
+            return;
+        }
         $this->form = app(PalletService::class)->getPalletById($id);
 
         $this->dispatch('editForm', data: $this->form, id: $id)->to(FormEditPallet::class);
@@ -30,6 +44,10 @@ class MasterPallet extends BaseLivewireComponent
 
     public function deleteConfirm($id)
     {
+        if (!$this->can('can_delete')) {
+            $this->dispatch('no_permission', message: 'You no Have Permission');
+            return;
+        }
         $this->dispatch('delete-confirm', id: $id);
     }
 
@@ -37,7 +55,10 @@ class MasterPallet extends BaseLivewireComponent
 
     public function delete($id)
     {
-
+        if (!$this->can('can_delete')) {
+            $this->dispatch('no_permission', message: 'You no Have Permission');
+            return;
+        }
         app(PalletService::class)->deletePallet($id);
     }
 
@@ -52,7 +73,7 @@ class MasterPallet extends BaseLivewireComponent
         return Excel::download(new ExcelExport($data, $columns, $head), 'Pallet.xlsx');
     }
 
-
+    #[Title('Master Pallet')]
     public function render()
     {
         return view('livewire.master-data.pallet.master-pallet');
