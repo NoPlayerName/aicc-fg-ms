@@ -41,7 +41,7 @@ class ExcelExport implements FromCollection, WithHeadings, WithMapping
     {
         return collect($this->columns)->map(function ($column) use ($row) {
             // $value = data_get($row, $column);
-            $value = $row->{$column} ?? null;
+            $value = $row->{$column} ?? '-';
 
             if (is_object($value) && method_exists($value, 'title')) {
                 return $value->title();
