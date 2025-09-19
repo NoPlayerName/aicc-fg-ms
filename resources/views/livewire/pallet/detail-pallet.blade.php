@@ -3,7 +3,9 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detail-pallet-label">Detail stock {{ $id }}</h5>
+                <h5 class="modal-title" id="detail-pallet-label">Detail Pallet for {{ $customer }} {{ $type }} {{ $color
+                    }}
+                </h5>
                 {{-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> --}}
             </div>
             <div class="modal-body">
@@ -15,85 +17,22 @@
 
                                 <thead>
                                     <tr>
-
                                         <th>Pallet No</th>
                                         <th>Product</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @forelse($data as $dt)
                                     <tr>
-
-                                        <td>1004</td>
-                                        <td>CARRIER</td>
-
+                                        <td>{{ $dt->pallet_no ?? '-' }}</td>
+                                        <td>{{ $dt->product ?? '-' }}</td>
                                     </tr>
+                                    @empty
                                     <tr>
-
-                                        <td>1017</td>
-                                        <td>HUB M581</td>
-
+                                        <td colspan="2" class="text-center">No data available</td>
                                     </tr>
-                                    <tr>
+                                    @endforelse
 
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
-                                    <tr>
-
-                                        <td>1047</td>
-                                        <td>CARRIER EW021 17H</td>
-
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -105,8 +44,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-light waves-effect" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-success waves-effect" wire:click="exportExccel"><i
-                        class="fas fa-file-excel"></i> Export
-                    Excel</button>
+                        class="fas fa-file-excel"></i> Export Excel</button>
             </div>
         </div>
     </div>
