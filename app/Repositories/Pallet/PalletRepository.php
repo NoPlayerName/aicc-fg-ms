@@ -39,4 +39,24 @@ class PalletRepository implements PalletRepositoryInterface
         $pallet->delete();
         return $pallet;
     }
+
+    public function getCustomerPallet()
+    {
+        $query = Pallet::selectRaw('COUNT(id) as amount, pallet_type, color, customer')
+            ->where('is_active', true)
+            ->groupBy('pallet_type', 'color', 'customer')
+            ->orderByRaw('customer IS NOT NULL, customer ASC')
+            ->get();
+
+        return $query;
+    }
+
+    public function getPalletByFilter($palletType, $color, $customer)
+    {
+        return Pallet::where('is_active', true)
+            ->where('pallet_type', $palletType)
+            ->Where('color', $color)
+            ->Where('customer', $customer)
+            ->get();
+    }
 }
