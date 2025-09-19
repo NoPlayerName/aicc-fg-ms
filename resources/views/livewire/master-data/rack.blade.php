@@ -54,15 +54,6 @@
                                     <th>Product Code</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($dataRack as $dtR)
-                                <tr class="{{ $dtR->status->cssClass()}}">
-                                    <td>{{@$dtR->rack_no}}</td>
-                                    <td>{{@$dtR->part_no}}</td>
-                                    <td>{{@$dtR->product_code}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -113,7 +104,20 @@
                         }
                     },
 
-                ]
+                ],
+                ajax: {
+                    url: "{{ route('master.rack.data') }}"
+                },
+                columns: [
+                    {data: 'rack_no',},
+                    {data: 'part_no'},
+                    {data: 'product_code'},
+                ],
+                 createdRow: (row, data) => {
+                    if (data.css_class) {
+                        $(row).addClass(data.css_class);
+                    }
+                }
             });
 
             // Pindahkan tombol ke div custom
