@@ -46,58 +46,13 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Pallet amount</th>
+                                    <th>Pallet ammount</th>
                                     <th>Pallet Type</th>
                                     <th>Color</th>
                                     <th>Customer</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
-
-                            <tbody>
-                                <tr>
-                                    <td>10</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td>AICC</td>
-                                    <td class="text-center align-middle"><a class="btn" data-toggle="modal"
-                                            data-target="#detail-pallet" wire:click="showDetail('8982887110')"><i
-                                                class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top"
-                                                title="View Detail"></i> </a></td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td>AICC</td>
-                                    <td class="text-center align-middle"><a class="btn" data-toggle="modal"
-                                            data-target="#detail-pallet" wire:click="showDetail('8982887110')"><i
-                                                class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top"
-                                                title="View Detail"></i> </a></td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td>AICC</td>
-                                    <td class="text-center align-middle"><a class="btn" data-toggle="modal"
-                                            data-target="#detail-pallet" wire:click="showDetail('8982887110')"><i
-                                                class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top"
-                                                title="View Detail"></i> </a></td>
-                                </tr>
-                                <tr>
-                                    <td>10</td>
-                                    <td>G5</td>
-                                    <td>SILVER</td>
-                                    <td>AICC</td>
-                                    <td class="text-center align-middle"><a class="btn" data-toggle="modal"
-                                            data-target="#detail-pallet" wire:click="showDetail('8982887110')"><i
-                                                class="fas fa-eye text-info" data-toggle="tooltip" data-placement="top"
-                                                title="View Detail"></i> </a></td>
-                                </tr>
-
-                            </tbody>
 
                         </table>
 
@@ -123,5 +78,10 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-<script src="{{ asset('assets/js/stock.js') }}"></script>
+<script>
+    window.routes = {
+        palletAmount: "{{ route('transaksi.customer.pallets.data') }}"
+    };
+</script>
+<script src="{{ asset('assets/js/pallet-amount.js') }}"></script>
 @endpush
