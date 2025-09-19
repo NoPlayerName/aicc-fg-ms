@@ -4,7 +4,6 @@ namespace App\Http\Livewire\MasterData;
 
 use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
-use App\Services\Master\RackService;
 use Livewire\Attributes\Title;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -19,13 +18,6 @@ class Rack extends BaseLivewireComponent
             session()->flash('no_permission', 'You no Have Permission');
             return redirect()->route('dashboard');
         }
-
-        $this->getData();
-    }
-
-    public function getData()
-    {
-        $this->dataRack = app(RackService::class)->getRack();
     }
 
     public function exportExcel()

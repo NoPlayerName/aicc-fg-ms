@@ -4,7 +4,7 @@ namespace App\Http\Livewire\MasterData\Pallet;
 
 use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
-use App\Models\Pallet\Pallet;
+use App\Models\Master\Pallet;
 use App\Services\Master\PalletService;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;

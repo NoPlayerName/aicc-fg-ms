@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Pallet\Pallet;
+use App\Models\Master\Pallet;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Console\Concerns\InteractsWithIO;

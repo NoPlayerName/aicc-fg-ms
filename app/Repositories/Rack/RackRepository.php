@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Rack;
 
-use App\Models\Rack\Rack;
+use App\Models\Master\Rack;
 
 class RackRepository implements RackRepositoryInterface
 {

@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Rack\RackGroup;
+use App\Models\Master\RackGroup;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Console\Concerns\InteractsWithIO;

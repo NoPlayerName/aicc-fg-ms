@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Pallet;
 
-use App\Models\Pallet\Pallet;
+use App\Models\Master\Pallet;
 
 class PalletRepository implements PalletRepositoryInterface
 {

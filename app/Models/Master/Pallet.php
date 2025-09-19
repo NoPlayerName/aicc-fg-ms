@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Pallet;
+namespace App\Models\Master;
 
 use App\Enums\StatusPalletEnums;
 use App\Models\BaseModel;
