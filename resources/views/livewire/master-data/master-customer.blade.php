@@ -54,25 +54,7 @@
                                     <th>Initial</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Angkasa Kilau Mentari</td>
-                                    <td>AKM</td>
-                                </tr>
-                                <tr>
-                                    <td>Braja Mukti Cakra</td>
-                                    <td>BMC</td>
-                                </tr>
-                                <tr>
-                                    <td>Hara</td>
-                                    <td>Hara</td>
-                                </tr>
-                                <tr>
-                                    <td>IAMI</td>
-                                    <td>IAMI</td>
-                                </tr>
 
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -125,7 +107,28 @@
                         text: '<i class="fas fa-file-excel"></i> Export Excel'
                     },
 
-                ]
+                ],
+                ajax: {
+                    url: "{{ route('master.customer.data') }}",
+                },
+                columns:[
+                    {data: 'customer_name',
+                        render: (data) => {
+                            return data ?? '-';
+                        } 
+                    },
+                    {
+                        data: 'initial',
+                        render: (data) => {
+                            return data ?? '-';
+                        }
+                    }
+                ],
+                 createdRow: (row, data, dataIndex) => {
+                    if(!data.is_active){
+                        $(row).addClass('table-danger'); // Bootstrap class merah
+                    }
+                },
             });
 
             // Pindahkan tombol ke div custom
