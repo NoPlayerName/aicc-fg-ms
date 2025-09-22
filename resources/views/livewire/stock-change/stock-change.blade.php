@@ -194,8 +194,7 @@ function iniTable() {
     table.buttons().container().appendTo("#custom-buttons");
 }
 
-Livewire.on("filter", (params) => {
-    console.log(params);
+Livewire.on("filter", () => {
     $("#datatable-buttons").DataTable().ajax.reload(null, false);
 });
 
