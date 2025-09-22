@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Master\Customer\CustomerController;
 use App\Http\Controllers\Master\Pallet\PalletController;
+use App\Http\Controllers\Transaction\Pallet\CustomerPalletsController;
 use App\Http\Controllers\Master\Rack\RackController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
@@ -9,7 +10,7 @@ use App\Http\Livewire\MasterData\MasterCustomer;
 use App\Http\Livewire\MasterData\Pallet\MasterPallet;
 use App\Http\Livewire\MasterData\MasterProduk;
 use App\Http\Livewire\MasterData\Rack;
-use App\Http\Livewire\Pallet\PalletData;
+use App\Http\Livewire\Pallet\Customerpallets;
 use App\Http\Livewire\StockChange\StockChange;
 use App\Http\Livewire\Transaksi\Stock\Stock;
 use App\Http\Livewire\Transaksi\StockOut\StockKeluar;
@@ -26,6 +27,7 @@ Route::middleware(['auth:web', 'permission'])->group(function () {
             Route::get('/data-stock', Stock::class)->name('stock.index');
             Route::get('/stock-keluar', StockKeluar::class)->name('stock.keluar.index');
             Route::get('/stock-masuk', StockMasuk::class)->name('stock.masuk.index');
+            Route::get('/customer-pallets', [CustomerPalletsController::class, 'getAmount'])->name('customer.pallets.data');
         });
         Route::prefix('master')->name('master.')->group(function () {
             Route::get('/data-customer', MasterCustomer::class)->name('customer.index');
@@ -38,7 +40,7 @@ Route::middleware(['auth:web', 'permission'])->group(function () {
             Route::get('/master-pallet/data', [PalletController::class, 'getData'])->name('master-pallet.data');
         });
         Route::get('stock-change', StockChange::class)->name('stock.change.index');
-        Route::get('pallet-data', PalletData::class)->name('pallet.data.index');
+        Route::get('customer-pallets', Customerpallets::class)->name('customer.pallets.index');
     });
 });
 

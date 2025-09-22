@@ -2,20 +2,29 @@
 
 namespace App\Http\Livewire\Pallet;
 
+use App\Exports\ExcelExport;
+use App\Services\Master\PalletService;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DetailPallet extends Component
 {
-      public $id;
-       #[On('show-detail')]
-    public function open($id)
+    public $type, $color, $customer, $data = [];
+    #[On('show-detail')]
+    public function open($type, $color, $customer)
     {
-        $this->id = $id;
+        $this->type = $type;
+        $this->color = $color;
+        $this->customer = $customer;
+
+        $this->data = app(PalletService::class)->getPalletByFilter($type, $color, $customer) ?? [];
     }
     public function exportExccel()
     {
-        dd('export');
+        $columns = ['pallet_no', 'product'];
+        $heading = ['Pallet Number', 'Product'];
+        return Excel::download(new ExcelExport($this->data, $columns, $heading), 'List Customer Pallet.xlsx');
     }
     public function render()
     {

@@ -45,4 +45,14 @@ class PalletService
     {
         return $this->palletRepository->delete($id);
     }
+
+    public function getCustomerPallet()
+    {
+        return $this->palletRepository->getCustomerPallet();
+    }
+
+    public function getPalletByFilter($type, $color, $customer)
+    {
+        return $this->palletRepository->getPalletByFilter($type, $color, $customer);
+    }
 }
