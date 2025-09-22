@@ -3,11 +3,11 @@
 namespace App\Http\Livewire\StockChange;
 
 use App\Exports\ExcelExport;
+use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Transaction\StockChangeService;
-use Livewire\Component;
 use Maatwebsite\Excel\Facades\Excel;
 
-class StockChange extends Component
+class StockChange extends BaseLivewireComponent
 {
 
     public $startDate;
@@ -16,18 +16,19 @@ class StockChange extends Component
 
     public function mount()
     {
+        $this->mountBase();
+        if (!$this->can('can_access')) {
+            session()->flash('no_permission', 'You no Have Permission');
+            return redirect()->route('dashboard');
+        }
+
         $this->startDate = now()->format('Y-m-d');
         $this->endDate   = now()->format('Y-m-d');
     }
 
     public function search()
     {
-        // dd($this->startDate, $this->endDate);
-        $this->dispatch('filter', [
-            'startData' => $this->startDate,
-            'endData' => $this->endDate,
-            'search' => $this->Search
-        ]);
+        $this->dispatch('filter');
     }
 
     public function export()
