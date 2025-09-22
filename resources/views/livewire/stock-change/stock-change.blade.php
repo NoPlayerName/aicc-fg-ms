@@ -47,31 +47,32 @@
                         </div>
                     </a>
 
-                    <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion">
+                    <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion"
+                        wire:ignore.self>
                         <div class="card-body">
-                            <form id="form-search" method="GET" enctype="multipart/form-data">
+                            <form id="form-search" wire:submit.prevent="search" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <div class="input-daterange input-group" data-provide="datepicker"
                                                 data-date-format="yyyy-mm-dd" data-date-autoclose="true">
                                                 <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="Start Date" id="s_start_date" />
+                                                    placeholder="Start Date" wire:model="startDate" id="s_start_date" />
                                                 <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="End Date" id="s_end_date" />
+                                                    placeholder="End Date" wire:model='endDate' id="s_end_date" />
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <input type="text" value="" name="search" id="search" placeholder="Search"
-                                                class="form-control">
+                                            <input type="text" value="" wire:model="Search" id="search"
+                                                placeholder="Search" class="form-control">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-4">
-                                        <button id="filter_btn" type="submit" form="form-search"
+                                        <button id="filter_btn" type="submit"
                                             class="btn btn-primary waves-effect waves-light">
                                             <i class="fas fa-search"></i> Search
                                         </button>
@@ -99,49 +100,15 @@
                                 <tr>
                                     <th>Form No</th>
                                     <th>Pallet No</th>
-                                    <th>Date</th>
                                     <th>Part No</th>
                                     <th>Produc Code</th>
                                     <th>Qty</th>
                                     <th>Cutomer</th>
+                                    <th>Created By</th>
                                     <th>Description</th>
+
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>8982887110</td>
-                                    <td>CARRIER; FINAL DRIVE</td>
-                                    <td>CARRIER 7110</td>
-                                    <td>100</td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>110</td>
-                                    <td>110</td>
-
-                                </tr>
-                                <tr>
-                                    <td>8982887110</td>
-                                    <td>CARRIER; FINAL DRIVE</td>
-                                    <td>CARRIER 7110</td>
-                                    <td>100</td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>110</td>
-                                    <td>110</td>
-
-                                </tr>
-                                <tr>
-                                    <td>8982887110</td>
-                                    <td>CARRIER; FINAL DRIVE</td>
-                                    <td>CARRIER 7110</td>
-                                    <td>100</td>
-                                    <td>10</td>
-                                    <td>0</td>
-                                    <td>110</td>
-                                    <td>110</td>
-
-                                </tr>
-                            </tbody>
                         </table>
 
                     </div>
@@ -165,5 +132,72 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
-<script src="{{ asset('assets/js/stock-change.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/stock-change.js') }}"></script> --}}
+<script>
+    $(document).on("livewire:navigated", () => {
+        iniTable();
+        $('.input-daterange input').datepicker({
+            format: "yyyy-mm-dd",
+            autoclose: true
+        }).on('changeDate', function() {
+            @this.set('startDate', $('#s_start_date').val());
+            @this.set('endDate', $('#s_end_date').val());
+        });
+    
+    });
+
+
+function iniTable() {
+    let table = $("#datatable-buttons").DataTable({
+        responsive: true,
+        autoWidth: true,
+        processing: true,
+         order: [],
+        dom:
+            "B" +
+            "<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
+            "<'row'<'col-sm-12'tr>>" + // baris 2: tabel
+            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+        buttons: [
+            {
+                extend: "excel",
+                className: "btn btn-success btn-mb",
+                text: '<i class="fas fa-file-excel"></i> Export Excel',
+                action: () => {
+                    @this.call('export')
+                }
+            },
+        ],
+        ajax: {
+            url: "{{ route('transaksi.stock.change.data') }}",
+            data : function (d) {
+                d.startDate = @this.get('startDate') ?? null;
+                d.endDate = @this.get('endDate') ?? null;
+                d.search = @this.get('Search') ?? null;
+            }
+        },
+        columns: [
+            {data: 'form_no', orderable: false},
+            {data: 'pallet_no', orderable: false},
+            {data: 'product_code', orderable: false},
+            {data: 'part_no', orderable: false},
+            {data: 'qty', orderable: false, render: (data) => {
+                return parseInt(data);
+            }},
+            {data: 'customer', orderable: false},
+            {data: 'created_by', orderable: false},
+            {data: 'desc', orderable: false},
+        ]
+    });
+
+    // Pindahkan tombol ke div custom
+    table.buttons().container().appendTo("#custom-buttons");
+}
+
+Livewire.on("filter", (params) => {
+    console.log(params);
+    $("#datatable-buttons").DataTable().ajax.reload(null, false);
+});
+
+</script>
 @endpush
