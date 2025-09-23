@@ -2,35 +2,70 @@
 
 namespace App\Http\Livewire\Transaksi\StockIn;
 
+use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Permission\PermissionService;
+use App\Services\Transaction\StockInService;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-class StockMasuk extends Component
+class StockMasuk extends BaseLivewireComponent
 {
 
     public $typeForm;
     public $canAccess =  false;
+    public $startDate;
+    public $endDate;
+    public $searchKey;
 
     protected $listeners = ['refresh' => 'refreshTable'];
 
+    public function mount()
+    {
+        $this->mountBase();
+        if (!$this->can('can_access')) {
+            session()->flash('no_permission', 'You no Have Permission');
+            return redirect()->route('dashboard');
+        }
+
+        $this->startDate = now()->format('Y-m-d');
+        $this->endDate   = now()->format('Y-m-d');
+        $this->dispatch('filter', filter: [
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'search' => $this->searchKey,
+        ]);
+    }
+    public function updated($property, $value)
+    {
+        // Hanya trigger jika properti ini yang berubah
+        if (in_array($property, ['startDate', 'endDate', 'searchKey'])) {
+            $this->search();
+        }
+    }
     public function openModal()
     {
-        // $this->typeForm = $id;
         $this->dispatch('openModalSNP');
-        // $this->dispatch('refreshTableSNP');
     }
+
     public function refreshTable()
     {
         $this->dispatch('refreshTableSNP');
     }
 
-
-    public function mount()
+    public function search()
     {
-        // $this->canAccess = PermissionService::userHasPermission(1);
+        $this->dispatch('filter', filter: [
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'search' => $this->searchKey,
+        ]);
     }
 
+    public function editShow($id)
+    {
+        $data = app(StockInService::class)->getId($id);
+
+        $this->dispatch('formUpdate', data: $data, id: $id)->to(FormUpdate::class);
+    }
 
     #[Title('Stock In')]
     public function render()
