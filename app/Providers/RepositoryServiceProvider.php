@@ -10,6 +10,8 @@ use App\Repositories\Rack\RackRepository;
 use App\Repositories\Rack\RackRepositoryInterface;
 use App\Repositories\StockChange\StockChangeRepository;
 use App\Repositories\StockChange\StockChangeRepositoryInterface;
+use App\Repositories\Transaction\StockIn\StockInRepository;
+use App\Repositories\Transaction\StockIn\StockInRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -23,7 +25,8 @@ class RepositoryServiceProvider extends ServiceProvider
             PalletRepositoryInterface::class => PalletRepository::class,
             RackRepositoryInterface::class => RackRepository::class,
             CustomerRepositoryInterface::class => CustomerRepository::class,
-            StockChangeRepositoryInterface::class => StockChangeRepository::class
+            StockChangeRepositoryInterface::class => StockChangeRepository::class,
+            StockInRepositoryInterface::class => StockInRepository::class
         ];
 
         foreach ($bindings as $interface => $implementation) {
