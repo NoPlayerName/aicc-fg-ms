@@ -6,6 +6,7 @@ use App\Http\Controllers\Transaction\Pallet\CustomerPalletsController;
 use App\Http\Controllers\Master\Rack\RackController;
 use App\Http\Controllers\Transaction\StockChange\StockChangeController;
 use App\Http\Controllers\Transaction\StockIn\StockInController;
+use App\Http\Controllers\Transaction\StockOut\StockOutController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\MasterData\MasterCustomer;
@@ -33,6 +34,8 @@ Route::middleware(['auth:web', 'permission'])->group(function () {
             Route::get('/stock-change/data', [StockChangeController::class, 'filterData'])->name('stock.change.data');
             Route::get('/stock-in/data', [StockInController::class, 'getData'])->name('stock.in.data');
             Route::get('/stock-in/data-summary', [StockInController::class, 'getSummary'])->name('stock.in.data-summary');
+            Route::get('/stock-out/data', [StockOutController::class, 'getData'])->name('stock.out.data');
+            Route::get('/stock-out/data-summary', [StockOutController::class, 'getSummary'])->name('stock.out.data-summary');
         });
         Route::prefix('master')->name('master.')->group(function () {
             Route::get('/data-customer', MasterCustomer::class)->name('customer.index');
