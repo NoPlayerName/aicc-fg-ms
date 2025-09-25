@@ -46,6 +46,7 @@ class StockOutService
 
         $data = array_merge($data, [
             'created_by' => auth()->user()->usr,
+            'created_at' => now(),
         ]);
 
         if ($update) {
