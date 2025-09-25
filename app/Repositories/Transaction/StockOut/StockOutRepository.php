@@ -4,6 +4,7 @@ namespace App\Repositories\Transaction\StockOut;
 
 use App\Enums\StatusStockEnums;
 use App\Models\Transaction\StockOut;
+use Carbon\Carbon;
 
 class StockOutRepository implements StockOutRepositoryInterface
 {
@@ -28,7 +29,7 @@ class StockOutRepository implements StockOutRepositoryInterface
     public function getSummary($data)
     {
         $query = StockOut::selectRaw('part_no, part_name, SUM(qty) as Qty')->when($data->startDate && $data->endDate, function ($q) use ($data) {
-            $q->whereBetween('created_at', [$data->startDate, $data->endDate]);
+            $q->whereBetween('created_at', [Carbon::parse($data->startDate)->startOfDay(), Carbon::parse($data->endDate)->endOfDay()]); //$q->whereBetween('created_at', [$data->startDate, $data->endDate]);
         })->when($data->search, function ($q) use ($data) {
             $q->where(function ($q2) use ($data) {
                 $q2->where('part_no', 'like', '%' . $data->search . '%')

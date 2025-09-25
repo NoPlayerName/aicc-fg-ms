@@ -5,13 +5,14 @@ namespace App\Repositories\Transaction\StockIn;
 use App\Enums\StatusStockEnums;
 use App\Models\Master\Rack;
 use App\Models\Transaction\StockIn;
+use Carbon\Carbon;
 
 class StockInRepository implements StockInRepositoryInterface
 {
     public function getData($data)
     {
         $data = StockIn::when($data->startDate && $data->endDate, function ($q) use ($data) {
-            $q->whereBetween('created_at', [$data->startDate, $data->endDate]);
+            $q->whereBetween('created_at', [[Carbon::parse($data->startDate)->startOfDay(), Carbon::parse($data->endDate)->endOfDay()]]);
         })->where('status', StatusStockEnums::In->value)
             ->when($data->search, function ($q) use ($data) {
                 $q->where('part_no', 'like', '%' . $data->search . '%')
