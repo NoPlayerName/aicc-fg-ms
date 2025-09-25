@@ -74,21 +74,7 @@ $(document).on("livewire:navigated", () => {
 // =======================
 // TAB SWITCH (Bootstrap)
 // =======================
-$('a[data-bs-toggle="tab"]').on("show.bs.tab", (e) => {
-    let target = $(e.target).attr("href");
-    if (target === "#stock-in") {
-        $("#custom-buttons-summary").addClass("d-none");
-        $("#custom-buttons-stockin").removeClass("d-none");
-    } else if (target === "#summary") {
-        $("#custom-buttons-stockin").addClass("d-none");
-        $("#custom-buttons-summary").removeClass("d-none");
-    }
-});
-
-// =======================
-// TAB SWITCH (Bootstrap)
-// =======================
-$('a[data-bs-toggle="tab"]').on("show.bs.tab", (e) => {
+$('a[data-toggle="tab"]').on("show.bs.tab", (e) => {
     let target = $(e.target).attr("href");
     if (target === "#stock-in") {
         $("#custom-buttons-summary").addClass("d-none");
