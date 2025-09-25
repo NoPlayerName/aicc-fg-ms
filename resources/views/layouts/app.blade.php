@@ -71,6 +71,9 @@
             Livewire.on('no_permission', (e) => {
                 toastr.error(e.message);
             })
+            Livewire.on('success', (e) => {
+                toastr.success(e.message);
+            })
         });
     </script>
 

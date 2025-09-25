@@ -26,6 +26,7 @@ class StockOutSeeder extends Seeder
                 'qty'        => $item->qty,
                 'rack_no'    => $item->norak,
                 'desc'       => $item->ket,
+                'customer'   => $item->customer == 'Mesin Isuzu Indonesia' ? 'MESIN ISUZU INDONESIA, PT' : $item->customer,
                 'created_by' => $item->createuser,
                 'created_at' => $item->createdatetime,
             ]);

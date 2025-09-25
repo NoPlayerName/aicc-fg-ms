@@ -9,7 +9,7 @@ class StockIn extends BaseModel
 {
     protected $table = 'tb_stock_in';
 
-    protected $cast = [
+    protected $casts = [
         'status' => StatusStockEnums::class,
         'qty' => 'integer',
     ];
