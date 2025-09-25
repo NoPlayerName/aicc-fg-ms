@@ -27,4 +27,9 @@ class StockChangeRepository implements StockChangeRepositoryInterface
 
         return $data;
     }
+
+    public function create($data)
+    {
+        return StockChange::create($data);
+    }
 }
