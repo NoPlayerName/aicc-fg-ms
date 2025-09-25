@@ -1,5 +1,5 @@
 <div wire:ignore.self class="modal fade" id="form-update" data-backdrop="static" role="dialog" tabindex="-1"
-    aria-labelledby="modal-form-snp-label" aria-hidden="true">
+    aria-labelledby="modal-form-snp-label">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,13 +12,13 @@
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Pallet No</label>
-                            <input type="text" wire:model.defer="pallet_no" class="form-control"
+                            <input type="text" wire:model="form.pallet_no" disabled class="form-control"
                                 placeholder="Pallet Number">
                         </div>
 
                         <div class="col-lg-6 form-group">
                             <label>Part No</label>
-                            <input type="text" wire:model.defer="part_no" class="form-control"
+                            <input type="text" wire:model="form.part_no" disabled class="form-control"
                                 placeholder="Part Number">
                         </div>
 
@@ -26,7 +26,8 @@
                             <label>Date</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" data-provide="datepicker"
-                                    data-date-format="dd M, yyyy" data-date-autoclose="true" placeholder="Date" />
+                                    wire:model='form.created_at' disabled data-date-format="dd M, yyyy"
+                                    data-date-autoclose="true" placeholder="Date" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
@@ -35,22 +36,42 @@
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Part Name</label>
-                            <input type="text" wire:model.defer="part_name" disabled class="form-control"
+                            <input type="text" wire:model="form.part_name" disabled class="form-control"
                                 placeholder="Part Name">
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Qty</label>
-                            <input type="number" wire:model.defer="qty" disabled class="form-control" min="0"
+                            <input type="number" wire:model="form.qty" disabled class="form-control" min="0"
                                 placeholder="0">
+                        </div>
+                        <div class="col-lg-6" wire:ignore>
+                            <div class="form-group">
+                                <label class="control-label">Customer</label>
+                                <select class="form-control select2 @error('form.customer')
+                                    is-invalid                                    
+                                @enderror" id="selectCust" wire:model="form.customer" style="width: 100%;">
+                                    <option>Select</option>
+                                    @foreach ($dataCustomer as $cust )
+                                    <option value="{{$cust->customer_name}}">{{$cust->customer_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('form.customer')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Form No</label>
-                            <input type="text" wire:model.defer="form_no" class="form-control"
-                                placeholder="Form Number">
+                            <input type="text" wire:model="form.form_no" class="form-control @error('form.form_no')
+                                is-invalid                                
+                            @enderror" placeholder="Form Number">
+                            @error('form.form_no')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Description</label>
-                            <textarea id="textarea" class="form-control" maxlength="225" rows="3"
+                            <textarea id="textarea" wire:model="form.desc" class="form-control" maxlength="225" rows="3"
                                 placeholder="Description"></textarea>
                         </div>
 
