@@ -14,6 +14,7 @@ function initTable(selector, selectorButton, column) {
         responsive: true,
         autoWidth: false,
         processing: true,
+        serverSide: true,
         order: [],
         dom:
             "B" +
