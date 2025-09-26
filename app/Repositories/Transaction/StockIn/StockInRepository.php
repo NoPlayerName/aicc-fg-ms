@@ -20,7 +20,7 @@ class StockInRepository implements StockInRepositoryInterface
                     ->orWhere('pallet_no', 'like', '%' . $data->search . '%')
                     ->orWhere('desc', 'like', '%' . $data->search . '%')
                     ->orWhere('rack_no', 'like', '%' . $data->search . '%');
-            })->get();
+            });
 
         return $data;
     }
