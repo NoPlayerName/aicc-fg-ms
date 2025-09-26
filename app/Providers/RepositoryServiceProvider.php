@@ -6,6 +6,8 @@ use App\Repositories\Pallet\PalletRepository;
 use App\Repositories\Pallet\PalletRepositoryInterface;
 use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Customer\CustomerRepositoryInterface;
+use App\Repositories\Product\ProductRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Rack\RackRepository;
 use App\Repositories\Rack\RackRepositoryInterface;
 use App\Repositories\StockChange\StockChangeRepository;
@@ -29,7 +31,8 @@ class RepositoryServiceProvider extends ServiceProvider
             CustomerRepositoryInterface::class => CustomerRepository::class,
             StockChangeRepositoryInterface::class => StockChangeRepository::class,
             StockInRepositoryInterface::class => StockInRepository::class,
-            StockOutRepositoryInterface::class => StockOutRepository::class
+            StockOutRepositoryInterface::class => StockOutRepository::class,
+            ProductRepositoryInterface::class => ProductRepository::class
         ];
 
         foreach ($bindings as $interface => $implementation) {
