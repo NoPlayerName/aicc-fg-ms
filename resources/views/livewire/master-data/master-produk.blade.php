@@ -42,86 +42,18 @@
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
                         <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                            style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                            data-url="{{ route('master.produk.data')}}">
                             <thead>
                                 <tr>
                                     <th>Part No</th>
                                     <th>Part Name</th>
-                                    <th>Product Code</th>
-                                    <th>Initial</th>
-                                    <th>Group</th>
-                                    <th>Beginning stock</th>
                                     <th>SNP</th>
                                     <th>Minimum Stock</th>
                                     <th>Maximum Stock</th>
                                     <th>Group Rack</th>
                                 </tr>
                             </thead>
-
-
-                            <tbody>
-                                <tr>
-                                    <td>41113928A0</td>
-                                    <td>BEARING CAP 13H</td>
-                                    <td>BEARING CAP 28A0 13H</td>
-                                    <td>B CAP 13H</td>
-                                    <td>HINO</td>
-                                    <td>0</td>
-                                    <td>500</td>
-                                    <td>500</td>
-                                    <td>1500</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>41113928A0</td>
-                                    <td>BEARING CAP 13H</td>
-                                    <td>BEARING CAP 28A0 13H</td>
-                                    <td>B CAP 13H</td>
-                                    <td>HINO</td>
-                                    <td>0</td>
-                                    <td>500</td>
-                                    <td>500</td>
-                                    <td>1500</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>41113928A0</td>
-                                    <td>BEARING CAP 13H</td>
-                                    <td>BEARING CAP 28A0 13H</td>
-                                    <td>B CAP 13H</td>
-                                    <td>HINO</td>
-                                    <td>0</td>
-                                    <td>500</td>
-                                    <td>500</td>
-                                    <td>1500</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>41113928A0</td>
-                                    <td>BEARING CAP 13H</td>
-                                    <td>BEARING CAP 28A0 13H</td>
-                                    <td>B CAP 13H</td>
-                                    <td>HINO</td>
-                                    <td>0</td>
-                                    <td>500</td>
-                                    <td>500</td>
-                                    <td>1500</td>
-                                    <td>3</td>
-                                </tr>
-                                <tr>
-                                    <td>41113928A0</td>
-                                    <td>BEARING CAP 13H</td>
-                                    <td>BEARING CAP 28A0 13H</td>
-                                    <td>B CAP 13H</td>
-                                    <td>HINO</td>
-                                    <td>0</td>
-                                    <td>500</td>
-                                    <td>500</td>
-                                    <td>1500</td>
-                                    <td>3</td>
-                                </tr>
-
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -147,6 +79,7 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('assets/js/product.js') }}"></script>
 
 
 {{-- datatable init js --}}
@@ -154,35 +87,5 @@
 {{-- <script src="{{ asset('assets/js/app.js') }}"></script> --}}
 
 
-<script>
-    $(document).on("livewire:init", () => {
-            initTable();
-            Livewire.on('open-modal', () => {
-                $('#productModal').modal('show');
-            });
-        });
 
-        function initTable() {
-
-            let table = $('#datatable-buttons').DataTable({
-                // searching: false,
-                responsive: true,
-                autoWidth: false,
-                dom: "B"+"<'row'<'col-sm-6 mt-2'l><'col-sm-6'f>>" + // baris 1: kiri = show entries, kanan = search
-                    "<'row'<'col-sm-12'tr>>" +           // baris 2: tabel
-                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-                buttons: [{
-                        extend: 'excel',
-                        className: 'btn btn-success btn-mb',
-                        text: '<i class="fas fa-file-excel"></i> Export Excel',
-                       
-                    },
-
-                ]
-            });
-
-            // Pindahkan tombol ke div custom
-            table.buttons().container().appendTo('#custom-buttons');
-        }
-</script>
 @endpush
