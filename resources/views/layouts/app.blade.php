@@ -74,6 +74,9 @@
             Livewire.on('success', (e) => {
                 toastr.success(e.message);
             })
+            Livewire.on('error', (e) => {
+                toastr.error(e.message);
+            })
         });
     </script>
 
