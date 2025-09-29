@@ -12,6 +12,8 @@ use App\Repositories\Rack\RackRepository;
 use App\Repositories\Rack\RackRepositoryInterface;
 use App\Repositories\StockChange\StockChangeRepository;
 use App\Repositories\StockChange\StockChangeRepositoryInterface;
+use App\Repositories\Transaction\Stock\StockRepository;
+use App\Repositories\Transaction\Stock\StockRepositoryInterface;
 use App\Repositories\Transaction\StockIn\StockInRepository;
 use App\Repositories\Transaction\StockIn\StockInRepositoryInterface;
 use App\Repositories\Transaction\StockOut\StockOutRepository;
@@ -31,6 +33,7 @@ class RepositoryServiceProvider extends ServiceProvider
             CustomerRepositoryInterface::class => CustomerRepository::class,
             StockChangeRepositoryInterface::class => StockChangeRepository::class,
             StockInRepositoryInterface::class => StockInRepository::class,
+            StockRepositoryInterface::class => StockRepository::class,
             StockOutRepositoryInterface::class => StockOutRepository::class,
             ProductRepositoryInterface::class => ProductRepository::class
         ];
