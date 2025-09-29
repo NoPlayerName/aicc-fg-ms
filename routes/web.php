@@ -5,6 +5,7 @@ use App\Http\Controllers\Master\Pallet\PalletController;
 use App\Http\Controllers\Master\Product\ProductController;
 use App\Http\Controllers\Transaction\Pallet\CustomerPalletsController;
 use App\Http\Controllers\Master\Rack\RackController;
+use App\Http\Controllers\Transaction\Stock\StockController;
 use App\Http\Controllers\Transaction\StockChange\StockChangeController;
 use App\Http\Controllers\Transaction\StockIn\StockInController;
 use App\Http\Controllers\Transaction\StockOut\StockOutController;
@@ -29,6 +30,7 @@ Route::middleware(['auth:web', 'permission'])->group(function () {
         Route::get('/', Dashboard::class)->name('dashboard');
         Route::prefix('transaksi')->name('transaksi.')->group(function () {
             Route::get('/data-stock', Stock::class)->name('stock.index');
+            Route::get('/data-stock/data', [StockController::class, 'getData'])->name('stock.data');
             Route::get('/stock-keluar', StockKeluar::class)->name('stock.keluar.index');
             Route::get('/stock-masuk', StockMasuk::class)->name('stock.masuk.index');
             Route::get('/customer-pallets', [CustomerPalletsController::class, 'getAmount'])->name('customer.pallets.data');
