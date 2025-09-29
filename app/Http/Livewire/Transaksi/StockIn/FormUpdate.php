@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Transaksi\StockIn;
 
 use App\Http\Livewire\BaseLivewireComponent;
+use App\Services\Master\ProductService;
 use Livewire\Attributes\On;
 
 class FormUpdate extends BaseLivewireComponent
@@ -37,15 +38,25 @@ class FormUpdate extends BaseLivewireComponent
     {
         $data['qty'] = (int) $data['qty'];
         $this->form = $data;
-        // dd($this->form);
         $this->id = $id;
-        // dd($this->form);
         $this->dispatch('modalUpdate');
     }
 
-    public function updatedFormPartNo()
+    public function changePartNo()
     {
         $value = $this->form['part_no'];
+        $this->form['part_name'] = 'part baru ketika berubah';
+        // $data = app(ProductService::class)->getById($value);
+        // dd($data);
+        // foreach ($data->toArray() as $key => $val) {
+            
+        // }
+    }
+
+
+    public function save()
+    {
+        dd($this->form['part_name']);
     }
 
     public function render()

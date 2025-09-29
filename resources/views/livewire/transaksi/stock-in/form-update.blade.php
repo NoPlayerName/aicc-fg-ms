@@ -18,7 +18,7 @@
 
                         <div class="col-lg-6 form-group">
                             <label>Part No</label>
-                            <input type="text" wire:model="form.part_no" class="form-control" placeholder="Part Number"
+                            <input type="text" wire:model="form.part_no" wire:change='changePartNo' class="form-control" placeholder="Part Number"
                                 onchange="this.dispatchEvent(new InputEvent('input'))" />
                         </div>
 

@@ -28,19 +28,15 @@ class StockMasuk extends BaseLivewireComponent
 
         $this->startDate = now()->format('Y-m-d');
         $this->endDate   = now()->format('Y-m-d');
-        $this->dispatch('filter', filter: [
-            'startDate' => $this->startDate,
-            'endDate' => $this->endDate,
-            'search' => $this->searchKey,
-        ]);
+        $this->search();
     }
-    public function updated($property, $value)
-    {
-        // Hanya trigger jika properti ini yang berubah
-        if (in_array($property, ['startDate', 'endDate', 'searchKey'])) {
-            $this->search();
-        }
-    }
+    // public function updated($property, $value)
+    // {
+    //     // Hanya trigger jika properti ini yang berubah
+    //     if (in_array($property, ['startDate', 'endDate', 'searchKey'])) {
+    //         $this->search();
+    //     }
+    // }
     public function openModal()
     {
         $this->dispatch('openModalSNP');

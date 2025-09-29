@@ -18,4 +18,8 @@ class ProductService
     {
         return $this->productRepository->all();
     }
+
+    public function getById($part_no) {
+        return $this->productRepository->getById($part_no);
+    }
 }

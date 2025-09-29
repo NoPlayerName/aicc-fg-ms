@@ -26,5 +26,8 @@ class ProductRepository implements ProductRepositoryInterface
         return $data;
     }
 
-    public function getById($id) {}
+    public function getById($part_no) {
+        $query = Product::with('prodName')->where('part_no', $part_no)->first();
+        return $query;
+    }
 }
