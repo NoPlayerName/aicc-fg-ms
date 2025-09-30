@@ -28,6 +28,11 @@ function initTable(selector, selectorButton, column) {
                 filename: selector.replace("#datatable-", ""),
                 className: "btn btn-success btn-md",
                 text: '<i class="fas fa-file-excel"></i> Export Excel',
+                action: () => {
+                    Livewire.dispatch(
+                        selector.replace("#datatable-", "exportExcel-")
+                    );
+                },
             },
         ],
         ajax: {
@@ -109,6 +114,7 @@ Livewire.on("modalUpdate", () => {
 Livewire.on("saved", () => {
     $("#form-update").modal("hide");
     $("#modal-form-snp").modal("hide");
+    $("#modal-form-cso").modal("hide");
     if (tableStockIn) tableStockIn.ajax.reload(null, false);
     if (tableSummary) tableSummary.ajax.reload(null, false);
 });
@@ -116,6 +122,10 @@ Livewire.on("saved", () => {
 $("#part_no").on("change", function () {
     let val = $(this).val();
     Livewire.dispatch("changePart", { dataPrt: val });
+});
+$("#part_no_cso").on("change", function () {
+    let val = $(this).val();
+    Livewire.dispatch("changePartCso", { dataPrt: val });
 });
 
 // =======================

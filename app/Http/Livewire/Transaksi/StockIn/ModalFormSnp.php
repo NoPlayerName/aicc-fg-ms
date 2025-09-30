@@ -77,6 +77,7 @@ class ModalFormSnp extends Component
     public function save()
     {
         $this->validate();
+        $this->form['desc'] = $this->form['desc'] ? 'Part Trial' : 'Tidak SNP';
         $save = app(StockInService::class)->create($this->form);
         if (!$save) {
             $this->dispatch('error', message: 'Field to Save');

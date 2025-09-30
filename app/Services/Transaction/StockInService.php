@@ -76,7 +76,6 @@ class StockInService
     {
         $user = auth()->user()->usr;
         $form = array_merge($data, [
-            'desc' => $data['desc'] ? 'Part Trial' : 'Tidak SNP',
             'created_at' => now(),
             'created_by' => $user,
             'status' => StatusStockEnums::In->value
@@ -84,19 +83,24 @@ class StockInService
 
         $query =  $this->StockInRepository->createData($form);
         if ($query) {
-            $id = $data['rack_no'];
-            $dataRack = [
-                'part_no' => $data['part_no'],
-                'product_code' => $data['part_name'],
-                'status' => StatusRackEnums::Loaded->value,
-                'updated_at' => now(),
-            ];
-            $this->RackRepository->update($id, $dataRack);
-            $no = $data['pallet_no'];
-            $palletUpdate = [
-                'product' => $data['part_name'],
-            ];
-            $this->PalletRepository->updateByNo($no, $palletUpdate);
+            $id = $data['rack_no'] ?? null;
+            if ($id) {
+                $dataRack = [
+                    'part_no' => $data['part_no'],
+                    'product_code' => $data['part_name'],
+                    'status' => StatusRackEnums::Loaded->value,
+                    'updated_at' => now(),
+                ];
+                $this->RackRepository->update($id, $dataRack);
+            }
+
+            $no = $data['pallet_no'] ?? null;
+            if ($no) {
+                $palletUpdate = [
+                    'product' => $data['part_name'],
+                ];
+                $this->PalletRepository->updateByNo($no, $palletUpdate);
+            }
         }
         return $query;
     }
