@@ -59,4 +59,16 @@ class PalletRepository implements PalletRepositoryInterface
             ->Where('customer', $customer)
             ->get();
     }
+
+    public function getByNo($no)
+    {
+        return Pallet::where('pallet_no', $no)
+            ->where('is_active', 1)
+            ->whereNull('product')->first();
+    }
+
+    public function updateByNo($no, $data)
+    {
+        return Pallet::where('pallet_no', $no)->update($data);
+    }
 }

@@ -93,12 +93,12 @@
                 <div class="card-body">
                     <div class="mb-3 d-flex">
                         {{-- @if ($canAccess) --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-snp"><i
+                        <button class="btn btn-primary btn-md mr-2" wire:click="openModalSnp"><i
                                 class="fab fa-wpforms mr-2"></i>Form
                             Not
                             SNP</button>
                         {{-- @endif --}}
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#modal-form-cso"><i
+                        <button class="btn btn-primary btn-md mr-2" wire:click="openModalCso"><i
                                 class="fab fa-wpforms mr-2"></i>Form
                             CSO</button>
                         <div id="custom-buttons-stockin"></div>

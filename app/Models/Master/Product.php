@@ -14,13 +14,8 @@ class Product extends BaseModel
         'min_stock',
         'max_stock',
         'without_pallet',
-        'group_id',
+        'group',
     ];
-
-    public function group()
-    {
-        return $this->belongsTo(RackGroup::class, 'group_id');
-    }
 
     public function prodName()
     {

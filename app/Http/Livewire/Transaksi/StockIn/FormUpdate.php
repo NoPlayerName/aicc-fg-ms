@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Transaksi\StockIn;
 
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Master\ProductService;
+use App\Services\Transaction\StockInService;
 use Livewire\Attributes\On;
 
 class FormUpdate extends BaseLivewireComponent
@@ -45,18 +46,21 @@ class FormUpdate extends BaseLivewireComponent
     public function changePartNo()
     {
         $value = $this->form['part_no'];
-        $this->form['part_name'] = 'part baru ketika berubah';
-        // $data = app(ProductService::class)->getById($value);
-        // dd($data);
-        // foreach ($data->toArray() as $key => $val) {
-            
-        // }
+        $data = app(ProductService::class)->getById($value);
+        $this->form['part_name'] = $data->prodName?->part_name;
+        $this->form['qty'] = $data->std_packing;
     }
 
 
     public function save()
     {
-        dd($this->form['part_name']);
+        // $this->validate();
+        $form = $this->form;
+        $query = app(StockInService::class)->updateData($form, $this->id);
+        if ($query) {
+            $this->dispatch('saved');
+            $this->dispatch('success', message: 'Modify Successfully');
+        }
     }
 
     public function render()

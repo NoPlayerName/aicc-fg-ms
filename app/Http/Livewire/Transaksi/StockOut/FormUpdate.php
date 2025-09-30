@@ -59,7 +59,7 @@ class FormUpdate extends Component
         $data = app(StockOutService::class)->updateData($form, $this->id);
         if ($data) {
             $this->dispatch('saved');
-            $this->dispatch('success', message: 'Data Berhasil Diupdate');
+            $this->dispatch('success', message: 'Modify Successfully');
         }
     }
     public function render()

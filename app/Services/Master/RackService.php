@@ -45,4 +45,8 @@ class RackService
     {
         return $this->RackRepository->delete($id);
     }
+    public function getRandomRack($data)
+    {
+        return $this->RackRepository->getRandomRack($data);
+    }
 }

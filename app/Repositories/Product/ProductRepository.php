@@ -9,7 +9,7 @@ class ProductRepository implements ProductRepositoryInterface
     public function all()
     {
 
-        $query = Product::with(['group', 'prodName'])->get();
+        $query = Product::with('prodName')->get();
 
         $data = $query->map(function ($item) {
             return [
@@ -20,13 +20,14 @@ class ProductRepository implements ProductRepositoryInterface
                 'min_stock' => $item->min_stock ?? '-',
                 'max_stock' => $item->max_stock ?? '-',
                 'without_pallet' => $item->without_pallet ?? '-',
-                'group' => $item->group?->group ?? '-',
+                'group' => $item->group ?? '-',
             ];
         });
         return $data;
     }
 
-    public function getById($part_no) {
+    public function getById($part_no)
+    {
         $query = Product::with('prodName')->where('part_no', $part_no)->first();
         return $query;
     }

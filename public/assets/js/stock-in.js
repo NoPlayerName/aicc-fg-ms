@@ -95,11 +95,27 @@ Livewire.on("filter", (event) => {
 // =======================
 // OPTIONAL: MODAL HANDLER
 // =======================
-Livewire.on("storeSnp", () => {
-    $("#modal-form-snp").modal("hide");
+
+Livewire.on("showModalSnp", () => {
+    $("#modal-form-snp").modal("show");
+});
+Livewire.on("showModalCso", () => {
+    $("#modal-form-cso").modal("show");
 });
 Livewire.on("modalUpdate", () => {
     $("#form-update").modal("show");
+});
+
+Livewire.on("saved", () => {
+    $("#form-update").modal("hide");
+    $("#modal-form-snp").modal("hide");
+    if (tableStockIn) tableStockIn.ajax.reload(null, false);
+    if (tableSummary) tableSummary.ajax.reload(null, false);
+});
+
+$("#part_no").on("change", function () {
+    let val = $(this).val();
+    Livewire.dispatch("changePart", { dataPrt: val });
 });
 
 // =======================

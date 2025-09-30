@@ -22,5 +22,6 @@ class Rack extends BaseModel
         'part_no',
         'product_code',
         'status',
+        'updated_at',
     ];
 }

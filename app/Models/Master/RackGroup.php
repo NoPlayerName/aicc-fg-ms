@@ -13,9 +13,4 @@ class RackGroup extends BaseModel
         'group_rack',
         'priority',
     ];
-
-    public function product()
-    {
-        return $this->hasMany(Product::class, 'group_id');
-    }
 }

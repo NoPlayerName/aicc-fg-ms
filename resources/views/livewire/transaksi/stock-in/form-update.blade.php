@@ -8,7 +8,6 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="save">
-
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Pallet No</label>
@@ -18,16 +17,15 @@
 
                         <div class="col-lg-6 form-group">
                             <label>Part No</label>
-                            <input type="text" wire:model="form.part_no" wire:change='changePartNo' class="form-control" placeholder="Part Number"
-                                onchange="this.dispatchEvent(new InputEvent('input'))" />
+                            <input type="text" wire:model="form.part_no" wire:change='changePartNo' class="form-control"
+                                placeholder="Part Number" onchange="this.dispatchEvent(new InputEvent('input'))" />
                         </div>
 
                         <div class="col-lg-6 form-group mb-4">
                             <label>Date</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" wire:model.defer="form.created_at"
-                                    data-provide="datepicker" data-date-format="dd M, yyyy" data-date-autoclose="true"
-                                    placeholder="Date" disabled />
+                                    data-provide="datepicker" data-date-autoclose="true" placeholder="Date" disabled />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>

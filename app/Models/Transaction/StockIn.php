@@ -29,6 +29,6 @@ class StockIn extends BaseModel
 
     protected function serializeDate(\DateTimeInterface $date)
     {
-        return $date->format('d-m-Y H:i');
+        return $date->format('Y-m-d H:i');
     }
 }

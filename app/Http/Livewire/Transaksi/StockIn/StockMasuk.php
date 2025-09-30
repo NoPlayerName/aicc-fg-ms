@@ -37,10 +37,18 @@ class StockMasuk extends BaseLivewireComponent
     //         $this->search();
     //     }
     // }
-    public function openModal()
+
+    public function openModalSnp()
     {
-        $this->dispatch('openModalSNP');
+        $this->dispatch('showModalSnp');
+        $this->dispatch('resetFormSnp')->to(ModalFormSnp::class);
     }
+
+    public function openModalCso()
+    {
+        $this->dispatch('showModalCso');
+    }
+
 
     public function refreshTable()
     {

@@ -55,4 +55,9 @@ class PalletService
     {
         return $this->palletRepository->getPalletByFilter($type, $color, $customer);
     }
+
+    public function getByNo($no)
+    {
+        return $this->palletRepository->getByNo($no);
+    }
 }
