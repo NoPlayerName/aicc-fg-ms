@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Transaksi\StockOut;
 
+use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Transaction\StockOutService;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockKeluar extends BaseLivewireComponent
 {
@@ -44,6 +47,33 @@ class StockKeluar extends BaseLivewireComponent
         $data = app(StockOutService::class)->getId($id);
 
         $this->dispatch('formUpdate', data: $data, id: $id)->to(FormUpdate::class);
+    }
+
+    #[On('exportExcel-stockOut')]
+    public function export()
+    {
+        $form = (object) [
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'search' => $this->searchKey,
+        ];
+        $columns = ['pallet_no', 'created_at', 'part_no', 'part_name', 'qty', 'customer', 'rack_no', 'desc',];
+        $heading = ['Pallet No', 'Created At', 'Part No', 'Part Name', 'Qty', 'Customer', 'Rack No', 'Desc',];
+        $data = app(StockOutService::class)->getData($form);
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock Out_' . $this->startDate . '_' . $this->endDate . '.xlsx');
+    }
+    #[On('exportExcel-summary')]
+    public function exportSumamry()
+    {
+        $form = (object) [
+            'startDate' => $this->startDate,
+            'endDate' => $this->endDate,
+            'search' => $this->searchKey,
+        ];
+        $columns = ['part_no', 'part_name', 'Qty'];
+        $heading = ['Pallet No', 'Part Name', 'Qty'];
+        $data = app(StockOutService::class)->getSummary($form);
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Summary' . $this->startDate . '_' . $this->endDate . '.xlsx');
     }
 
     #[Title('Stock Out')]

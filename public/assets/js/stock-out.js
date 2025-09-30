@@ -24,10 +24,13 @@ function initTable(selector, selectorButton, column) {
         buttons: [
             {
                 extend: "excel",
-                title: selector.replace("#datatable-", ""),
-                filename: selector.replace("#datatable-", ""),
                 className: "btn btn-success btn-md",
                 text: '<i class="fas fa-file-excel"></i> Export Excel',
+                action: () => {
+                    Livewire.dispatch(
+                        selector.replace("#datatable-", "exportExcel-")
+                    );
+                },
             },
         ],
         ajax: {
