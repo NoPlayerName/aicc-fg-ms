@@ -2,15 +2,21 @@
 
 namespace App\Http\Livewire\MasterData;
 
+use App\Http\Livewire\BaseLivewireComponent;
 use Livewire\Attributes\Title;
-use Livewire\Component;
 
-class MasterCustomer extends Component
+class MasterCustomer extends BaseLivewireComponent
 {
-    public $id;
-    public $name;
-    public $initial;
+    public $customer;
 
+    public function mount()
+    {
+        $this->mountBase();
+        if (!$this->can('can_access')) {
+            session()->flash('no_permission', 'You no Have Permission');
+            return redirect()->route('dashboard');
+        }
+    }
 
     public function openModal()
     {

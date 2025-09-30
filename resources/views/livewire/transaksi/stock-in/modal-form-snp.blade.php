@@ -12,47 +12,67 @@
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Pallet No</label>
-                            <input type="text" wire:model.defer="pallet_no" class="form-control"
-                                placeholder="Paller Number">
+                            <input type="text" wire:model="form.pallet_no" class="form-control @error('form.pallet_no')
+                                is-invalid
+                            @enderror" placeholder="Paller Number" wire:change='changePallet'>
+                            @error('form.pallet_no')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" wire:ignore>
                             <div class="form-group">
                                 <label class="control-label">Part No</label>
-                                <select class="form-control select2" wire:model.defer="part_no" style="width: 100%;">
+                                <select class="form-control select2 @error('form.part_no') is-invalid
+                                @enderror" id="part_no" wire:model="form.part_no" wire:change='change'
+                                    style="width: 100%;">
                                     <option>Select</option>
-                                    <option value="AK">0779869698</option>
-                                    <option value="HI">4564577456</option>
-                                    <option value="CA">456474574</option>
-                                    <option value="NV">45645745234</option>
-                                    <option value="OR">23423623</option>
-                                    <option value="WA">2352534634</option>
-
+                                    @foreach ($dataPart as $item )
+                                    <option value="{{ $item['part_no'] }}">{{$item['part_no']}}</option>
+                                    @endforeach
                                 </select>
                             </div>
+                            @error('form.part_no')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-lg-6 form-group">
                             <label>Part Name</label>
-                            <input type="text" wire:model.defer="part_name" disabled class="form-control"
-                                placeholder="Part Name">
+                            <input type="text" wire:model="form.part_name" disabled class="form-control @error('form.part_name')
+                                is-invalid
+                            @enderror" placeholder="Part Name">
+                            @error('form.part_name')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Qty</label>
-                            <input type="number" wire:model.defer="qty" class="form-control" min="0" placeholder="0">
+                            <input type="number" wire:model.defer="form.qty" class="form-control @error('form.qty')
+                                is-invalid                                
+                            @enderror" min="0" placeholder="0">
+                            @error('form.qty')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Rack No</label>
-                            <input type="text" wire:model.defer="no_rak" class="form-control" placeholder="Rack Number">
+                            <input type="text" wire:model="form.rack_no" class="form-control @error('form.rack_no')
+                                is-invalid
+                            @enderror" placeholder="Rack Number">
+                            @error('form.rack_no')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-lg-4 form-group custom-control custom-checkbox custom-control-right ml-3 mt-4">
-                            <input type="checkbox" class="custom-control-input" id="customCheck2">
+                            <input type="checkbox" class="custom-control-input" wire:model.defer="form.desc"
+                                id="customCheck2">
                             <label class="custom-control-label" for="customCheck2">Part Trial</label>
                         </div>
                         {{--
                         <div class="col-lg-6 form-group">
                             <label>Part Trial</label>
-                            <input type="checkbox" wire:model.defer="part_trial" class="form-control">
+                            <input type="checkbox" wire:model.defer="form.part_trial" class="form-control">
                         </div> --}}
                     </div>
 

@@ -67,6 +67,16 @@
             @if (session()->has('no_permission'))
                 toastr.error("{{ session('no_permission') }}");
             @endif
+
+            Livewire.on('no_permission', (e) => {
+                toastr.error(e.message);
+            })
+            Livewire.on('success', (e) => {
+                toastr.success(e.message);
+            })
+            Livewire.on('error', (e) => {
+                toastr.error(e.message);
+            })
         });
     </script>
 

@@ -9,7 +9,9 @@ class StockOut extends BaseModel
 {
 
     protected $table = 'tb_stock_out';
-
+    protected $casts = [
+        'qty' => 'integer',
+    ];
     protected $fillable = [
         'part_no',
         'part_name',
@@ -23,4 +25,8 @@ class StockOut extends BaseModel
         'created_at',
         'updated_at',
     ];
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('d-m-Y H:i');
+    }
 }

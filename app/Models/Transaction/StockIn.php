@@ -2,12 +2,17 @@
 
 namespace App\Models\Transaction;
 
+use App\Enums\StatusStockEnums;
 use App\Models\BaseModel;
 
 class StockIn extends BaseModel
 {
     protected $table = 'tb_stock_in';
 
+    protected $casts = [
+        'status' => StatusStockEnums::class,
+        'qty' => 'integer',
+    ];
     protected $fillable = [
         'part_no',
         'part_name',
@@ -21,4 +26,9 @@ class StockIn extends BaseModel
         'updated_by',
         'updated_at',
     ];
+
+    protected function serializeDate(\DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i');
+    }
 }

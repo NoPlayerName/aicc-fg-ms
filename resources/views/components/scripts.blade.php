@@ -21,9 +21,15 @@
 <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
 <!-- Responsive examples -->
-{{-- <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script> --}}
+{{-- <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
+--}}
 
 {{-- <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script> --}}
+
+<script src="{{asset('assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
+
+{{-- form element --}}
+<script src="{{ asset('assets/js/pages/form-element.init.js') }}"></script>
 
 <script src="{{ asset('assets/libs/toastr/build/toastr.min.js') }}"></script>
 

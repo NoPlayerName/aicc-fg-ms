@@ -8,25 +8,24 @@
             </div>
             <div class="modal-body">
                 <form wire:submit.prevent="save">
-
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Pallet No</label>
-                            <input type="text" wire:model.defer="pallet_no" class="form-control"
+                            <input type="text" wire:model.defer="form.pallet_no" class="form-control"
                                 placeholder="Pallet Number">
                         </div>
 
                         <div class="col-lg-6 form-group">
                             <label>Part No</label>
-                            <input type="text" wire:model.defer="part_no" class="form-control"
-                                placeholder="Part Number">
+                            <input type="text" wire:model="form.part_no" wire:change='changePartNo' class="form-control"
+                                placeholder="Part Number" onchange="this.dispatchEvent(new InputEvent('input'))" />
                         </div>
 
                         <div class="col-lg-6 form-group mb-4">
                             <label>Date</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" data-provide="datepicker"
-                                    data-date-format="dd M, yyyy" data-date-autoclose="true" placeholder="Date" />
+                                <input type="text" class="form-control" wire:model.defer="form.created_at"
+                                    data-provide="datepicker" data-date-autoclose="true" placeholder="Date" disabled />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
@@ -35,23 +34,23 @@
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Part Name</label>
-                            <input type="text" wire:model.defer="part_name" disabled class="form-control"
+                            <input type="text" wire:model="form.part_name" disabled class="form-control"
                                 placeholder="Part Name">
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Qty</label>
-                            <input type="number" wire:model.defer="qty" disabled class="form-control" min="0"
+                            <input type="number" wire:model="form.qty" disabled class="form-control" min="0"
                                 placeholder="0">
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Form No</label>
-                            <input type="text" wire:model.defer="form_no" class="form-control"
+                            <input type="text" wire:model.defer="form.form_no" class="form-control"
                                 placeholder="Form Number">
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Description</label>
-                            <textarea id="textarea" class="form-control" maxlength="225" rows="3"
-                                placeholder="Description"></textarea>
+                            <textarea id="textarea" class="form-control" wire:model.defer="form.desc" maxlength="225"
+                                rows="3" placeholder="Description"></textarea>
                         </div>
 
 

@@ -59,14 +59,12 @@
                     </a>
                 </li>
                 @endif
-                @if ($this->canView('pallet.data.index', 'can_access'))
-
-
+                @if ($this->canView('customer.pallets.index', 'can_access'))
                 <li>
                     {{-- Menu tanpa children menu --}}
-                    <a href="{{ route('pallet.data.index') }}" class="waves-effect ">
+                    <a href="{{ route('customer.pallets.index') }}" class="waves-effect ">
                         <i class="ri-database-2-line"></i>
-                        <span>Pallet Data</span>
+                        <span>Customer Pallets</span>
                     </a>
                 </li>
                 @endif

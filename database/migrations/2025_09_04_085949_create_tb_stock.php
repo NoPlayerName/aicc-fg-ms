@@ -21,6 +21,8 @@ return new class extends Migration
             $table->decimal('stock_out', 10, 2)->nullable()->default(0);
             $table->decimal('closing_balance', 10, 2)->nullable()->default(0);
             $table->string('created_by', 50)->nullable();
+            $table->date('start_date_periode')->nullable();
+            $table->date('end_date_periode')->nullable();
             $table->timestamps();
         });
     }

@@ -12,22 +12,49 @@
                     <div class="row">
                         <div class="col-lg-6 form-group">
                             <label>Pallet No</label>
-                            <input type="text" wire:model.defer="pallet_no" class="form-control"
-                                placeholder="Paller Number">
+                            <input type="text" wire:model.defer="form.pallet_no" class="form-control @error('form.pallet_no')
+                                is-invalid
+                            @enderror" placeholder="Pallet Number">
+                            @error('form.pallet_no')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-lg-6 form-group">
                             <label>Pallet Type</label>
-                            <input type="text" wire:model.defer="part_name" class="form-control"
-                                placeholder="Part Name">
+                            <input type="text" wire:model.defer="form.pallet_type" class="form-control @error('form.pallet_type')
+                                is-invalid
+                            @enderror" placeholder="Pallet Type">
+                            @error('form.pallet_type')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Pallet Name</label>
-                            <input type="text" wire:model.defer="no_rak" class="form-control" placeholder="Rack Number">
+                            <input type="text" wire:model.defer="form.name" class="form-control @error('form.name')
+                                is-invalid
+                            @enderror" placeholder="Pallet Name">
+                            @error('form.name')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Color</label>
-                            <input type="text" wire:model.defer="no_rak" class="form-control" placeholder="Rack Number">
+                            <input type="text" wire:model.defer="form.color" class="form-control @error('form.color')
+                                is-invalid
+                            @enderror" placeholder="Color">
+                            @error('form.color')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 form-group custom-control custom-checkbox custom-control-right ml-3">
+                            <input type="checkbox" class="custom-control-input @error('form.is_active')
+                                is-invalid
+                            @enderror" wire:model.defer="form.is_active" id="customCheck2">
+                            <label class="custom-control-label" for="customCheck2">Is Active</label>
+                            @error('form.is_active')
+                            <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
