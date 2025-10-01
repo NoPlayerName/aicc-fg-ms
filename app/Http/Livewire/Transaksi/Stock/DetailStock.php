@@ -18,7 +18,7 @@ class DetailStock extends Component
     {
 
         $data = (object) $data;
-        $this->result = app(StockInService::class)->getData($data)->get();
+        $this->result = app(StockInService::class)->getData($data);
         $this->part_no = $data->search;
         $this->dispatch('open-detail');
     }
