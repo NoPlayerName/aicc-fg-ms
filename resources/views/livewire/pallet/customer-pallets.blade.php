@@ -46,10 +46,10 @@
                             style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                                 <tr>
-                                    <th>Pallet ammount</th>
                                     <th>Pallet Type</th>
                                     <th>Color</th>
                                     <th>Customer</th>
+                                    <th>Pallet ammount</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

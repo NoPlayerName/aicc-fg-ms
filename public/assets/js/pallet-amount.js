@@ -21,10 +21,10 @@ $(document).on("livewire:navigated", () => {
         ],
         ajax: window.routes.palletAmount,
         columns: [
-            { data: "amount", orderable: false },
             { data: "pallet_type", orderable: false },
             { data: "color", orderable: false },
             { data: "customer", orderable: false },
+            { data: "amount", orderable: false },
             { data: "amount", orderable: false },
         ],
         columnDefs: [
