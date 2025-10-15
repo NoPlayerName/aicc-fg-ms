@@ -19,7 +19,7 @@
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="col-lg-6" wire:ignore>
+                        <div class="col-lg-12" wire:ignore>
                             <div class="form-group">
                                 <label class="control-label">Part No</label>
                                 <select class="form-control select2 @error('form.part_no') is-invalid
@@ -27,7 +27,8 @@
                                     style="width: 100%;">
                                     <option>Select</option>
                                     @foreach ($dataPart as $item )
-                                    <option value="{{ $item['part_no'] }}">{{$item['part_no']}}</option>
+                                    <option value="{{ $item['part_no'] }}">{{$item['part_no']}} - {{ $item['part_name']
+                                        }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -36,7 +37,7 @@
                             @enderror
                         </div>
 
-                        <div class="col-lg-6 form-group">
+                        <div class="col-lg-6 form-group d-none">
                             <label>Part Name</label>
                             <input type="text" wire:model="form.part_name" disabled class="form-control @error('form.part_name')
                                 is-invalid

@@ -21,6 +21,10 @@ class Stock extends BaseLivewireComponent
             session()->flash('no_permission', 'You no Have Permission');
             return redirect()->route('dashboard');
         }
+
+        $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
+        $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');
+        $this->search();
     }
     public function showDetail($part_no)
     {
@@ -34,6 +38,7 @@ class Stock extends BaseLivewireComponent
 
     public function search()
     {
+        // dd($this->startDate, $this->endDate, $this->searchKey);
         $this->dispatch('filter', filter: [
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,

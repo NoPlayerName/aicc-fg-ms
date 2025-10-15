@@ -15,12 +15,12 @@ class StockRepository implements StockRepositoryInterface
 
     public function getData($data)
     {
-        $tglAwal  = Carbon::parse($data->startDate)->startOfDay();
-        $tglAkhir = Carbon::parse($data->endDate)->endOfDay();
+        // $tglAwal  = Carbon::parse($data->startDate);
+        // $tglAkhir = Carbon::parse($data->endDate);
 
         $user = auth()->user()->usr;
 
-        $query = Stock::where('created_by', $user)->where('start_date_periode', $tglAwal)->where('end_date_periode', $tglAkhir);
+        $query = Stock::where('created_by', $user);
 
         if (!empty($data->search)) {
             $query->where(function ($q) use ($data) {
@@ -28,33 +28,35 @@ class StockRepository implements StockRepositoryInterface
                     ->orWhere('part_name', 'like', '%' . $data->search . '%');
             });
         }
+
         return $query;
     }
 
     public function generateStock($data)
     {
-        $tglAwal  = Carbon::parse($data->startDate)->startOfDay();
-        $tglAkhir = Carbon::parse($data->endDate)->endOfDay();
+        $tglAwal  = Carbon::parse($data->startDate);
+        $tglAkhir = Carbon::parse($data->endDate);
         $user = auth()->user()->usr;
 
         DB::beginTransaction();
         try {
             // Ambil product aktif
             $products = Product::with('prodName')
-                ->where('is_active', 1)
-                ->when($data->search, function ($q) use ($data) {
-                    $q->where(function ($q2) use ($data) {
-                        $q2->where('part_no', 'like', '%' . $data->search . '%')
-                            ->orWhereHas('prodName', function ($q3) use ($data) {
-                                $q3->where('part_name', 'like', '%' . $data->search . '%');
-                            });
-                    });
-                })
-                ->get();
+                ->where('is_active', 1)->get();
+            // ->when($data->search, function ($q) use ($data) {
+            //     $q->where(function ($q2) use ($data) {
+            //         $q2->where('part_no', 'like', '%' . $data->search . '%')
+            //             ->orWhereHas('prodName', function ($q3) use ($data) {
+            //                 $q3->where('part_name', 'like', '%' . $data->search . '%');
+            //             });
+            //     });
+            // })
+
 
             Stock::where('created_by', $user)->delete();
+            $lastGenerate = now()->format('Y-m-d H:i');
             // Hitung stock per produk
-            $stockData = $products->map(function ($product) use ($tglAwal, $tglAkhir, $user) {
+            $stockData = $products->map(function ($product) use ($tglAwal, $tglAkhir, $user, $lastGenerate) {
                 $saldoAwal = Product::where('part_no', $product->part_no)
                     ->where('date_begining_balance', '<', $tglAwal)
                     ->sum('begining_balance');
@@ -86,8 +88,8 @@ class StockRepository implements StockRepositoryInterface
                     'stock_out' => $keluar,
                     'closing_balance' => $closing,
                     'created_by' => $user, // key unik per periode
-                    'start_date_periode' => $tglAwal,
-                    'end_date_periode' => $tglAkhir
+                    'last_generated_at' => $lastGenerate,
+                    'periode' => now(),
                 ];
             })->toArray();
 
@@ -95,7 +97,7 @@ class StockRepository implements StockRepositoryInterface
             $query = Stock::upsert(
                 $stockData,
                 ['part_no', 'created_by'], // key unik lengkap
-                ['part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance', 'start_date_periode', 'end_date_periode']
+                ['part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance', 'last_generated_at']
             );
 
             DB::commit();

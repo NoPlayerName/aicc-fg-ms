@@ -53,18 +53,27 @@
                             <form id="form-search" wire:submit.prevent="search" method="GET"
                                 enctype="multipart/form-data">
                                 <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
+                                    {{-- <div class="col-lg-4"> --}}
+                                        {{-- <div class="form-group">
                                             <div class="input-daterange input-group" data-provide="datepicker"
                                                 data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-                                                <input required type="text" wire:model.defer="startDate"
+                                                <input required type="text" wire:model.defer="startDate" type="datetime"
                                                     class="form-control" autocomplete="off" placeholder="Start Date"
                                                     id="s_start_date"
                                                     onchange="this.dispatchEvent(new InputEvent('input'))" />
-                                                <input required type="text" wire:model.defer="endDate"
+                                                <input required type="text" wire:model.defer="endDate" type="datetime"
                                                     class="form-control" autocomplete="off" placeholder="End Date"
                                                     id="s_end_date"
                                                     onchange="this.dispatchEvent(new InputEvent('input'))" />
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input class="form-control" type="datetime-local"
+                                                    wire:model="startDate">
+                                                <input class="form-control" type="datetime-local" wire:model="endDate">
                                             </div>
                                         </div>
                                     </div>
@@ -113,18 +122,6 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            {{-- <tfoot>
-                                <tr>
-                                    <th class="text-right">Total:</th>
-                                    <th></th>
-                                    <th></th>
-                                    <th>500</th>
-                                    <th>50</th>
-                                    <th>0</th>
-                                    <th>550</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot> --}}
                         </table>
 
                     </div>
