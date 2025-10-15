@@ -40,8 +40,8 @@
                     {{-- <h4 class="card-title">Stock</h4> --}}
 
                     <div class="mb-3 d-flex justify-content-start">
-                        <button class="btn btn-primary btn-md mr-2"><i class="far fa-plus-square"></i> Add
-                            Rack</button>
+                        {{-- <button class="btn btn-primary btn-md mr-2"><i class="far fa-plus-square"></i> Add
+                            Rack</button> --}}
                         <div id="custom-buttons"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
