@@ -48,7 +48,7 @@
                                 <tr>
                                     <th>Pallet Type</th>
                                     <th>Color</th>
-                                    <th>Customer</th>
+                                    <th>Location</th>
                                     <th>Pallet ammount</th>
                                     <th>Action</th>
                                 </tr>
