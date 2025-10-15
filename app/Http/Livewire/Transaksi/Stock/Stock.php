@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Transaksi\Stock;
 use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Transaction\StockService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Maatwebsite\Excel\Facades\Excel;
@@ -54,10 +55,12 @@ class Stock extends BaseLivewireComponent
             'endDate' => $this->endDate,
             'search'    => $this->searchKey,
         ];
+        $startDate = Carbon::parse($this->startDate);
+        $endDate = Carbon::parse($this->endDate);
         $data = app(StockService::class)->getData($filters);
         $columns = ['part_no', 'part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance'];
         $heading = ['Part Number', 'Part Name', 'Begining Balance', 'Stock In', 'Stock Out', 'Closing Balance'];
-        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock_' . $this->startDate . '_' . $this->endDate . '.xlsx');
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock_' .  $startDate . '_' . $endDate . '.xlsx');
     }
 
     #[Title('Data Stock')]
