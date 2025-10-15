@@ -11,8 +11,8 @@ class StockInRepository implements StockInRepositoryInterface
 {
     public function getData($data)
     {
-        $startDate = Carbon::parse($data->startDate)->startOfDay();
-        $endDate = Carbon::parse($data->endDate)->endOfDay();
+        $startDate = Carbon::parse($data->startDate);
+        $endDate = Carbon::parse($data->endDate);
 
         $data = StockIn::when($data->startDate && $data->endDate, function ($q) use ($startDate, $endDate) {
             $q->whereBetween('created_at', [$startDate, $endDate]);
@@ -32,8 +32,8 @@ class StockInRepository implements StockInRepositoryInterface
 
     public function getSummary($data)
     {
-        $startDate = Carbon::parse($data->startDate)->startOfDay();
-        $endDate = Carbon::parse($data->endDate)->endOfDay();
+        $startDate = Carbon::parse($data->startDate);
+        $endDate = Carbon::parse($data->endDate);
 
         $data = StockIn::selectRaw('part_no, part_name, SUM(qty) as Qty')->when($startDate && $endDate, function ($q) use ($endDate, $startDate) {
             $q->whereBetween('created_at', [$startDate, $endDate]);

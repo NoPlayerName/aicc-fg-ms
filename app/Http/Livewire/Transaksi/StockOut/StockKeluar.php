@@ -22,8 +22,8 @@ class StockKeluar extends BaseLivewireComponent
             return redirect()->route('dashboard');
         }
 
-        $this->startDate = now()->format('Y-m-d');
-        $this->endDate   = now()->format('Y-m-d');
+        $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
+        $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');
         $this->search();
     }
 
