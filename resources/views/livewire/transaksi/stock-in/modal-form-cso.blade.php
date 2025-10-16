@@ -9,18 +9,19 @@
             <div class="modal-body">
                 <form wire:submit.prevent="save">
                     <div class="row">
-                        <div class="col-lg-6 form-group" wire:ignore>
+                        <div class="col-lg-12 form-group" wire:ignore>
                             <label class="control-label">Part No</label>
                             <select class="form-control select2" id="part_no_cso" wire:model="form.part_no"
                                 style="width: 100%;">
                                 <option>Select</option>
                                 @foreach ($dataPart as $item)
-                                <option value="{{ $item['part_no'] }}">{{$item['part_no']}}</option>
+                                <option value="{{ $item['part_no'] }}">{{$item['part_no']}} - {{ $item['part_name'] }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div class="col-lg-6 form-group">
+                        <div class="col-lg-6 form-group d-none">
                             <label>Part Name</label>
                             <input type="text" wire:model="form.part_name" disabled class="form-control"
                                 placeholder="Part Name">

@@ -14,12 +14,14 @@ class ExcelExport implements FromCollection, WithHeadings, WithMapping
     protected $query;
     protected $columns;
     protected $headings;
+    protected $extraHead;
 
-    public function __construct($query, array $columns, array $headings)
+    public function __construct($query, array $columns, array $headings, array $extraHead = [])
     {
         $this->query = $query;
         $this->columns = $columns;
         $this->headings = $headings;
+        $this->extraHead = $extraHead;
     }
 
     /**
@@ -34,7 +36,14 @@ class ExcelExport implements FromCollection, WithHeadings, WithMapping
 
     public function headings(): array
     {
-        return $this->headings;
+        $header = [];
+        if (!empty($this->extraHead)) {
+            foreach ($this->extraHead as $value) {
+                $header[] = $value;
+            }
+        }
+        $header[] = array_merge($this->headings);
+        return $header;
     }
 
     public function map($row): array

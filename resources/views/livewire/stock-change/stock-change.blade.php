@@ -101,7 +101,7 @@
                                     <th>Form No</th>
                                     <th>Pallet No</th>
                                     <th>Part No</th>
-                                    <th>Produc Code</th>
+                                    <th>Part Name</th>
                                     <th>Qty</th>
                                     <th>Cutomer</th>
                                     <th>Created By</th>

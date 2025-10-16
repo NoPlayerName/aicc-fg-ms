@@ -53,7 +53,7 @@
                         <div class="card-body">
                             <form id="form-search" wire:submit.prevent="search" enctype="multipart/form-data">
                                 <div class="row">
-                                    <div class="col-lg-4">
+                                    {{-- <div class="col-lg-4">
                                         <div class="form-group">
                                             <div class="input-daterange input-group" data-provide="datepicker"
                                                 data-date-format="yyyy-mm-dd" data-date-autoclose="true">
@@ -63,6 +63,15 @@
                                                 <input required type="text" wire:model='endDate' class="form-control"
                                                     autocomplete="off" placeholder="End Date" id="s_end_date"
                                                     onchange="this.dispatchEvent(new InputEvent('input'))" />
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input class="form-control" type="datetime-local"
+                                                    wire:model="startDate">
+                                                <input class="form-control" type="datetime-local" wire:model="endDate">
                                             </div>
                                         </div>
                                     </div>

@@ -6,6 +6,7 @@ use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Permission\PermissionService;
 use App\Services\Transaction\StockInService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Maatwebsite\Excel\Facades\Excel;
@@ -29,8 +30,8 @@ class StockMasuk extends BaseLivewireComponent
             return redirect()->route('dashboard');
         }
 
-        $this->startDate = now()->format('Y-m-d');
-        $this->endDate   = now()->format('Y-m-d');
+        $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
+        $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');
         $this->search();
     }
 
@@ -75,10 +76,12 @@ class StockMasuk extends BaseLivewireComponent
             'endDate' => $this->endDate,
             'search' => $this->searchKey,
         ];
+        $startDate = Carbon::parse($this->startDate);
+        $endDate = Carbon::parse($this->endDate);
         $columns = ['pallet_no', 'created_at', 'part_no', 'part_name', 'qty', 'rack_no', 'desc',];
         $heading = ['Pallet No', 'Created At', 'Part No', 'Part Name', 'Qty', 'Rack No', 'Desc',];
         $data = app(StockInService::class)->getData($form);
-        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock In_' . $this->startDate . '_' . $this->endDate . '.xlsx');
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock In_' .  $startDate . '_' . $endDate . '.xlsx');
     }
     #[On('exportExcel-summary')]
     public function exportSumamry()

@@ -5,22 +5,22 @@ let stockColumns = [
     {
         data: "begining_balance",
         orderable: false,
-        render: (data) => parseInt(data),
+        render: (data, type, row) => parseInt(data) || 0,
     },
     {
         data: "stock_in",
         orderable: false,
-        render: (data) => parseInt(data),
+        render: (data, type, row) => parseInt(data) || 0,
     },
     {
         data: "stock_out",
         orderable: false,
-        render: (data) => parseInt(data),
+        render: (data, type, row) => parseInt(data) || 0,
     },
     {
         data: "closing_balance",
         orderable: false,
-        render: (data) => parseInt(data),
+        render: (data, type, row) => parseInt(data) || 0,
     },
     {
         data: "id",
@@ -38,6 +38,15 @@ let stockColumns = [
 // =======================
 
 function initTable() {
+    const $table = $("#datatable-buttons");
+    if (!$table.length) {
+        console.warn("Tabel #datatable-buttons belum ada di DOM.");
+        return;
+    }
+
+    if ($.fn.DataTable.isDataTable($table)) {
+        $table.DataTable().destroy();
+    }
     if ($.fn.DataTable.isDataTable("#datatable-buttons")) {
         $("#datatable-buttons").DataTable().destroy();
     }
@@ -100,12 +109,20 @@ $(document).on("livewire:navigated", () => {
 
     // Inisialisasi select2 jika ada
     // $(".select2").select2();
+
+    $("#s_start_date").datepicker({
+        dateFormat: "dd-mm-yy",
+    });
 });
 
 Livewire.on("filter", (event) => {
     filterGlobal = event.filter;
-    console.log(filterGlobal);
-    $("#datatable-buttons").DataTable().ajax.reload(null, false);
+    // $("#datatable-buttons").DataTable().ajax.reload(null, false);
+    if ($.fn.DataTable.isDataTable("#datatable-buttons")) {
+        $("#datatable-buttons").DataTable().ajax.reload(null, false);
+    } else {
+        initTable();
+    }
 });
 
 Livewire.on("open-detail", () => {

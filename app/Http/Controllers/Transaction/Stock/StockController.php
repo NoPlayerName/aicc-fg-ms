@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Transaction\Stock;
 
 use App\Http\Controllers\Controller;
 use App\Models\Transaction\Stock;
+use App\Models\Transaction\StockIn;
+use App\Models\Transaction\StockOut;
 use App\Services\Transaction\StockService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -17,15 +20,41 @@ class StockController extends Controller
 
     public function getData(Request $request)
     {
-
+        $user = auth()->user()->usr;
         if (!$request->startDate || !$request->endDate) {
             return datatables()->of([])->toJson();
         }
-        $data = $this->StockService->getData($request);
-        if (!$data->count() > 0) {
-            $this->StockService->generateStock($request);
-            $data = $this->StockService->getData($request);
+        $periode = now()->format('Y-m-d');
+
+        $lastGenerated = Stock::where('created_by', $user)
+            ->where('periode', $periode)->max('last_generated_at');
+        $stockIn = StockIn::max('created_at');
+        $stockOut = StockOut::max('created_at');
+
+        if ($stockIn) {
+            $stockIn = Carbon::parse($stockIn);
         }
-        return datatables()->of($data)->toJson();
+        if ($stockOut) {
+            $stockOut = Carbon::parse($stockOut);
+        }
+
+        $needRegenerate = false;
+
+        if (!$lastGenerated) {
+            $needRegenerate = true;
+        } elseif (
+            ($stockIn && $stockIn->gt($lastGenerated)) ||
+            ($stockOut && $stockOut->gt($lastGenerated))
+        ) {
+            $needRegenerate = true;
+        }
+
+        if ($needRegenerate) {
+            // dd('regenerate');
+            $this->StockService->generateStock($request);
+        }
+
+        $data = $this->StockService->getData($request);
+        return datatables()->eloquent($data)->toJson();
     }
 }

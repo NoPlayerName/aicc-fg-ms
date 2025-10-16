@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Transaksi\StockOut;
 use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Transaction\StockOutService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Maatwebsite\Excel\Facades\Excel;
@@ -22,8 +23,8 @@ class StockKeluar extends BaseLivewireComponent
             return redirect()->route('dashboard');
         }
 
-        $this->startDate = now()->format('Y-m-d');
-        $this->endDate   = now()->format('Y-m-d');
+        $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
+        $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');
         $this->search();
     }
 
@@ -70,10 +71,12 @@ class StockKeluar extends BaseLivewireComponent
             'endDate' => $this->endDate,
             'search' => $this->searchKey,
         ];
+        $startDate = Carbon::parse($this->startDate);
+        $endDate = Carbon::parse($this->endDate);
         $columns = ['part_no', 'part_name', 'Qty'];
         $heading = ['Pallet No', 'Part Name', 'Qty'];
         $data = app(StockOutService::class)->getSummary($form);
-        return Excel::download(new ExcelExport($data, $columns, $heading), 'Summary' . $this->startDate . '_' . $this->endDate . '.xlsx');
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Summary' . $startDate . '_' . $endDate . '.xlsx');
     }
 
     #[Title('Stock Out')]

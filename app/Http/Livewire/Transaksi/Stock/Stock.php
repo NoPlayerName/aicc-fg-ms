@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Transaksi\Stock;
 use App\Exports\ExcelExport;
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Transaction\StockService;
+use Carbon\Carbon;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,6 +22,10 @@ class Stock extends BaseLivewireComponent
             session()->flash('no_permission', 'You no Have Permission');
             return redirect()->route('dashboard');
         }
+
+        $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
+        $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');
+        $this->search();
     }
     public function showDetail($part_no)
     {
@@ -34,6 +39,7 @@ class Stock extends BaseLivewireComponent
 
     public function search()
     {
+        // dd($this->startDate, $this->endDate, $this->searchKey);
         $this->dispatch('filter', filter: [
             'startDate' => $this->startDate,
             'endDate' => $this->endDate,
@@ -49,10 +55,12 @@ class Stock extends BaseLivewireComponent
             'endDate' => $this->endDate,
             'search'    => $this->searchKey,
         ];
+        $startDate = Carbon::parse($this->startDate);
+        $endDate = Carbon::parse($this->endDate);
         $data = app(StockService::class)->getData($filters);
         $columns = ['part_no', 'part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance'];
         $heading = ['Part Number', 'Part Name', 'Begining Balance', 'Stock In', 'Stock Out', 'Closing Balance'];
-        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock_' . $this->startDate . '_' . $this->endDate . '.xlsx');
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock_' .  $startDate . '_' . $endDate . '.xlsx');
     }
 
     #[Title('Data Stock')]
