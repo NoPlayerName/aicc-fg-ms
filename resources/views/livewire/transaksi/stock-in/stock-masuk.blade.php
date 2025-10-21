@@ -101,18 +101,20 @@
             <div class="card" wire:ignore>
                 <div class="card-body">
                     <div class="mb-3 d-flex">
-                        {{-- @if ($canAccess) --}}
+                        @if ($this->can('can_add'))
                         <button class="btn btn-primary btn-md mr-2" wire:click="openModalSnp"><i
                                 class="fab fa-wpforms mr-2"></i>Form
                             Not
                             SNP</button>
-                        {{-- @endif --}}
+
                         <button class="btn btn-primary btn-md mr-2" wire:click="openModalCso"><i
                                 class="fab fa-wpforms mr-2"></i>Form
                             CSO</button>
+                        @endif
                         <div id="custom-buttons-stockin"></div>
                         <div id="custom-buttons-summary"></div>
                     </div>
+
                     <div style="max-width: auto; overflow-x: auto;">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -136,7 +138,7 @@
                                 <table id="datatable-stockIn"
                                     class="table table-striped table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                                    data-url="{{ route('transaksi.stock.in.data') }}">
+                                    data-url="{{ route('transaksi.stock.in.data') }}" data-can-edit='@json($canEdit)'>
                                     <thead>
                                         <tr>
                                             <th>Pallet No</th>
