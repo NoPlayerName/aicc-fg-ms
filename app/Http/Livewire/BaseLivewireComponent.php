@@ -44,11 +44,6 @@ abstract class BaseLivewireComponent extends Component
     {
 
         $user = Auth::user();
-        \Log::info('Livewire can() called', [
-            'user'      => $user?->id,
-            'routeName' => $this->routeName,
-            'access'    => $access,
-        ]);
         if (!$user || !$this->routeName) return false;
 
         return PermissionService::can($user, $this->routeName, $access);
