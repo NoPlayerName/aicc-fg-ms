@@ -9,8 +9,8 @@
                                 <div>
                                     <div class="text-center">
                                         <div>
-                                            <a href="" class="logo"><img style="width: 250px;"
-                                                    src={{ asset('assets/images/logo.png') }} alt="logo"></a>
+                                            <a href="" class="logo"><img style="width: 250px;" src={{
+                                                    asset('assets/images/logo.png') }} alt="logo"></a>
                                         </div>
 
                                         <h4 class="font-size-18 mt-4">Welcome Back !</h4>
@@ -19,22 +19,21 @@
 
 
                                     <div class="p-2 mt-5">
-                                        <form wire:submit.prevent="login" class="form-horizontal" method="POST"
-                                            id="loginForm">
+                                        <form wire:submit.prevent="login" class="form-horizontal" id="loginForm">
 
                                             @if (session()->has('error'))
-                                                <div class="alert alert-danger">
-                                                    {{ session('error') }}
-                                                </div>
+                                            <div class="alert alert-danger">
+                                                {{ session('error') }}
+                                            </div>
                                             @endif
 
                                             <div class="form-group auth-form-group-custom mb-4">
                                                 <i class="ri-user-2-line auti-custom-input-icon"></i>
                                                 <label for="username">Username</label>
-                                                <input type="text" class="form-control" wire:model="user"
-                                                    id="username" placeholder="Enter username">
+                                                <input type="text" class="form-control" wire:model="user" id="username"
+                                                    placeholder="Enter username">
                                                 @error('username')
-                                                    <span>{{ $message }}</span>
+                                                <span>{{ $message }}</span>
                                                 @enderror
                                             </div>
 
@@ -44,7 +43,7 @@
                                                 <input type="password" class="form-control" wire:model="password"
                                                     id="password" placeholder="Enter password">
                                                 @error('password')
-                                                    <span>{{ $message }}</span>
+                                                <span>{{ $message }}</span>
                                                 @enderror
                                             </div>
 
