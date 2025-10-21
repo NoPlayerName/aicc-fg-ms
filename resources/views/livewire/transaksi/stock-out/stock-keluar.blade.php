@@ -131,7 +131,7 @@
                                 <table id="datatable-stockOut"
                                     class="table table-striped table-bordered dt-responsive nowrap"
                                     style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                                    data-url="{{ route('transaksi.stock.out.data') }}">
+                                    data-url="{{ route('transaksi.stock.out.data') }}" data-edited='@json($canEdited)'>
                                     <thead>
                                         <tr>
                                             <th>Pallet No</th>

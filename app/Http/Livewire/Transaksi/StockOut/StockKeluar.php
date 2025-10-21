@@ -14,6 +14,7 @@ class StockKeluar extends BaseLivewireComponent
 {
 
     public $startDate, $endDate, $searchKey;
+    public $canEdited =  false;
 
     public function mount()
     {
@@ -22,6 +23,8 @@ class StockKeluar extends BaseLivewireComponent
             session()->flash('no_permission', 'You no Have Permission');
             return redirect()->route('dashboard');
         }
+
+        $this->canEdited = $this->can('can_edit');
 
         $this->startDate = now()->setTime(7, 0)->format('Y-m-d\TH:i');
         $this->endDate = now()->setTime(20, 0)->format('Y-m-d\TH:i');

@@ -38,9 +38,11 @@
                 <div class="card-body">
 
                     <div class="mb-3 d-flex justify-content-start">
+                        @if ($this->can('can_add'))
                         <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#form-pallet"><i
                                 class="far fa-plus-square"></i> Add
                             Pallet</button>
+                        @endif
                         <div id="custom-buttons"></div>
                     </div>
                     <div style="max-width: auto; overflow-x: auto;">
@@ -91,6 +93,10 @@
 </script>
 
 <script>
+    const userPermissions = {
+        canEdit: @json($this->can('can_edit')),
+        canDelete: @json($this->can('can_delete'))
+    };
     $(document).on("livewire:init", () => {
             initTable();
 
@@ -170,29 +176,30 @@
                     render: (data, type, row) => {
                         return data ?? '-';
                     }},
-                    {data: 'id',  orderable: false, searchable: false},
-                ],
-                columnDefs: [
-                    {targets: 4, 
-                        className: 'text-center align-middle',
-                        render: (data, type, row, meta) => {
-                        return `<div class="btn-group">
-                                     <button type="button"
-                                       class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="mdi mdi-chevron-down"></i>
-                                     </button>
-                                         <div class="dropdown-menu"
-                                           style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
-                                            <a class="dropdown-item btn"   wire:click='edit("${data}")'><i class=" fas fa-edit text-info"
-                                                   data-toggle="tooltip" data-placement="top" title="Edit"></i></a>
-                                            <a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
-                                                title="Delete" wire:click='deleteConfirm("${data}")'><i
-                                                class="fas fa-trash-alt text-danger"></i></a>
-                                            </div>
-                                        </div>
-                                    `;
-                    }},
+                    {data: 'id',  orderable: false, searchable: false, className: 'text-center align-middle', render: (data, type, row, meta) => {
+                            if (userPermissions.canEdit || userPermissions.canDelete){
+                                
+                            return `<div class="btn-group">
+                                <button type="button"
+                                class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu"
+                                style="min-width: 2rem; font-size: 12px; padding: 4px 8px;">
+                                ${userPermissions.canEdit ?
+                                `<a class="dropdown-item btn"   wire:click='edit("${data}")'><i class=" fas fa-edit text-info"
+                                    data-toggle="tooltip" data-placement="top" title="Edit"></i></a>` :''}
+                                ${userPermissions.canDelete ?
+                                `<a class="dropdown-item btn" data-toggle="tooltip" data-placement="top"
+                                    title="Delete" wire:click='deleteConfirm("${data}")'><i
+                                    class="fas fa-trash-alt text-danger"></i></a>
+                                    </div>
+                                    </div>`
+                                :''}`;
+                            }
+                            return'';
+                        }},
                 ],
                  createdRow: (row, data, dataIndex) => {
                     if(!data.is_active){

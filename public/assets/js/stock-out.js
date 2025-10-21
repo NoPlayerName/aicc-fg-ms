@@ -1,5 +1,6 @@
 let tableStockOut, tableSummary;
 let filterGlobal = {};
+let canEdit;
 
 // =======================
 // FUNCTION INIT DATATABLE
@@ -134,6 +135,8 @@ let stockColumns = [
     {
         data: "id",
         render: (data, type, row) => {
+            canEdit = $("#datatable-stockOut").data("edited");
+            if (!canEdit) return "";
             return `<a class="btn" wire:click="editShow('${data}')">
                 <i class="fas fa-edit text-warning" data-toggle="tooltip" title="Edit"></i>
             </a>`;
