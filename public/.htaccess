@@ -4,6 +4,7 @@
     </IfModule>
 
     RewriteEngine On
+    RewriteBase /aicc-fg-ms/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
