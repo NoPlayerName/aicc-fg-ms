@@ -18,10 +18,9 @@ return new class extends Migration
             $table->integer('min_stock')->nullable()->default(0);
             $table->integer('max_stock')->nullable()->default(0);
             $table->tinyInteger('without_pallet')->nullable()->default(0);
-            $table->unsignedBigInteger('group_id')->nullable()->index();
+            $table->integer('group')->nullable()->index();
             $table->integer('begining_balance')->nullable()->default(0);
             $table->date('data_begining_balance')->nullable();
-            $table->foreign('group_id')->references('id')->on('tb_rack_group')->onDelete('set null')->onUpdate('cascade');
             $table->timestamps();
         });
     }
