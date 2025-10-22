@@ -2,11 +2,11 @@
 
 namespace App\Models\Master;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Model;
 
-class VProduct extends Model
+class VProduct extends BaseModel
 {
-    protected $connection = 'master';
     protected $table = 'v_products';
 
 

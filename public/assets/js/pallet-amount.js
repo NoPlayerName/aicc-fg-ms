@@ -13,7 +13,7 @@ $(document).on("livewire:navigated", () => {
                 extend: "excel",
                 className: "btn btn-success btn-mb",
                 text: '<i class="fas fa-file-excel"></i> Export Excel',
-                title: "Customer Pallet",
+                title: "Pallet Location",
                 exportOptions: {
                     columns: ":visible:not(:last-child)", // exclude kolom terakhir
                 },
