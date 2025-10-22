@@ -56,21 +56,7 @@
                             <form id="form-search" method="GET" wire:submit.prevent="search"
                                 enctype="multipart/form-data">
                                 <div class="row">
-                                    {{-- <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <div class="input-daterange input-group" data-provide="datepicker"
-                                                data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-                                                <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="Start Date" id="s_start_date" wire:model='startDate'
-                                                    onchange="this.dispatchEvent(new InputEvent('input'))" />
-                                                <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="End Date" id="s_end_date" wire:model='endDate'
-                                                    onchange="this.dispatchEvent(new InputEvent('input'))" />
-                                            </div>
-                                        </div>
-                                    </div> --}}
-
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-5">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input class="form-control" type="datetime-local"
@@ -80,7 +66,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
                                             <input type="text" value="" wire:model="searchKey" name="search" id="search"
                                                 placeholder="Search" class="form-control">

@@ -22,7 +22,7 @@ class MenuSeeder extends Seeder
                 'icon' => 'ri-dashboard-line',
                 'has_extra_permissions' => 0,
                 'apps_group' => 'FG-MS'
-                
+
             ],
             [
                 'urutan_menu' => 42,
@@ -39,7 +39,7 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-inbox-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
+                    ],
                     [
                         'urutan_menu' => 44,
                         'menu_name' => 'Stock In',
@@ -47,7 +47,7 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-inbox-archive-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
+                    ],
                     [
                         'urutan_menu' => 45,
                         'menu_name' => 'Stock Out',
@@ -55,9 +55,9 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-inbox-unarchive-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
-                
-                    ]
+                    ],
+
+                ]
             ],
             [
                 'urutan_menu' => 46,
@@ -70,7 +70,7 @@ class MenuSeeder extends Seeder
             [
                 'urutan_menu' => 47,
                 'menu_name' => 'Pallet Data',
-                'url' => 'pallet.data.index',
+                'url' => 'customer.pallets.index',
                 'icon' => 'ri-database-2-line',
                 'has_extra_permissions' => 0,
                 'apps_group' => 'FG-MS'
@@ -90,7 +90,7 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-archive-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
+                    ],
                     [
                         'urutan_menu' => 50,
                         'menu_name' => 'Master Customer',
@@ -98,7 +98,7 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-group-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
+                    ],
                     [
                         'urutan_menu' => 51,
                         'menu_name' => 'Master Rack',
@@ -106,7 +106,7 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-fridge-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
+                    ],
                     [
                         'urutan_menu' => 52,
                         'menu_name' => 'Master Pallet',
@@ -114,9 +114,9 @@ class MenuSeeder extends Seeder
                         'icon' => 'ri-fridge-line',
                         'has_extra_permissions' => 0,
                         'apps_group' => 'FG-MS'
-                ],
-                
-                    ]
+                    ],
+
+                ]
             ],
         ];
 
@@ -134,8 +134,8 @@ class MenuSeeder extends Seeder
                     'parent_id' => null
                 ]
             );
-            if(!empty($childern)){
-                foreach($childern as $child){
+            if (!empty($childern)) {
+                foreach ($childern as $child) {
                     $child['parent_id'] = $parent->id;
                     Menu::updateOrCreate(
                         ['menu_name' => $child['menu_name']],
@@ -152,6 +152,5 @@ class MenuSeeder extends Seeder
         });
         $this->command->newLine();
         $this->command->info("\n✅ Menu seeding selesai!");
-
     }
 }
