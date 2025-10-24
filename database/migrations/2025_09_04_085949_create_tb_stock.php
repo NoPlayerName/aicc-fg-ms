@@ -22,7 +22,8 @@ return new class extends Migration
             $table->decimal('closing_balance', 10, 2)->nullable()->default(0);
             $table->string('created_by', 50)->nullable();
             $table->timestamp('last_generated_at')->nullable();
-            $table->date('periode')->nullable();
+            $table->timestamp('periode_start')->nullable();
+            $table->timestamp('periode_end')->nullable();
             $table->timestamps();
         });
     }

@@ -63,7 +63,7 @@
                 <li>
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('customer.pallets.index') }}" class="waves-effect ">
-                        <i class="ri-database-2-line"></i>
+                        <i class="ri-map-pin-fill"></i>
                         <span>Pallet Location</span>
                     </a>
                 </li>

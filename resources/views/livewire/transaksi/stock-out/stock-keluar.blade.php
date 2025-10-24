@@ -36,9 +36,9 @@
         <!-- end page title -->
         <div class="row">
             <div class="col-12">
-    
+
                 <div id="accordion" class="custom-accordion">
-    
+
                     <div class="card mb-1">
                         <a href="#collapseTwo" class="text-dark " data-toggle="collapse" aria-expanded="false"
                             aria-controls="collapseTwo">
@@ -49,7 +49,7 @@
                                 </h6>
                             </div>
                         </a>
-    
+
                         <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion"
                             wire:ignore.self>
                             <div class="card-body">
@@ -61,7 +61,8 @@
                                                 <div class="input-daterange input-group" data-provide="datepicker"
                                                     data-date-format="yyyy-mm-dd" data-date-autoclose="true">
                                                     <input required type="text" class="form-control" autocomplete="off"
-                                                        placeholder="Start Date" id="s_start_date" wire:model='startDate'
+                                                        placeholder="Start Date" id="s_start_date"
+                                                        wire:model='startDate'
                                                         onchange="this.dispatchEvent(new InputEvent('input'))" />
                                                     <input required type="text" class="form-control" autocomplete="off"
                                                         placeholder="End Date" id="s_end_date" wire:model='endDate'
@@ -69,36 +70,37 @@
                                                 </div>
                                             </div>
                                         </div> --}}
-    
-                                        <div class="col-lg-4">
+
+                                        <div class="col-lg-5">
                                             <div class="form-group">
                                                 <div class="input-group">
                                                     <input class="form-control" type="datetime-local"
                                                         wire:model="startDate">
-                                                    <input class="form-control" type="datetime-local" wire:model="endDate">
+                                                    <input class="form-control" type="datetime-local"
+                                                        wire:model="endDate">
                                                 </div>
                                             </div>
                                         </div>
-    
-                                        <div class="col-lg-4">
+
+                                        <div class="col-lg-3">
                                             <div class="form-group">
-                                                <input type="text" value="" wire:model="searchKey" name="search" id="search"
-                                                    placeholder="Search" class="form-control">
+                                                <input type="text" value="" wire:model="searchKey" name="search"
+                                                    id="search" placeholder="Search" class="form-control">
                                             </div>
                                         </div>
-    
-                                        <div class="col-lg-4">
+
+                                        <div class="col-lg-3">
                                             <button id="filter_btn" type="submit"
                                                 class="btn btn-primary waves-effect waves-light">
                                                 <i class="fas fa-search"></i> Search
                                             </button>
                                         </div>
                                     </div>
-    
+
                                 </form>
-    
+
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
@@ -122,16 +124,17 @@
                                         <span class="d-none d-sm-block">Summary</span>
                                     </a>
                                 </li>
-    
+
                             </ul>
-    
+
                             <!-- Tab panes -->
                             <div class="tab-content p-3 text-muted">
                                 <div class="tab-pane active" id="stock-out" role="tabpanel">
                                     <table id="datatable-stockOut"
                                         class="table table-striped table-bordered dt-responsive nowrap"
                                         style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                                        data-url="{{ route('transaksi.stock.out.data') }}" data-edited='@json($canEdited)'>
+                                        data-url="{{ route('transaksi.stock.out.data') }}"
+                                        data-edited='@json($canEdited)'>
                                         <thead>
                                             <tr>
                                                 <th>Pallet No</th>

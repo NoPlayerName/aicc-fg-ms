@@ -20,14 +20,16 @@ class StockController extends Controller
 
     public function getData(Request $request)
     {
+        $tglAwal  = Carbon::parse($request->startDate);
+        $tglAkhir = Carbon::parse($request->endDate);
         $user = auth()->user()->usr;
         if (!$request->startDate || !$request->endDate) {
             return datatables()->of([])->toJson();
         }
-        $periode = now()->format('Y-m-d');
 
         $lastGenerated = Stock::where('created_by', $user)
-            ->where('periode', $periode)->max('last_generated_at');
+            ->where('periode_start', $tglAwal)
+            ->where('periode_end', $tglAkhir)->max('last_generated_at');
         $stockIn = StockIn::max('created_at');
         $stockOut = StockOut::max('created_at');
 

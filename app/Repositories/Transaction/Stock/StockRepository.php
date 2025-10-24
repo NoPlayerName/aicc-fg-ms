@@ -40,12 +40,13 @@ class StockRepository implements StockRepositoryInterface
 
         DB::beginTransaction();
         try {
+
             // 1. Ambil produk AKTIF (misal dapat 128 baris)
             $allProducts = Product::with('prodName')
                 ->where('is_active', 1)
                 ->orderBy('part_no')
                 ->get();
-            
+
             // 2. Filter agar UNIK (aman jika ada duplikat)
             $products = $allProducts->unique('part_no');
 
@@ -87,14 +88,14 @@ class StockRepository implements StockRepositoryInterface
                 ->groupBy('part_no')
                 ->get()->keyBy('part_no');
 
-            
+
             Stock::where('created_by', $user)->delete();
             $lastGenerate = now()->format('Y-m-d H:i');
             $stockData = [];
 
             // 8. Loop di PHP (Hanya 128 kali, SANGAT CEPAT, tidak ada query)
             //    Gunakan ->values() untuk reset key array setelah unique()
-            foreach ($products->values() as $product) { 
+            foreach ($products->values() as $product) {
                 $part_no = $product->part_no;
 
                 // Ambil data dari koleksi (BUKAN query)
@@ -103,7 +104,7 @@ class StockRepository implements StockRepositoryInterface
                 $kAwal = $keluarAwal->get($part_no)?->total_keluar ?? 0;
                 $m = $masuk->get($part_no)?->total_masuk ?? 0;
                 $k = $keluar->get($part_no)?->total_keluar ?? 0;
-                
+
                 $saldoAwalTotal = $sAwal + $mAwal - $kAwal;
                 $closing = $saldoAwalTotal + $m - $k;
 
@@ -116,20 +117,19 @@ class StockRepository implements StockRepositoryInterface
                     'closing_balance' => $closing,
                     'created_by' => $user,
                     'last_generated_at' => $lastGenerate,
-                    'periode' => now(),
+                    'periode_start' =>  $tglAwal,
+                    'periode_end' => $tglAkhir,
                 ];
             }
 
-            // 9. Upsert 128 data (Total hanya ~7 query)
             $query = Stock::upsert(
                 $stockData,
                 ['part_no', 'created_by'],
-                ['part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance', 'last_generated_at']
+                ['part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance', 'last_generated_at', 'periode_start', 'periode_end']
             );
 
             DB::commit();
             return $query;
-
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
