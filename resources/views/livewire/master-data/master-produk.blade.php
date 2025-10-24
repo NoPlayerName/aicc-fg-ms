@@ -32,29 +32,30 @@
             </div>
         </div>
         <!-- end page title -->
-
-        <div class="col-12" wire:ignore>
-            <div class="card">
-                <div class="card-body">
-                    <div class="mb-3 d-flex justify-content-start">
-
-                        <div id="custom-buttons"></div>
-                    </div>
-                    <div style="max-width: auto; overflow-x: auto;">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                            data-url="{{ route('master.produk.data')}}">
-                            <thead>
-                                <tr>
-                                    <th>Part No</th>
-                                    <th>Part Name</th>
-                                    <th>SNP</th>
-                                    <th>Minimum Stock</th>
-                                    <th>Maximum Stock</th>
-                                    <th>Group Rack</th>
-                                </tr>
-                            </thead>
-                        </table>
+        <div class="row">
+            <div class="col-12" wire:ignore>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 d-flex justify-content-start">
+    
+                            <div id="custom-buttons"></div>
+                        </div>
+                        <div style="max-width: auto; overflow-x: auto;">
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                data-url="{{ route('master.produk.data')}}">
+                                <thead>
+                                    <tr>
+                                        <th>Part No</th>
+                                        <th>Part Name</th>
+                                        <th>SNP</th>
+                                        <th>Minimum Stock</th>
+                                        <th>Maximum Stock</th>
+                                        <th>Group Rack</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

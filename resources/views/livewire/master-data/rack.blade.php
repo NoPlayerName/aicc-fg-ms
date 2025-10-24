@@ -32,29 +32,30 @@
             </div>
         </div>
         <!-- end page title -->
-
-        <div class="col-12" wire:ignore>
-            <div class="card">
-                <div class="card-body">
-
-                    {{-- <h4 class="card-title">Stock</h4> --}}
-
-                    <div class="mb-3 d-flex justify-content-start">
-                        {{-- <button class="btn btn-primary btn-md mr-2"><i class="far fa-plus-square"></i> Add
-                            Rack</button> --}}
-                        <div id="custom-buttons"></div>
-                    </div>
-                    <div style="max-width: auto; overflow-x: auto;">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Rack No</th>
-                                    <th>Part No</th>
-                                    <th>Product Code</th>
-                                </tr>
-                            </thead>
-                        </table>
+        <div class="row">
+            <div class="col-12" wire:ignore>
+                <div class="card">
+                    <div class="card-body">
+    
+                        {{-- <h4 class="card-title">Stock</h4> --}}
+    
+                        <div class="mb-3 d-flex justify-content-start">
+                            {{-- <button class="btn btn-primary btn-md mr-2"><i class="far fa-plus-square"></i> Add
+                                Rack</button> --}}
+                            <div id="custom-buttons"></div>
+                        </div>
+                        <div style="max-width: auto; overflow-x: auto;">
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Rack No</th>
+                                        <th>Part No</th>
+                                        <th>Product Code</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -32,34 +32,35 @@
             </div>
         </div>
         <!-- end page title -->
-
-        <div class="col-12" wire:ignore>
-            <div class="card">
-                <div class="card-body">
-
-                    <div class="mb-3 d-flex justify-content-start">
-                        @if ($this->can('can_add'))
-                        <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#form-pallet"><i
-                                class="far fa-plus-square"></i> Add
-                            Pallet</button>
-                        @endif
-                        <div id="custom-buttons"></div>
-                    </div>
-                    <div style="max-width: auto; overflow-x: auto;">
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;"
-                            wire:loading.class="muted">
-                            <thead>
-                                <tr>
-                                    <th>Pallet No</th>
-                                    <th>Pallet Name</th>
-                                    <th>Type</th>
-                                    <th>Color</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-
-                        </table>
+        <div class="row">
+            <div class="col-12" wire:ignore>
+                <div class="card">
+                    <div class="card-body">
+    
+                        <div class="mb-3 d-flex justify-content-start">
+                            @if ($this->can('can_add'))
+                            <button class="btn btn-primary btn-md mr-2" data-toggle="modal" data-target="#form-pallet"><i
+                                    class="far fa-plus-square"></i> Add
+                                Pallet</button>
+                            @endif
+                            <div id="custom-buttons"></div>
+                        </div>
+                        <div style="max-width: auto; overflow-x: auto;">
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;"
+                                wire:loading.class="muted">
+                                <thead>
+                                    <tr>
+                                        <th>Pallet No</th>
+                                        <th>Pallet Name</th>
+                                        <th>Type</th>
+                                        <th>Color</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+    
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

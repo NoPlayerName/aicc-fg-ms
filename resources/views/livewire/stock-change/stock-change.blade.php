@@ -32,85 +32,86 @@
             </div>
         </div>
         <!-- end page title -->
-
-        <div class="col-12">
-            <div id="accordion" class="custom-accordion">
-
-                <div class="card mb-1">
-                    <a href="#collapseTwo" class="text-dark " data-toggle="collapse" aria-expanded="false"
-                        aria-controls="collapseTwo">
-                        <div class="card-header" id="headingTwo">
-                            <h6 class="m-0">
-                                <i class="ri-filter-fill"></i> Filter Data
-                                <i class="mdi mdi-minus float-right accor-plus-icon"></i>
-                            </h6>
-                        </div>
-                    </a>
-
-                    <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion"
-                        wire:ignore.self>
-                        <div class="card-body">
-                            <form id="form-search" wire:submit.prevent="search" enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <div class="input-daterange input-group" data-provide="datepicker"
-                                                data-date-format="yyyy-mm-dd" data-date-autoclose="true">
-                                                <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="Start Date" wire:model="startDate" id="s_start_date" />
-                                                <input required type="text" class="form-control" autocomplete="off"
-                                                    placeholder="End Date" wire:model='endDate' id="s_end_date" />
+        <div class="row">
+            <div class="col-12">
+                <div id="accordion" class="custom-accordion">
+    
+                    <div class="card mb-1">
+                        <a href="#collapseTwo" class="text-dark " data-toggle="collapse" aria-expanded="false"
+                            aria-controls="collapseTwo">
+                            <div class="card-header" id="headingTwo">
+                                <h6 class="m-0">
+                                    <i class="ri-filter-fill"></i> Filter Data
+                                    <i class="mdi mdi-minus float-right accor-plus-icon"></i>
+                                </h6>
+                            </div>
+                        </a>
+    
+                        <div id="collapseTwo" class="collapse " aria-labelledby="headingTwo" data-parent="#accordion"
+                            wire:ignore.self>
+                            <div class="card-body">
+                                <form id="form-search" wire:submit.prevent="search" enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <div class="input-daterange input-group" data-provide="datepicker"
+                                                    data-date-format="yyyy-mm-dd" data-date-autoclose="true">
+                                                    <input required type="text" class="form-control" autocomplete="off"
+                                                        placeholder="Start Date" wire:model="startDate" id="s_start_date" />
+                                                    <input required type="text" class="form-control" autocomplete="off"
+                                                        placeholder="End Date" wire:model='endDate' id="s_end_date" />
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <input type="text" value="" wire:model="Search" id="search"
-                                                placeholder="Search" class="form-control">
+    
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <input type="text" value="" wire:model="Search" id="search"
+                                                    placeholder="Search" class="form-control">
+                                            </div>
+                                        </div>
+    
+                                        <div class="col-lg-4">
+                                            <button id="filter_btn" type="submit"
+                                                class="btn btn-primary waves-effect waves-light">
+                                                <i class="fas fa-search"></i> Search
+                                            </button>
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-4">
-                                        <button id="filter_btn" type="submit"
-                                            class="btn btn-primary waves-effect waves-light">
-                                            <i class="fas fa-search"></i> Search
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </form>
+    
+                                </form>
+                            </div>
+    
+    
+    
                         </div>
-
-
-
                     </div>
                 </div>
-            </div>
-            <div class="card" wire:ignore>
-                <div class="card-body">
-
-                    {{-- <h4 class="card-title">Stock</h4> --}}
-
-                    <div style="max-width: auto; overflow-x: auto;">
-
-                        <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
-                            style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th>Form No</th>
-                                    <th>Pallet No</th>
-                                    <th>Part No</th>
-                                    <th>Part Name</th>
-                                    <th>Qty</th>
-                                    <th>Cutomer</th>
-                                    <th>Created By</th>
-                                    <th>Description</th>
-
-                                </tr>
-                            </thead>
-                        </table>
-
+                <div class="card" wire:ignore>
+                    <div class="card-body">
+    
+                        {{-- <h4 class="card-title">Stock</h4> --}}
+    
+                        <div style="max-width: auto; overflow-x: auto;">
+    
+                            <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Form No</th>
+                                        <th>Pallet No</th>
+                                        <th>Part No</th>
+                                        <th>Part Name</th>
+                                        <th>Qty</th>
+                                        <th>Cutomer</th>
+                                        <th>Created By</th>
+                                        <th>Description</th>
+    
+                                    </tr>
+                                </thead>
+                            </table>
+    
+                        </div>
                     </div>
                 </div>
             </div>

@@ -40,68 +40,96 @@ class StockRepository implements StockRepositoryInterface
 
         DB::beginTransaction();
         try {
-            // Ambil product aktif
-            $products = Product::with('prodName')
-                ->where('is_active', 1)->get();
-            // ->when($data->search, function ($q) use ($data) {
-            //     $q->where(function ($q2) use ($data) {
-            //         $q2->where('part_no', 'like', '%' . $data->search . '%')
-            //             ->orWhereHas('prodName', function ($q3) use ($data) {
-            //                 $q3->where('part_name', 'like', '%' . $data->search . '%');
-            //             });
-            //     });
-            // })
+            // 1. Ambil produk AKTIF (misal dapat 128 baris)
+            $allProducts = Product::with('prodName')
+                ->where('is_active', 1)
+                ->orderBy('part_no')
+                ->get();
+            
+            // 2. Filter agar UNIK (aman jika ada duplikat)
+            $products = $allProducts->unique('part_no');
 
+            // Ambil semua part_no yang relevan (128 part_no)
+            $partNumbers = $products->pluck('part_no');
 
+            // 3. Hitung SEMUA saldo awal (1 query)
+            $saldoAwalProducts = Product::whereIn('part_no', $partNumbers)
+                ->where('date_begining_balance', '<', $tglAwal)
+                ->select('part_no', DB::raw('SUM(begining_balance) as total_saldo'))
+                ->groupBy('part_no')
+                ->get()->keyBy('part_no'); // keyBy agar mudah dicari
+
+            // 4. Hitung SEMUA masuk awal (1 query)
+            $masukAwal = StockIn::whereIn('part_no', $partNumbers)
+                ->where('created_at', '<', $tglAwal)
+                ->select('part_no', DB::raw('SUM(qty) as total_masuk'))
+                ->groupBy('part_no')
+                ->get()->keyBy('part_no');
+
+            // 5. Hitung SEMUA keluar awal (1 query)
+            $keluarAwal = StockOut::whereIn('part_no', $partNumbers)
+                ->where('created_at', '<', $tglAwal)
+                ->select('part_no', DB::raw('SUM(qty) as total_keluar'))
+                ->groupBy('part_no')
+                ->get()->keyBy('part_no');
+
+            // 6. Hitung SEMUA masuk periode ini (1 query)
+            $masuk = StockIn::whereIn('part_no', $partNumbers)
+                ->whereBetween('created_at', [$tglAwal, $tglAkhir])
+                ->select('part_no', DB::raw('SUM(qty) as total_masuk'))
+                ->groupBy('part_no')
+                ->get()->keyBy('part_no');
+
+            // 7. Hitung SEMUA keluar periode ini (1 query)
+            $keluar = StockOut::whereIn('part_no', $partNumbers)
+                ->whereBetween('created_at', [$tglAwal, $tglAkhir])
+                ->select('part_no', DB::raw('SUM(qty) as total_keluar'))
+                ->groupBy('part_no')
+                ->get()->keyBy('part_no');
+
+            
             Stock::where('created_by', $user)->delete();
             $lastGenerate = now()->format('Y-m-d H:i');
-            // Hitung stock per produk
-            $stockData = $products->map(function ($product) use ($tglAwal, $tglAkhir, $user, $lastGenerate) {
-                $saldoAwal = Product::where('part_no', $product->part_no)
-                    ->where('date_begining_balance', '<', $tglAwal)
-                    ->sum('begining_balance');
+            $stockData = [];
 
-                $masukAwal = StockIn::where('part_no', $product->part_no)
-                    ->where('created_at', '<', $tglAwal)
-                    ->sum('qty');
+            // 8. Loop di PHP (Hanya 128 kali, SANGAT CEPAT, tidak ada query)
+            //    Gunakan ->values() untuk reset key array setelah unique()
+            foreach ($products->values() as $product) { 
+                $part_no = $product->part_no;
 
-                $keluarAwal = StockOut::where('part_no', $product->part_no)
-                    ->where('created_at', '<', $tglAwal)
-                    ->sum('qty');
+                // Ambil data dari koleksi (BUKAN query)
+                $sAwal = $saldoAwalProducts->get($part_no)?->total_saldo ?? 0;
+                $mAwal = $masukAwal->get($part_no)?->total_masuk ?? 0;
+                $kAwal = $keluarAwal->get($part_no)?->total_keluar ?? 0;
+                $m = $masuk->get($part_no)?->total_masuk ?? 0;
+                $k = $keluar->get($part_no)?->total_keluar ?? 0;
+                
+                $saldoAwalTotal = $sAwal + $mAwal - $kAwal;
+                $closing = $saldoAwalTotal + $m - $k;
 
-                $masuk = StockIn::where('part_no', $product->part_no)
-                    ->whereBetween('created_at', [$tglAwal, $tglAkhir])
-                    ->sum('qty');
-
-                $keluar = StockOut::where('part_no', $product->part_no)
-                    ->whereBetween('created_at', [$tglAwal, $tglAkhir])
-                    ->sum('qty');
-
-                $saldoAwalTotal = $saldoAwal + $masukAwal - $keluarAwal;
-                $closing = $saldoAwalTotal + $masuk - $keluar;
-
-                return [
-                    'part_no' => $product->part_no,
+                $stockData[] = [
+                    'part_no' => $part_no,
                     'part_name' => $product->prodName?->part_name,
                     'begining_balance' => $saldoAwalTotal,
-                    'stock_in' => $masuk,
-                    'stock_out' => $keluar,
+                    'stock_in' => $m,
+                    'stock_out' => $k,
                     'closing_balance' => $closing,
-                    'created_by' => $user, // key unik per periode
+                    'created_by' => $user,
                     'last_generated_at' => $lastGenerate,
                     'periode' => now(),
                 ];
-            })->toArray();
+            }
 
-            // Upsert sekaligus insert/update
+            // 9. Upsert 128 data (Total hanya ~7 query)
             $query = Stock::upsert(
                 $stockData,
-                ['part_no', 'created_by'], // key unik lengkap
+                ['part_no', 'created_by'],
                 ['part_name', 'begining_balance', 'stock_in', 'stock_out', 'closing_balance', 'last_generated_at']
             );
 
             DB::commit();
             return $query;
+
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
