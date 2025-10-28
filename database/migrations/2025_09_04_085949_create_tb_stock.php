@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tb_stock', function (Blueprint $table) {
-            $table->id();
             $table->string('part_no', 50)->nullable()->index();
             $table->string('part_name', 250)->nullable()->index();
             $table->string('product_code', 150)->nullable()->index();
@@ -25,6 +24,7 @@ return new class extends Migration
             $table->timestamp('periode_start')->nullable();
             $table->timestamp('periode_end')->nullable();
             $table->timestamps();
+            $table->unique(['part_no', 'created_by'], 'unique_part_no');
         });
     }
 
