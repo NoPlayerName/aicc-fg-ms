@@ -25,7 +25,7 @@ class StockInRepository implements StockInRepositoryInterface
                         ->orWhere('desc', 'like', '%' . $data->search . '%')
                         ->orWhere('rack_no', 'like', '%' . $data->search . '%');
                 });
-            })->get();
+            })->orderBy('created_at', 'desc')->get();
 
         return $data;
     }

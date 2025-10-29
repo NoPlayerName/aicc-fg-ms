@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Transaksi\StockOut;
 
 use App\Models\Master\Customer;
 use App\Services\Transaction\StockOutService;
+use App\Services\Transaction\FormNoService;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -42,15 +43,23 @@ class FormUpdate extends Component
     #[On('formUpdate')]
     public function editData($data, $id)
     {
+        $formNoService = new FormNoService;
+        $nomor_baru = $formNoService->generate();
         $data['qty'] = (int) $data['qty'];
         $this->form = $data;
         $this->id = $id;
+        $this->form['form_no'] = $nomor_baru;
         $this->dispatch('modalUpdate', cust: $this->form['customer']);
     }
     #[On('setCustomer')]
     public function select2($data)
     {
         $this->form['customer'] = $data;
+    }
+    public function regenerateFormNo()
+    {
+        $formNoService = new FormNoService;
+        $this->form['form_no'] = $formNoService->generate(true);
     }
     public function save()
     {

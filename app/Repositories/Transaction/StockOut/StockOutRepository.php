@@ -21,7 +21,7 @@ class StockOutRepository implements StockOutRepositoryInterface
                     ->orWhere('customer', 'like', '%' . $data->search . '%')
                     ->orWhere('rack_no', 'like', '%' . $data->search . '%');
             });
-        });
+        })->orderBy('created_at', 'desc')->get();
 
         return $query;
     }

@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Transaksi\StockIn;
 
 use App\Http\Livewire\BaseLivewireComponent;
 use App\Services\Master\ProductService;
+use App\Services\Transaction\FormNoService;
 use App\Services\Transaction\StockInService;
 use Livewire\Attributes\On;
 
@@ -34,12 +35,21 @@ class FormUpdate extends BaseLivewireComponent
         ];
     }
 
+    public function regenerateFormNo()
+    {
+        $formNoService = new FormNoService;
+        $this->form['form_no'] = $formNoService->generate(true);
+    }
+
     #[On('formUpdate')]
     public function editData($data, $id)
     {
+        $formNoService = new FormNoService;
+        $nomor_baru = $formNoService->generate();
         $data['qty'] = (int) $data['qty'];
         $this->form = $data;
         $this->id = $id;
+        $this->form['form_no'] = $nomor_baru;
         $this->dispatch('modalUpdate');
     }
 

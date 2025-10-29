@@ -44,16 +44,18 @@
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Form No</label>
-                            <input type="text" wire:model.defer="form.form_no" class="form-control"
-                                placeholder="Form Number">
+                            <div class="input-group">
+                                <input type="text" wire:model="form.form_no" disabled class="form-control"
+                                    placeholder="Form Number">
+                                <a class="btn btn-md btn-warning" wire:click="regenerateFormNo" data-toggle="tooltip"
+                                    title="Regenerate Number"><i class="fas fa-undo-alt"></i></a>
+                            </div>
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Description</label>
                             <textarea id="textarea" class="form-control" wire:model.defer="form.desc" maxlength="225"
                                 rows="3" placeholder="Description"></textarea>
                         </div>
-
-
                     </div>
 
                     <div class="modal-footer">

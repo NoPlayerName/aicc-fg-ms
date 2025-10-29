@@ -62,9 +62,12 @@
                         </div>
                         <div class="col-lg-6 form-group">
                             <label>Form No</label>
-                            <input type="text" wire:model="form.form_no" class="form-control @error('form.form_no')
-                                is-invalid                                
-                            @enderror" placeholder="Form Number">
+                            <div class="input-group">
+                                <input type="text" wire:model="form.form_no" disabled class="form-control"
+                                    placeholder="Form Number">
+                                <a class="btn btn-md btn-warning" wire:click="regenerateFormNo" data-toggle="tooltip"
+                                    title="Regenerate Number"><i class="fas fa-undo-alt"></i></a>
+                            </div>
                             @error('form.form_no')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
