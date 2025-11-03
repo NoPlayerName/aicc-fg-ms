@@ -14,5 +14,6 @@ interface PalletRepositoryInterface
     public function update($id, $data);
     public function delete($id);
     public function getPalletByFilter($palletType, $color, $customer);
+    public function getDataExport($palletType, $color, $customer);
     public function updateByNo($no, $data);
 }

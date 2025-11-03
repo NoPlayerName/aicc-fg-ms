@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class Rack extends BaseLivewireComponent
 {
-    public $dataRack;
+    // public $dataRack;
 
     public function mount()
     {
@@ -25,8 +25,8 @@ class Rack extends BaseLivewireComponent
     {
         $columns = ['rack_no', 'part_no', 'product_code', 'status'];
         $heading = ['Rack Number', 'Part Number', 'Produc Code', 'Status'];
-        $this->dataRack = app(RackService::class)->getRack();
-        return Excel::download(new ExcelExport($this->dataRack, $columns, $heading), 'Data Rack.xlsx');
+        $data = app(RackService::class)->getDataExport();
+        return Excel::download(new ExcelExport($data, $columns, $heading), 'Data Rack.xlsx');
     }
     #[Title('Master Rack')]
     public function render()

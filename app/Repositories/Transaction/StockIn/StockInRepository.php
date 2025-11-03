@@ -69,4 +69,25 @@ class StockInRepository implements StockInRepositoryInterface
         $query = StockIn::where('id', $id)->update($data);
         return $query;
     }
+
+    public function getDataExport($data)
+    {
+        $startDate = Carbon::parse($data->startDate);
+        $endDate = Carbon::parse($data->endDate);
+
+        $data = StockIn::when($data->startDate && $data->endDate, function ($q) use ($startDate, $endDate) {
+            $q->whereBetween('created_at', [$startDate, $endDate]);
+        })->where('status', StatusStockEnums::In->value)
+            ->when($data->search, function ($q) use ($data) {
+                $q->where(function ($query) use ($data) {
+                    $query->where('part_no', 'like', '%' . $data->search . '%')
+                        ->orWhere('part_name', 'like', '%' . $data->search . '%')
+                        ->orWhere('pallet_no', 'like', '%' . $data->search . '%')
+                        ->orWhere('desc', 'like', '%' . $data->search . '%')
+                        ->orWhere('rack_no', 'like', '%' . $data->search . '%');
+                });
+            })->orderBy('created_at', 'desc');
+
+        return $data;
+    }
 }

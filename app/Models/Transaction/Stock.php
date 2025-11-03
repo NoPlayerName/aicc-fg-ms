@@ -9,6 +9,9 @@ class Stock extends BaseModel
 {
     protected $table = 'tb_stock';
 
+    protected $primaryKey = 'part_no';
+    public $incrementing = false;
+    protected $keyType = 'string';
     protected $fillable = [
         'part_no',
         'part_name',

@@ -21,6 +21,10 @@ class StockChangeService
     {
         return $this->StockChangeRepository->getFilter($data);
     }
+    public function getDataExport($data)
+    {
+        return $this->StockChangeRepository->getDataExport($data);
+    }
 
     public function create($data)
     {

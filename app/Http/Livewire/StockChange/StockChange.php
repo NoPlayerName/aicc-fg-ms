@@ -38,7 +38,7 @@ class StockChange extends BaseLivewireComponent
             'endDate' => $this->endDate,
             'search'    => $this->Search,
         ];
-        $data = app(StockChangeService::class)->filterData($filters);
+        $data = app(StockChangeService::class)->getDataExport($filters);
         $columns = ['form_no', 'pallet_no', 'part_no', 'part_name', 'customer', 'desc', 'created_by', 'product_code'];
         $heading = ['Form Number', 'Pallet Number', 'Part Number', 'Part Name', 'Customer', 'Description', 'Created By', 'Product Code'];
         return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock Change.xlsx');

@@ -2,13 +2,13 @@
 
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-class ExcelExport implements FromCollection, WithHeadings, WithMapping
+class ExcelExport implements FromQuery, WithHeadings, WithMapping
 {
 
     protected $query;
@@ -27,11 +27,13 @@ class ExcelExport implements FromCollection, WithHeadings, WithMapping
     /**
      * @return \Illuminate\Support\Collection
      */
-    public function collection()
+    public function query()
     {
-        return $this->query instanceof Builder
-            ? $this->query->get()
-            : ($this->query instanceof Collection ? $this->query : collect($this->query));
+        if (!$this->query instanceof Builder) {
+            throw new \Exception("Export ini harus menerima Eloquent Builder.");
+        }
+
+        return $this->query;
     }
 
     public function headings(): array

@@ -25,7 +25,8 @@ class DetailPallet extends Component
         $columns = ['pallet_no', 'product'];
         $heading = ['Pallet Number', 'Product'];
         $extraHead = [['Location: ' . $this->customer]];
-        return Excel::download(new ExcelExport($this->data, $columns, $heading, $extraHead), 'List_pallet_location_' . $this->customer . '.xlsx');
+        $data = app(PalletService::class)->getDataExport($this->type, $this->color, $this->customer);
+        return Excel::download(new ExcelExport($data, $columns, $heading, $extraHead), 'List_pallet_location_' . $this->customer . '.xlsx');
     }
     public function render()
     {

@@ -22,6 +22,10 @@ class StockOutService
     {
         return $this->StockOutRepository->getData($data);
     }
+    public function getDataExport($data)
+    {
+        return $this->StockOutRepository->getDataExport($data);
+    }
     public function getSummary($data)
     {
         return $this->StockOutRepository->getSummary($data);

@@ -5,6 +5,7 @@ namespace App\Repositories\Rack;
 interface RackRepositoryInterface
 {
     public function getAll();
+    public function getDataExport();
     public function getAllActive();
     public function getById($id);
     public function create($data);

@@ -57,4 +57,22 @@ class StockOutRepository implements StockOutRepositoryInterface
 
         return $query;
     }
+
+    public function getDataExport($data)
+    {
+        $query = StockOut::when($data->startDate && $data->endDate, function ($q) use ($data) {
+            $q->whereBetween('created_at', [Carbon::parse($data->startDate), Carbon::parse($data->endDate)]);
+        })->when($data->search, function ($q) use ($data) {
+            $q->where(function ($q2) use ($data) {
+                $q2->where('part_no', 'like', '%' . $data->search . '%')
+                    ->orWhere('part_name', 'like', '%' . $data->search . '%')
+                    ->orWhere('pallet_no', 'like', '%' . $data->search . '%')
+                    ->orWhere('desc', 'like', '%' . $data->search . '%')
+                    ->orWhere('customer', 'like', '%' . $data->search . '%')
+                    ->orWhere('rack_no', 'like', '%' . $data->search . '%');
+            });
+        })->orderBy('created_at', 'desc');
+
+        return $query;
+    }
 }

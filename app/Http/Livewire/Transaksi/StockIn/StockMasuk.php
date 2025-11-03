@@ -80,7 +80,7 @@ class StockMasuk extends BaseLivewireComponent
         $endDate = Carbon::parse($this->endDate);
         $columns = ['pallet_no', 'created_at', 'part_no', 'part_name', 'qty', 'rack_no', 'desc',];
         $heading = ['Pallet No', 'Created At', 'Part No', 'Part Name', 'Qty', 'Rack No', 'Desc',];
-        $data = app(StockInService::class)->getData($form);
+        $data = app(StockInService::class)->getDataExport($form);
         return Excel::download(new ExcelExport($data, $columns, $heading), 'Stock In_' .  $startDate . '_' . $endDate . '.xlsx');
     }
     #[On('exportExcel-summary')]

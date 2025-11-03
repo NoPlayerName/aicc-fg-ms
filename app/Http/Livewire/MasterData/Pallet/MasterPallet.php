@@ -66,7 +66,7 @@ class MasterPallet extends BaseLivewireComponent
     {
         $columns = ['pallet_no', 'name', 'pallet_type', 'color'];
         $head = ['Pallet Number', 'Pallet Name', 'Pallet Type', 'Color'];
-        $data = app(PalletService::class)->getPalletActive();
+        $data = app(PalletService::class)->getDataExport(null, null, null);
 
         // dd($data);
 

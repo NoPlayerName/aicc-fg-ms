@@ -34,4 +34,25 @@ class StockChangeRepository implements StockChangeRepositoryInterface
     {
         return StockChange::create($data);
     }
+
+    public function getDataExport($data)
+    {
+
+        $query = StockChange::when($data->startDate && $data->endDate, function ($q) use ($data) {
+            $q->whereBetween('created_at', [[Carbon::parse($data->startDate)->startOfDay(), Carbon::parse($data->endDate)->endOfDay()]]);
+        })
+            ->when($data->search, function ($q) use ($data) {
+                $q->where(function ($q2) use ($data) {
+                    $q2->where('pallet_no', 'like', '%' . $data->search . '%')
+                        ->orWhere('part_no', 'like', '%' . $data->search . '%')
+                        ->orWhere('part_name', 'like', '%' . $data->search . '%')
+                        ->orWhere('customer', 'like', '%' . $data->search . '%')
+                        ->orWhere('desc', 'like', '%' . $data->search . '%')
+                        ->orWhere('created_by', 'like', '%' . $data->search . '%')
+                        ->orWhere('product_code', 'like', '%' . $data->search . '%');
+                });
+            });
+
+        return $query;
+    }
 }

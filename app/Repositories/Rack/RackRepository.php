@@ -75,4 +75,8 @@ class RackRepository implements RackRepositoryInterface
         }
         return $rack;
     }
+    public function getDataExport()
+    {
+        return Rack::query();
+    }
 }

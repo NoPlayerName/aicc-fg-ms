@@ -55,6 +55,10 @@ class PalletService
     {
         return $this->palletRepository->getPalletByFilter($type, $color, $customer);
     }
+    public function getDataExport($type, $color, $customer)
+    {
+        return $this->palletRepository->getDataExport($type, $color, $customer);
+    }
 
     public function getByNo($no)
     {

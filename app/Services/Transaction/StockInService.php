@@ -33,6 +33,10 @@ class StockInService
     {
         return $this->StockInRepository->getData($data);
     }
+    public function getDataExport($data)
+    {
+        return $this->StockInRepository->getDataExport($data);
+    }
     public function getSummary($data)
     {
         return $this->StockInRepository->getSummary($data);

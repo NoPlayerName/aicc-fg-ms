@@ -71,4 +71,18 @@ class PalletRepository implements PalletRepositoryInterface
     {
         return Pallet::where('pallet_no', $no)->update($data);
     }
+
+    public function getDataExport($palletType, $color, $customer)
+    {
+        return Pallet::where('is_active', true)
+            ->when($palletType, function ($query) use ($palletType) {
+                return $query->where('pallet_type', $palletType);
+            })
+            ->when($color, function ($query) use ($color) {
+                return $query->where('color', $color);
+            })
+            ->when($customer, function ($query) use ($customer) {
+                return $query->where('customer', $customer);
+            });
+    }
 }

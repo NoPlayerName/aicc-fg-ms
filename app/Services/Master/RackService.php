@@ -20,6 +20,10 @@ class RackService
     {
         return $this->RackRepository->getAll();
     }
+    public function getDataExport()
+    {
+        return $this->RackRepository->getDataExport();
+    }
     public function getRackActive()
     {
         return $this->RackRepository->getAllActive();
