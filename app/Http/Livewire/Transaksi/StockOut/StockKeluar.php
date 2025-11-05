@@ -79,6 +79,7 @@ class StockKeluar extends BaseLivewireComponent
         $columns = ['part_no', 'part_name', 'Qty'];
         $heading = ['Pallet No', 'Part Name', 'Qty'];
         $data = app(StockOutService::class)->getSummary($form);
+        $data->orderBy('part_no', 'asc');
         return Excel::download(new ExcelExport($data, $columns, $heading), 'Summary' . $startDate . '_' . $endDate . '.xlsx');
     }
 

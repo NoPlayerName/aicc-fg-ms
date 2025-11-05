@@ -94,6 +94,7 @@ class StockMasuk extends BaseLivewireComponent
         $columns = ['part_no', 'part_name', 'Qty'];
         $heading = ['Pallet No', 'Part Name', 'Qty'];
         $data = app(StockInService::class)->getSummary($form);
+        $data->orderBy('part_no', 'asc');
         return Excel::download(new ExcelExport($data, $columns, $heading), 'Summary' . $this->startDate . '_' . $this->endDate . '.xlsx');
     }
 
