@@ -77,7 +77,30 @@
             Livewire.on('error', (e) => {
                 toastr.error(e.message);
             })
+             //hook untuk session expired Livewire
+            Livewire.hook('request', ({ fail }) => { 
+                fail(({ status, preventDefault }) => {
+                    if (status === 419 || status === 401) {
+                        preventDefault()
+            
+                        // confirm('Sesi anda habis, silahkan login kembali') && window.location.reload()
+                            swal({
+                            title: "Session Expired!",
+                            text: "Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "OK",
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then(() => {
+                            window.location.href = "{{ route('login') }}";
+                        });
+                    }
+                })
+             })
+          
         });
+       
+       
     </script>
 
     {{-- Customize scripts per page --}}
