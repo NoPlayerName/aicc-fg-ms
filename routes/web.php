@@ -11,6 +11,7 @@ use App\Http\Controllers\Transaction\StockIn\StockInController;
 use App\Http\Controllers\Transaction\StockOut\StockOutController;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\DataStock\DataStock;
 use App\Http\Livewire\MasterData\MasterCustomer;
 use App\Http\Livewire\MasterData\Pallet\MasterPallet;
 use App\Http\Livewire\MasterData\MasterProduk;
@@ -53,6 +54,8 @@ Route::middleware(['auth:web', 'permission'])->group(function () {
         });
         Route::get('stock-change', StockChange::class)->name('stock.change.index');
         Route::get('customer-pallets', Customerpallets::class)->name('customer.pallets.index');
+        Route::get('data-stock', DataStock::class)->name('data-stock.index');
+        Route::get('data-stock/data', [StockInController::class, 'getDataStock'])->name('data-stock.data');
     });
 });
 
