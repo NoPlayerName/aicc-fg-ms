@@ -48,9 +48,15 @@
                     </ul>
                 </li>
                 @endif
+                 @if ($this->canView('data-stock.index', 'can_access'))
+                <li>
+                    <a href="{{ route('data-stock.index') }}" class="waves-effect">
+                        <i class="ri-inbox-line"></i>
+                            <span>Data Stock</span>
+                    </a>
+                </li>
+                @endif
                 @if ($this->canView('stock.change.index', 'can_access'))
-
-
                 <li>
                     {{-- Menu tanpa children menu --}}
                     <a href="{{ route('stock.change.index') }}" class="waves-effect ">

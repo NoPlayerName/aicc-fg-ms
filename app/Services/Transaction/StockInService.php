@@ -108,4 +108,10 @@ class StockInService
         }
         return $query;
     }
+
+    public function getDataStock()
+    {
+        $query = $this->StockInRepository->getDataStock();
+        return $query;
+    }
 }

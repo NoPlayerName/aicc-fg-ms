@@ -26,4 +26,10 @@ class StockInController extends Controller
         $data = $this->StockInService->getSummary($request);
         return datatables()->of($data)->toJson();
     }
+
+    public function getDataStock()
+    {
+        $data = $this->StockInService->getDataStock();
+        return datatables()->of($data)->toJson();
+    }
 }

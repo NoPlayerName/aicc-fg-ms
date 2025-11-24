@@ -90,4 +90,10 @@ class StockInRepository implements StockInRepositoryInterface
 
         return $data;
     }
+
+    public function getDataStock()
+    {
+        $query = StockIn::where('status', 1)->orderBy('rack_no', 'ASC')->get();
+        return $query;
+    }
 }
