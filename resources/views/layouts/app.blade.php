@@ -97,6 +97,20 @@
                     }
                 })
              })
+              $(document).ajaxError(function(event, jqxhr) {
+                    if (jqxhr.status === 401 || jqxhr.status === 419) {
+                        swal({
+                            title: "Session Expired!",
+                            text: "Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "OK",
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                        }).then(() => {
+                             window.location.href = "{{ route('login') }}";
+                        });
+                    }
+                })
           
         });
        
