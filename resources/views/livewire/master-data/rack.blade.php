@@ -52,6 +52,8 @@
                                         <th>Rack No</th>
                                         <th>Part No</th>
                                         <th>Product Code</th>
+                                        <th>Pallet No</th>
+                                        <th>Date Stock In</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -113,6 +115,8 @@
                     {data: 'rack_no',},
                     {data: 'part_no'},
                     {data: 'product_code'},
+                    {data: 'pallet_no'},
+                    {data: 'date'},
                 ],
                  createdRow: (row, data) => {
                     if (data.css_class) {

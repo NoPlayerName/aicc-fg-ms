@@ -6,12 +6,22 @@ use App\Enums\StatusRackEnums;
 use App\Models\Master\Product;
 use App\Models\Master\Rack;
 use App\Models\Master\RackGroup;
+use Illuminate\Support\Facades\DB;
 
 class RackRepository implements RackRepositoryInterface
 {
     public function getAll()
     {
-        return Rack::get();
+        return Rack::select(
+            'tb_rack.*',
+            'tb_stock_in.pallet_no',
+            DB::raw("DATE_FORMAT(tb_stock_in.created_at, '%d-%m-%Y %H:%i') as date")
+    
+        )->leftJoin('tb_stock_in', function($join) {
+            $join->on('tb_rack.rack_no', '=', 'tb_stock_in.rack_no')
+                ->on('tb_rack.part_no', '=', 'tb_stock_in.part_no')
+                ->where('tb_stock_in.status', 1);
+        })->get();
     }
 
     public function getAllActive()
