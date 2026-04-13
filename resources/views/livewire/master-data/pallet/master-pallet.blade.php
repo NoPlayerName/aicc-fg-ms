@@ -91,7 +91,7 @@
 </script>
 
 <script>
-    $(document).on("livewire:init", () => {
+    $(document).on("livewire:navigated", () => {
             initTable();
 
             Livewire.on('delete-confirm', ({id}) => {
@@ -131,6 +131,9 @@
     });
 
         function initTable() {
+            if ($.fn.DataTable.isDataTable('#datatable-buttons')) {
+                    $('#datatable-buttons').DataTable().destroy();
+                }
 
             let table = $('#datatable-buttons').DataTable({
                 

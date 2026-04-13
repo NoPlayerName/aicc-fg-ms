@@ -8,6 +8,7 @@ use Livewire\Component;
 
 class FormEditPallet extends Component
 {
+
     public $pallet_id;
     public $form = [
         'pallet_no'   => '',

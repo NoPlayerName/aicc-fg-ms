@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <title>{{ $title ?? 'FG Management System' }}</title>
@@ -9,9 +9,9 @@
     <meta content="Themesdesign" name="author" />
 
     @include('components.head')
-
     {{-- Customize styles per page --}}
     @stack('style')
+     @livewireStyles
 </head>
 
 <body data-sidebar="dark">
@@ -47,18 +47,28 @@
 
     <!-- Right bar overlay-->
     <div class="rightbar-overlay"></div>
-
     @include('components.scripts')
-
+    @stack('scripts')
     <script>
         // Custom scripts can be added here
-        document.addEventListener("DOMContentLoaded", function() {
+       $(document).on("livewire:navigate", function() {
             toastr.options = {
                 closeButton: true,
                 progressBar: true,
                 timeOut: 5000, // 5000 ms = 5 detik
                 extendedTimeOut: 1000 // tambahan jika hover
             };
+            if (window.$ && typeof $.fn.metisMenu === "function") {
+                        $("#side-menu").metisMenu();
+                        console.log("✅ MetisMenu re-initialized after Livewire navigation");
+                    } else {
+                        console.warn("⚠️ metisMenu not found, reloading script...");
+                        $.getScript("/assets/libs/metismenu/metisMenu.min.js", function() {
+                            $("#side-menu").metisMenu();
+                            console.log("✅ MetisMenu loaded dynamically & initialized");
+                        });
+                    }
+
             // Your custom JavaScript code here
             @if (session()->has('message'))
                 toastr.success("{{ session('message') }}");
@@ -77,11 +87,14 @@
             Livewire.on('error', (e) => {
                 toastr.error(e.message);
             })
+            $("#side-menu").metisMenu()
         });
     </script>
 
+    @livewireScripts
+    
     {{-- Customize scripts per page --}}
-    @stack('scripts')
+
 </body>
 
 </html>

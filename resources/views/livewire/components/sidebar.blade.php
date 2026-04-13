@@ -8,7 +8,7 @@
                 @if ($this->canView('dashboard', 'can_access'))
                 <li>
                     {{-- Menu tanpa children menu --}}
-                    <a href="{{ route('dashboard') }}" class="waves-effect ">
+                    <a href="{{ route('dashboard') }}" wire:navigate class="waves-effect ">
                         <i class="ri-dashboard-line"></i>
                         <span>Dashboard</span>
                     </a>
@@ -28,7 +28,7 @@
                     <ul class="sub-menu" aria-expanded="false">
                         @if($this->canView('transaksi.stock.index', 'can_access'))
                         <li class="{{ request()->routeIs('transaksi.stock.index') ? 'active' : '' }}">
-                            <a href="{{ route('transaksi.stock.index') }}"><i class="ri-inbox-line"></i>Stock</a>
+                            <a href="{{ route('transaksi.stock.index') }}" ><i class="ri-inbox-line"></i>Stock</a>
                         </li>
                         @endif
                         @if($this->canView('transaksi.stock.masuk.index', 'can_access'))
@@ -87,18 +87,18 @@
                         @endif
                         @if ($this->canView('master.customer.index', 'can_access'))
                         <li class="{{ request()->routeIs('master.customer.index') ? 'active' : '' }}">
-                            <a href="{{ route('master.customer.index') }}"><i class="ri-group-line"></i>Master
+                            <a wire:navigate href="{{ route('master.customer.index') }}" ><i class="ri-group-line"></i>Master
                                 Customer</a>
                         </li>
                         @endif
                         @if ($this->canView('master.rack.index', 'can_access'))
                         <li>
-                            <a href="{{ route('master.rack.index') }}"><i class="ri-fridge-line"></i>Master Rack</a>
+                            <a wire:navigate href="{{ route('master.rack.index') }}" ><i class="ri-fridge-line"></i>Master Rack</a>
                         </li>
                         @endif
                         @if ($this->canView('master.master-pallet.index', 'can_access'))
                         <li>
-                            <a href="{{ route('master.master-pallet.index') }}"><i class="ri-fridge-line"></i>Master
+                            <a wire:navigate href="{{ route('master.master-pallet.index') }}" ><i class="ri-fridge-line"></i>Master
                                 Pallet</a>
                         </li>
                         @endif

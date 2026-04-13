@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    'sso' => [
+        'base_url' => env('SSO_BASE_URL'),
+        'client_id' => env('SSO_CLIENT_ID'),
+        'redirect_uri' => env('SSO_REDIRECT_URI'),
+    ],
 
 ];

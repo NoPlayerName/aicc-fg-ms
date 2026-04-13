@@ -79,7 +79,7 @@
 <script src="{{ asset('assets/libs/datatables.net-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <script>
-    $(document).on("livewire:init", () => {
+    $(document).on("livewire:navigated", () => {
             initTable();
             Livewire.on('open-modal', () => {
                 $('#custModal').modal('show');

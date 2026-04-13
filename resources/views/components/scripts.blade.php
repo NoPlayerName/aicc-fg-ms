@@ -1,4 +1,4 @@
-@livewireScripts
+
 <!-- JAVASCRIPT -->
 
 
@@ -20,11 +20,6 @@
 <!-- select2 -->
 <script src="{{ asset('assets/libs/select2/js/select2.min.js') }}"></script>
 
-<!-- Responsive examples -->
-{{-- <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
---}}
-
-{{-- <script src="{{ asset('assets/js/pages/dashboard.init.js') }}"></script> --}}
 
 <script src="{{asset('assets/libs/bs-custom-file-input/bs-custom-file-input.min.js')}}"></script>
 
@@ -36,3 +31,43 @@
 <script src="{{ asset('assets/js/pages/toastr.init.js') }}"></script>
 
 <script src="{{ asset('assets/js/app.js') }}"></script>
+
+ <script>
+        // Custom scripts can be added here
+       $(document).on("livewire:navigate", function() {
+            toastr.options = {
+                closeButton: true,
+                progressBar: true,
+                timeOut: 5000, // 5000 ms = 5 detik
+                extendedTimeOut: 1000 // tambahan jika hover
+            };
+
+             if (typeof $.fn.metisMenu === "function") {
+                    $("#side-menu").metisMenu();
+                    console.log("✅ MetisMenu re-init after navigation");
+                } else {
+                    console.warn("⚠️ MetisMenu not available after navigation");
+                }
+
+            // Your custom JavaScript code here
+            @if (session()->has('message'))
+                toastr.success("{{ session('message') }}");
+            @endif
+
+            @if (session()->has('no_permission'))
+                toastr.error("{{ session('no_permission') }}");
+            @endif
+
+            Livewire.on('no_permission', (e) => {
+                toastr.error(e.message);
+            })
+            Livewire.on('success', (e) => {
+                toastr.success(e.message);
+            })
+            Livewire.on('error', (e) => {
+                toastr.error(e.message);
+            })
+            $("#side-menu").metisMenu()
+        });
+    </script>
+
